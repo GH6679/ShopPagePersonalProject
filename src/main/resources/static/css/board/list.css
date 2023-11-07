@@ -1,0 +1,455 @@
+/* 기본 설정 세팅 */
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    margin: 0;
+    padding: 0;
+    height: 1000px;
+}
+header{
+    margin: 0;
+    padding: 0;
+}
+header > nav > .container-fluid{
+    position: relative;
+}
+header {
+    position: relative;
+    /* background: #3d414d; */
+    background-color: #24262b;
+    justify-content: space-between; /* 좌우 여백을 최대화하여 요소를 우측 상단으로 이동 */
+    align-items: center;
+    height: 100px;
+}
+/* 기본설정 세팅 end */
+
+
+/* 헤더 제목 위치조정 start */
+.navbar-brand{
+    position: absolute;
+    left: 120px;
+}
+/* 헤더 게시판(이름) 위치조정 start */
+.collapse> .navbar-nav > .nav-item> .nav-link{
+    position:absolute;
+    left: 310px;
+}
+.collapse> .navbar-nav > .nav-item > .test4 {
+    border: 1px solid red;
+    width: 300px;
+    height: 400px;
+}
+/* 헤더 게시판(이름) 위치조정 end */
+
+nav > .collapse > .navbar-nav > .nav-item > .nav-link {
+    float: left;
+}
+/* 헤드제목 위치조정 end */
+
+
+/* a태그 밑줄제거  */
+a{
+    text-decoration: none;
+}
+/* 로고 이미지 크기조정 및 위치조정 start */
+.Logoimg{
+    position: absolute;
+    left: -10%;
+    top: -30px;
+    z-index: 5;
+}
+
+/* 로고 이미지 크기조정 및 위치조정 end  */
+
+/* 로그인 로그아웃 버튼 start */
+.logout-btn , .login-btn{
+    /* font-family 글꼴(폰트)를 지정 */
+    /* roboto 글꼴을찾고 사용가능한경우 해당 글꼴을 사용한다 , sans-serif 은 대체 글꼴로서의 역할 */
+    font-family: "Roboto" , sans-serif;
+    /* 글꼴 사이즈 조정 */
+    font-size: 10px;
+    font-weight: bold;
+    background-color: #1e90ff;
+    width: 80px;
+    height: 37px;
+    padding: 0px;
+    /* 글자 센터정렬  */
+    text-align: center;
+    line-height: 35px;
+    /* a태그의 밑줄제거 */
+    text-decoration: none;
+    /* 텍스트를 모두 대문자로 표시한다 */
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0 ,0 ,0 , 0.1);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow , transform;
+    transition-property: box-shadow, transform;
+    float: right;
+    font-size: 15px;
+}
+
+.login-btn:hover .login-btn:focus .login-btn:active , .logout-btn:hover .logout-btn:focus .logout-btn:active {
+    /* focus - 탭키 태두리 활성화 했을때 , active 눌럿을때 */
+    box-shadow: 0 0 20px rgba(0, 0, blu, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+/* 로그인 로그아웃 버튼 위치조정 end */
+/* 로그인 로그아웃 버튼 end */
+
+/* 분류 체크박스  위치조정start */
+
+/* 분류 체크박스 위치조정 end */
+.nav-link{
+
+}
+
+/* 다른 영역과 겹쳤을때 앞뒤 우선순위 수정 */
+.page-link {
+    z-index: 1;
+}
+.side-nav{
+    z-index: 2;
+}
+/* 수정 end */
+
+
+/* 견적리스트 창 위치조정 */
+.col{
+    /* 슬라이더 여백 공간 설정 */
+    /* margin-top: 300px; */
+}
+
+
+/* 검색창 */
+.d-flex{
+    float: right;
+}
+
+
+/* 분류 체크박스 css start */
+/* 분류 체크박스 css end */
+
+
+/* 헤더 게시판 태그 위치조정 start */
+nav > .container-fluid  > .navbar-nav > .nav-item > .nav-link {
+    float: left;
+}
+/* 헤더 게시판 태그 위치조정 end*/
+
+
+/* 플로팅 배너 위치조정 및 CSS */
+#floatMenu {
+    position: absolute;
+    width: 14%;
+    height: 400px;
+    right: 1%;
+    top: 100px;
+    /* border: 1px solid black; */
+    object-fit: contain;
+}
+/* 플로팅배너 위치조정 end */
+
+
+/* 슬라이더 css start*/
+.slider{
+    width: 500px;
+    height: 210px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    top: 100px;
+    left: 470px;
+
+}
+.slides{
+    width: 500%;
+    height: 210px;
+    display: flex;
+}
+.slides input{
+    display: none;
+}
+.slide{
+    width: 20%;
+    transition: 2s;
+
+}
+.slide img{
+    width: 500px;
+    height: 210px;
+    object-fit: contain;
+}
+
+/*  css for manual slide navigaiton */
+.navigaiton-manual {
+    position: absolute;
+    width: 500px;
+    margin-top: -20px;
+    display: flex;
+    justify-content: center;
+}
+.manual-btn{
+    border: 2px solid #40d3dc;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+
+}
+.manual-btn:not(:last-child){
+    margin-right: 40px;
+}
+
+.manual-btn:hover{
+    background:#40d3dc;
+}
+
+#radio1:checked ~ .first{
+    margin-left: 0;
+}
+#radio2:checked ~ .first{
+    margin-left: -20%;
+}
+#radio3:checked ~ .first{
+    margin-left: -40%;
+}
+#radio4:checked ~ .first{
+    margin-left: -60%;
+}
+/* 슬라이더 css end */
+
+/* css for automaic navigation , 슬라이더 자동 넘김 기능*/
+.navigaiton-auto {
+    position: absolute;
+    display: flex;
+    width: 500px;
+    justify-content: center;
+    /* 원래 버튼위치 460px입니다 . */
+    margin-top: 190px;
+}
+.navigaiton-auto div{
+    border: 2px solid #40d3dc;
+    padding: 5px;
+    border-radius: 10px;
+    transition: 1s;
+}
+
+.navigaiton-auto div:not(:last-child){
+    margin-right: 40px;
+}
+
+#radio1:checked ~ .navigaiton-auto .auto-btn1{
+    background: #40d3dc;
+}
+#radio2:checked ~ .navigaiton-auto .auto-btn2{
+    background: #40d3dc;
+}
+#radio3:checked ~ .navigaiton-auto .auto-btn3{
+    background: #40d3dc;
+}
+#radio4:checked ~ .navigaiton-auto .auto-btn4{
+    background: #40d3dc;
+}
+/* 슬라이더 자동넘김 기능 끝 */
+
+
+/* 사이드바sidebar  start */
+.side-nav{
+    width: 110px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 30px 15px;
+    background:#24262b;
+    backdrop-filter: blu(5px);
+    justify-content: space-between;
+    flex-direction: column;
+    transition: width 0.8s;
+}
+.header2 >.side-nav > ul {
+    list-style: none;
+    padding: 0 15px;
+    color: white;
+}
+.header2 >.side-nav >ul li{
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+}
+.header2 >.side-nav >ul li img{
+    width: 30px;
+    margin-right: 10px;
+}
+.header2 >.side-nav >ul li p{
+    white-space: nowrap;
+    display: none;
+}
+.side-nav:hover{
+    width: 250px;
+}
+.side-nav:hover .star-img{
+    display: block;
+}
+.side-nav:hover ul li p{
+    display: block;
+}
+.side-nav:hover ul li img{
+    margin-right: 10px;
+}
+.side-nav:hover ul li{
+    justify-content: flex-start;
+}
+/* Siderbar end */
+
+
+/* footer css start */
+/* footer import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+footer{
+    line-height: 1.5;
+    font-family: 'Poppins', sans-serif;
+}
+.container{
+    max-width: 1170px;
+    height: 110px;
+}
+.row{
+    display: flex;
+    flex-wrap: wrap;
+}
+.footer{
+    background-color: #24262b;
+    padding: 70px 0;
+
+}
+footer > .container > .row > .footer-col > ul {
+    list-style: none;
+    margin-left: -30px;
+}
+.footer-col{
+    width: 25%;
+    padding: 0 95px;
+}
+.footer-col h4{
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+    font-weight: 500;
+    position: relative;
+}
+.footer-col h4::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #e91e63;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+.footer-col ul li:not(:last-child){
+
+}
+.footer-col ul li a{
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 8px;
+}
+.footer-col .social-links a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255 ,255 ,255 , 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover{
+    color: #24262b;
+    background-color: #ffffff;
+
+}
+
+
+/* 원크기 위치 가로로 조정 */
+.social-links {
+    width: 200px;
+    display: flex;
+}
+
+/* 반응형 부분입니다 start ,  515px , */
+/* footer반응형 설정 보류*/
+/* @media(max-width:1024px){
+    .footer{ */
+/* 1024px   기준 */
+/* 일단 footer 특정구간에서 안보이게 설정후 나중에 추가할 예정  */
+/* display: none;
+}
+} */
+@media(max-width:1024px){
+    .footer-col{
+        display: none;
+    }
+}
+/* footer css end */
+
+/* 플로팅배너 반응형 OFF  */
+@media(max-width:1024px){
+    .floatingbanner{
+        display: none;
+    }
+}
+/* 플로팅배너  반응형 OFF END */
+
+/* 슬라이더 반응형부분 OFF 난잡함 우려 */
+@media(max-width:1024px){
+    .slider{
+        display: none;
+
+    }
+}
+@media(max-width:540px){
+    .row >.col > .board-body >.table > thead > tr{
+        font-size: 14px;
+    }
+}
+/* 슬라이더 반응형 END */
+
+/*  */
+
+
+/* 반응형 부분 end */
+
+.wrapper>header>.top-header{}
+.wrapper>header>nav{}
+
+.wrapper>main{}
+.wrapper>main>section{}
+
+.wrapper>footer{}
+
+

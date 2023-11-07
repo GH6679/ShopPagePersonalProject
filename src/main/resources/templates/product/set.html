@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- th:fragment     -->
+    <th:block th:insert="fragments/head :: headOutterLink" />
+
+    <!--css-->
+    <link rel="stylesheet" href="/css/product/set.css">
+
+
+
+
+</head>
+
+<body>
+    <div>
+        <!--  header fragment      -->
+        <div th:replace="fragments/header :: headerFragment" />
+        <!--  -->
+        <section style="">
+            <div style="display: flex; justify-content: center;">
+                <h1 style="font-size: 30px;">상품 등록</h1>
+            </div>
+            <!-- ----------------------- form ------------------------------ -->
+            <form id="product-set-form" action="/product/set" method="post" enctype="multipart/form-data">
+                <article style="">
+                    <ul>
+                        <li class="goods-user">
+                            <p style="padding-right: 50px;">작성자</p>
+                            <div>
+                                <input type="text" name="prodauthor" id="form-author" th:value="${#authentication.name}" readonly>
+                            </div>
+                        </li>
+                        <!-- -------------- 제목 ---------------- -->
+                        <li class="goods-name">
+                            <p>제목</p>
+                            <input type="text" name="prodname" id="form-title">
+                        </li>
+                        <!-- -------------- 내용 ---------------- -->
+                        <li class="goods-text">
+                            <p>내용</p>
+                            <textarea type="text" name="prodcontext" id="form-text"></textarea>
+                        </li>
+                        <!-- -------------- 가격 ---------------- -->
+                        <li class="goods-money">
+                            <p>가격</p>
+                            <div>
+                                <input type="text">
+                            </div>
+                        </li>
+                        <!-- -------------- 콤보박스 ---------------- -->
+                        <li class="goods-chck">
+                            <p>제품 종류</p>
+                            <div>
+                                <select name="prodtype" id="form-select">
+                                    <option value="cpu">CPU</option>
+                                    <option value="motherboard">메인보드</option>
+                                    <option value="memory">메모리</option>
+                                    <option value="gpu">그레픽카드</option>
+                                    <option value="ssd">SSD</option>
+                                    <option value="hdd">HDD</option>
+                                    <option value="case">케이스</option>
+                                    <option value="power">파워</option>
+                                </select>
+                            </div>
+                        </li>
+                        <!-- -------------- 사진 ---------------- -->
+                        <li class="goods-pict">
+                            <p class="pict-left">사진</p>
+                            <div class="pict-center" id="pict-center">
+                            </div>
+                        </li>
+                        <li class="pict-right">
+                            <input type="file" name="files" id="form-image-input" multiple>
+                        </li>
+                    </ul>
+                </article>
+                <div>
+                    <button>등록</button>
+                </div>
+            </form>
+        </section>
+        <aside></aside>
+        <footer>
+
+        </footer>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+
+        //간단한 메인페이지 리다이렉트 함수
+        function redirectToPage() {
+        window.location.href = '/product/index';
+        }
+
+        //전역 폼데이터
+        let formData = new FormData();
+        //메인 이미지 인덱스 저장용
+        let selected;
+
+
+
+        //미리보기가 생성될 위치
+        const set_previewEl = document.getElementById('pict-center');
+        //폼 데이터 받아오기
+        const product_set_form = document.getElementById('product-set-form')
+
+        //폼 전송
+        product_set_form.addEventListener('submit', function(){
+            event.preventDefault()
+            //원본 formData
+            getformData = new FormData(product_set_form);
+
+            // getformData에서 복사할 키들
+            let keynames = ['prodname', 'prodcontext','prodtype','prodauthor'];
+
+            // getformData에서 값을 가져와서 전역formData로 복사
+            for (let key of keynames) {
+            let value = getformData.get(key);
+            if (value !== null) {
+             formData.append(key, value);
+             };
+          };
+
+          //만약 메인 이미지 선택을 했을경우
+          //다시다 꺼내서 순서를 새로 맞춰준다.
+          if(!(selected==undefined)){
+
+            const imgs = formData.getAll('files');
+            formData.delete('files');
+
+            formData.append('files', imgs[selected]);
+
+            for(let i=0;i<imgs.length;i++){
+                if(i == selected){
+
+                }else{
+                    formData.append('files',imgs[i]);
+                }
+            };
+
+          };
+
+
+
+            //완성된 formData 를 서버로 전송
+            axios.post('/product/set',formData,{headers: {'Content-Type' : 'multipart/form-data' }})
+                .then(response =>{
+                    alert("ok")
+                    window.location.href="/product/index";
+                } )
+                .catch(error =>{alert("fail");
+                location.reload();
+                });
+
+
+        })
+
+        //이미지 업로드
+        document.getElementById('form-image-input').addEventListener('change', function(imgput){
+
+            const imgFiles = imgput.target.files;
+
+        for(let i=0;i<imgFiles.length;i++){
+            formData.append('files',imgFiles[i])
+        }
+
+           //이미지 프리뷰 생성 시작
+           getpreview();
+
+
+        });
+
+          //이미지 프리뷰 생성
+        const getpreview = () => {
+
+            const imgs = formData.getAll('files');
+            for(let i=0;i<imgs.length;i++){
+
+                var preview = document.createElement('div');
+                preview.className = 'previews';
+                preview.style.width = '150px';
+                preview.style.height = '150px';
+                preview.style.position = 'relative';
+
+                var cutimg = document.createElement('a')
+                cutimg.className = 'cutimgs';
+                cutimg.href = "javascript:void(0)";
+                cutimg.style.position = 'absolute';
+                cutimg.style.top = '5%';
+                cutimg.style.right = '5%';
+                cutimg.style.border = '2px solid red';
+                cutimg.style.width = '5px';
+                cutimg.style.height = '5px';
+
+                var viewimg = document.createElement('img');
+                viewimg.className = 'view-img';
+                viewimg.style.width = '150px';
+                viewimg.style.height = '150px';
+
+                preview.appendChild(viewimg);
+                preview.appendChild(cutimg);
+                set_previewEl.appendChild(preview);
+
+            }
+
+            //업로드 이미지를 불러오기 시작
+            onreaderimg();
+            //메인 이미지 선택 리스너 시작
+            selectMainimgListener();
+            //이미지 제외 리스너 시작
+            cutimgListener();
+        }
+
+        //업로드 이미지를 불러오기
+        //혼자 비동기로 돌아가서 이미지 프리뷰 틀 생성과 개별적으로 동작함
+        const onreaderimg = ()  => {
+    <!--        const formData = new FormData(product_set_form);-->
+            const imgs = formData.getAll('files');
+            const viewimgEl = document.querySelectorAll('.view-img');
+
+            viewimgEl.forEach((imgno,index)=>{
+
+                const reader = new FileReader();
+
+                reader.readAsDataURL(imgs[index]);
+                reader.onload = function(item){
+
+                imgno.setAttribute('src',item.target.result);
+
+                }
+
+            })
+
+        }
+
+
+        //이미지 제외 리스너
+        const cutimgListener = ()=> {
+
+            const cutimgEl = document.querySelectorAll('.cutimgs');
+            cutimgEl.forEach((item,index)=>{
+
+                item.addEventListener('click',function(){
+                    console.log(index+"번째 이미지 클릭됨!");
+                    const imgs = formData.getAll('files');
+
+
+                    formData.delete('files');
+
+
+                    for(let i=0;i<imgs.length;i++){
+
+                        console.log("index = "+index+" i = "+i);
+
+                        if(!(index == i)){
+                        console.log("index = "+index+" i = "+i+"통과");
+                            formData.append('files',imgs[i]);
+                        }
+
+                    }
+
+                    const oldpreviews = document.querySelectorAll('.previews');
+                    oldpreviews.forEach(preview => {
+                    preview.parentNode.removeChild(preview);
+                    });
+
+                    getpreview();
+
+                })
+
+            });
+
+        }
+
+        //메인 이미지 선택 리스너
+        const selectMainimgListener = () => {
+            const viewimgEl = document.querySelectorAll('.view-img');
+
+
+            viewimgEl.forEach((item,index)=>{
+                item.addEventListener('click',function(){
+                    console.log(index+"번째 이미지 선택됨!");
+
+                    selected = index;
+
+                        viewimgEl.forEach((item,index)=>{
+                        if(index == selected){
+                            item.style.border = '5px solid green';
+                        }else{
+                            item.style.border = '1px solid black';
+                        }
+
+                    });
+
+                });
+
+            });
+
+
+
+        };
+
+
+
+
+    </script>
+</body>
+
+</html>

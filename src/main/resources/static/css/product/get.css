@@ -1,0 +1,277 @@
+* {}
+
+body {
+    margin: 0;
+    height: auto;
+    /* padding: 0; */
+    padding-left: 320px;
+    padding-right: 320px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+/* **************************************** 상품 구매 상단 부분 ********************************************* */
+section {
+    display: flex;
+    justify-content: space-around;
+
+    width: 1260px;
+    height: auto;
+    border-bottom: 1px solid;
+}
+section>article {
+    margin-bottom: 5px;
+}
+
+section>.page-top {
+    padding-top:50px ;
+
+    width: 700px;
+    height: auto;
+    border-left: 1px solid ;
+    border-right: 1px solid ;
+
+    display: flex;
+    justify-content: center;
+}
+
+section>.page-top>.page-top-one {
+    margin-top: 20px;
+    width: 600px;
+    height: autopx;
+
+
+}
+            section>.page-top>.page-top-one>.page-top-img {
+                 max-width: 100%;
+                           height: auto;
+                           display: block;
+                           margin: 0 auto;
+               }
+section>.page-top>.page-top-one>.page-goods {}
+
+section>.page-top>.page-top-two {}
+
+/* ++++++++++++++++++++++++++++++++ 상세 내용 +++++++++++++++++++++++++++++++++++++++++++  */
+.page-center {
+    border: 1px solid;
+    width: 1260px;
+    height: 100px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+/* ++++++++++++++++++++++++++++++++ 상품 구매 +++++++++++++++++++++++++++++++++++++++++++  */
+section>.page-bottom {
+    padding-top: 50px;
+
+    width: 500px;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border-right: 1px solid;
+
+}
+
+section>.page-bottom>.page-box-one {
+    margin-bottom: 10px;
+    margin-top: 15px;
+    height: auto;
+    border-bottom: 1px solid;
+}
+
+section>.page-bottom>.page-box-one>ul>.page-one-top {
+    font-size: 25px;
+    font-weight: bold;
+
+}
+
+section>.page-bottom>.page-box-one>ul>.page-one-bottom>div {
+    font-size: 17px;
+    margin-top: 5px;
+    height: 50px;
+}
+
+section>.page-bottom>.page-box-two {
+    margin-bottom: 10px;
+    margin-top: 30px;
+    height: 100px;
+    border-bottom: 1px solid;
+}
+
+section>.page-bottom>.page-box-two>div {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 5px;
+
+}
+
+section>.page-bottom>.page-box-two>ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+section>.page-bottom>.page-box-two>ul>.page-two-discount {
+    margin-left: 5px;
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+section>.page-bottom>.page-box-two>ul>.page-two-link>div {
+    font-size: 35px;
+    width: 40px;
+
+}
+
+section>.page-bottom>.page-box-three {
+    margin-bottom: 10px;
+    display: flex;
+    margin-top: 30px;
+   
+}
+
+section>.page-bottom>.page-box-three>div {
+    margin-right: 20px;
+}
+
+section>.page-bottom>.page-box-four {
+    border-top: 1px solid;
+    margin-top: 50%;
+    margin-bottom: 10px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+
+}
+
+section>.page-bottom>.page-box-four>input {
+    width: 150px;
+    height: 60px;
+/*    margin-left: 10px;
+    margin-right: 10px
+    margin-top: 20px;
+    margin-bottom: 20px;*/
+    margin:20px;
+}
+
+/*  */
+.page-two {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    width: 1260px;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+.page-two>.thing{
+    margin: 15px;
+    border: 1px solid;
+
+}
+        <!-- ++++++++++++++++++++++++++++++++ 상품 내용 +++++++++++++++++++++++++++++++++++++++++++ -->
+        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+aside>.thing>.thing-com-list{
+       border:1px solid black;
+       width: 99%;
+       height:auto;
+        margin: 5px;
+}
+aside>.thing>.thing-left{
+    border-top:1px solid;
+    border-bottom:1px solid;
+}
+aside>.thing>.thing-left>div{
+      max-width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: center;
+       margin : 5px;
+
+
+}
+   aside>.thing>.thing-left>div>.thing-left-in {
+                   max-width: 100%;
+                   height: auto;
+                   display: block;
+                    margin : 15px;
+               }
+
+
+
+aside>.thing>.thing-center{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+aside>.thing>.thing-center>input{
+    width: 300px;
+    height: 70px;
+    border-radius: 20px;
+    background-color: aqua;
+    font-size: 20px;
+    font-weight: bold;
+}
+aside>.thing-right {
+    border: 1px solid;
+    width: 300px;
+    height: 600px;
+}
+/* ++++++++++++++++++++++++++++++++ 장바구니 +++++++++++++++++++++++++++++++++++++++++++  */
+aside>.page-tow-box{
+    border: 1px solid;
+    width: 300px;
+    height: 600px;
+
+
+    position: relative;
+}
+
+aside>.page-tow-box>.thing-right>.thing-box-onw {
+    height: 500px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+}
+aside>.page-tow-box>.thing-right>.thing-box-onw>div{
+    border: 1px solid;
+    height: 46  0px;
+    width: 250px;
+    margin-top: 20px;
+}
+
+aside>.page-tow-box>.thing-right>.thing-box-two {
+    display: flex;
+    justify-content: center;
+}
+aside>.page-tow-box>.thing-right>.thing-box-two>input{
+    width: 90%;
+    height: 40px;
+    margin: 5px;
+    margin-bottom: 0px;
+}
+
+aside>.page-tow-box>.thing-right>.thing-box-three {
+    display: flex;
+    justify-content: center;
+}
+aside>.page-tow-box>.thing-right>.thing-box-three>input{
+    width: 90%;
+    height: 40px;
+    margin: 5px;
+}
+footer {
+    border: 1px solid;
+    width: 1260px;
+    height: 50px;
+    margin-top: 20px;
+}

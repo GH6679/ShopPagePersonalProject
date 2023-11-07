@@ -1,0 +1,230 @@
+* {}
+
+body {
+    margin: 0;
+    /* padding: 0; */
+    padding-left: 320px;
+    padding-right: 320px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+
+/************************** nav-bottom *******************************************************  */
+.nav-bottom {
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: 1px solid;
+}
+
+.nav-bottom>.nav-left {
+    width: 850px;
+    height: 95px;
+
+    overflow: hidden;
+    position: relative;
+
+    user-select: none;
+}
+
+.nav-bottom>.nav-left>ul {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    left: 0px;
+
+    flex-shrink: 0;
+
+    /* transition */
+    transition: left 0.15s;
+
+}
+
+.nav-bottom>.nav-left>ul>li {
+    margin: 5px;
+}
+
+.nav-bottom>.arrow>.slide_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* position */
+    position: absolute;
+    /* 버튼이 중앙에 위치하게 하기위해 계산 */
+    top: calc(22%);
+
+    /* size */
+    width: 32px;
+    height: 32px;
+
+    /* style */
+    border-radius: 100%;
+    background-color: #cccc;
+    cursor: pointer;
+}
+/* ---------------------------------------------------------------------------- */
+.slide_prev_button {
+    left: 295px;
+}
+
+.slide_next_button {
+    right: 36%;
+}
+
+section {
+    border: 1px solid;
+    width: 1260px;
+    border-radius: 10px;
+    height: 800px auto;
+    margin-bottom: 80px;
+    margin-top: 30px;
+}
+/* --------------------------------------- 등록 버튼 ------------------------------------- */
+section>div {
+    text-align: center;
+}
+section>form>div {
+    text-align: center;
+}
+section>form>div>input {
+    width: 180px;
+    height: 50px;
+    margin: 10px;
+    margin-bottom: 40px;
+    
+    border: 1px solid;
+    border-radius: 10px;
+}
+section>form>article {
+    margin: 5px;
+    height: 750px auto;
+    padding-left: 200px;
+    padding-right: 200px;
+}
+section>form>article>ul{
+    
+}
+
+section>form>article>ul>li>*{
+    margin-top: 30px;
+}
+/* --------------------------------------- 작성자 ------------------------------------- */
+section>form>article>ul>.goods-user{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
+
+}
+section>form>article>ul>.goods-user>div{
+    width: 710px;
+}
+section>form>article>ul>.goods-user>div>input{
+    border: none;
+    border-bottom: 1px solid;
+}
+
+/* --------------------------------------- 제목 ------------------------------------- */
+section>form>article>ul>.goods-name{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+section>form>article>ul>.goods-name>input{
+    width: 700px;
+    height: 30px;
+    margin-left: 55px;
+
+    border: none;
+    border-bottom: 1px solid;
+}
+/* --------------------------------------- 내용 ------------------------------------- */
+
+section>form>article>ul>.goods-text{
+    display: flex;
+    justify-content: space-around;
+}
+section>form>article>ul>.goods-text>textarea{
+    width: 700px;
+    height: 200px;
+    margin-left: 55px;
+
+    resize: none; /* 크기 조절 비활성화 */
+}
+/* --------------------------------------- 금액 ------------------------------------- */
+
+section>form>article>ul>.goods-money{
+    display: flex;
+    justify-content: space-around;
+}
+section>form>article>ul>.goods-money>div{
+    width: 700px;
+    margin-left: 30px;
+}
+section>form>article>ul>.goods-money>div>input{
+    width: 200px;
+    height: 30px;
+
+    border: none;
+    border-bottom: 1px solid;
+}
+
+/* --------------------------------------- 콤보박스 ------------------------------------- */
+
+section>form>article>ul>.goods-chck{
+    display: flex;
+    justify-content: space-around;
+    height: 60px;
+}
+section>form>article>ul>.goods-chck>div{
+    width: 700px;
+    margin-bottom: 50px;
+}
+section>form>article>ul>.goods-chck>div>select{
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* --------------------------------------- 사진 ------------------------------------- */
+section>form>article>ul>.goods-pict{
+    display: flex;
+    justify-content: space-around;
+}
+section>form>article>ul>.goods-pict>.pict-left{
+
+}
+section>form>article>ul>.goods-pict>.pict-center{
+    border: 1px solid;
+    width: 700px;
+    height: 300px;
+    margin-bottom: 2px;
+    margin-left: 55px;
+}
+section>form>article>ul>.pict-right{
+    margin-top: 10px;
+    margin-right: 50px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: right;
+}
+section>form>article>ul>.pict-right>input{
+    margin-top: 5px;
+    margin-bottom: 50px;
+}

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List</title>
+
+
+
+    <!--  BS5  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+
+
+    <!--   common.css   -->
+    <link rel="stylesheet" href="/css/common.css">
+
+    <!-- 사이드바 폰트 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+    <!-- 사이드바 jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" charset="UTF-8"></script>
+
+
+    <!-- list.css -->
+    <link rel="stylesheet" href="/css/board/list.css">
+
+
+    <!-- j쿼리 슬라이더-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
+    <!-- 플로팅배너 JS 경로-->
+    <script src="/js/floatingbanner.js"></script>
+
+
+    <!-- 슬라이더 JS 경로-->
+    <script src="/js/slide.js"></script>
+
+    <!-- common.js   -->
+    <script src="/js/common.js"></script>
+
+</head>
+
+<body style="margin: 0px;">
+    <div class="wrapper">
+        <header>
+            <div class="top--header"></div>
+
+            <!-- NAV 상단 게시판 헤더-->
+            <nav class="navbar navbar-expand-lg navbar-light p-3 mb-1"  >
+                <div class="container-fluid">
+                    <div class="Logoimg">
+                        <a href="/product/index" class="navbar-brand text-white">
+                            <div class="Logosize">
+                                <!-- 로고 Home버튼크기조절 -->
+                                <img style="width: 300px;" src="/img/img_logo_main-removebg-preview.png" alt="" >
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item  ms-5">
+                                <a class="nav-link  text-white" href="/board/list">게시판</a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+
+                </div>
+                <!-- 검색 -->
+                <form class="d-flex" action="/board/list">
+                    <select name="type" class="form-select me-2" style="width:120px;">
+                        <option value="title" selected>TITLE</option>
+                        <option value="username">WRITER</option>
+                        <option value="content">CONTENTS</option>
+                    </select>
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        style="width:150px;" name="keyword">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+                <!--
+               인증 버튼 추가
+                -->
+                <style>
+                    .header--nav > a{text-decoration:none;color:white;}
+                </style>
+                <!--인증된 경우 -->
+                <div  class="d-flex me-2" sec:authorize="isAuthenticated()"  style="display:flex;align-items:center;justify-content:right;font-size:0.8rem;width:800px;">
+                    <div style="width:300px;text-align:right;">
+                        <span sec:authentication="principal.username" class="text-light"></span> <span class="text-light">님 </span>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:right;width:100px;">
+                        <a href="/user/mypage" class="text-light">나의 정보</a>
+                    </div>
+                    <form class="d-flex " action="/logout"  onSubmit="return false">
+                        <button  class="btn text-light"  style="width:120px; font-size:0.8rem;" onclick="logoutAndRedirect()">로그아웃</button>
+                    </form>
+                </div>
+                <div class="d-flex me-2" sec:authorize="!isAuthenticated()"  style="display:flex;align-items:center;justify-content:right;font-size:0.8rem;width:400px;">
+                    <div>
+                        <a href="/user/login" class="text-light">로그인</a>
+                    </div>
+
+                    <div>
+                        <a href="/user/join" class="text-light">회원가입</a>
+                    </div>
+                </div>
+                <script>
+                function logoutAndRedirect() {
+                console.log('logout and redirect')
+                // 새 창 열기
+                var newWindow = window.open('/user/logout', '_blank','width=450,height=450,top=1,right=100%');
+                setTimeout(function() {
+                // 1.5초후 창닫기
+                newWindow.close();
+
+                // 특정 지점으로 리다이렉션
+                window.location.href = '/login';
+                }, 1500);
+
+                }
+                </script>
+
+
+            </nav>
+        </header>
+        <main>
+            <section class="row" style="margin: 0px auto; width: 70%;  margin-left: 240px;">
+                <!-- 왼쪽의 회색공간 크기조정vh로 조정 -->
+                <div class="bd-example  col-2" style="height:150vh;width:0px;">
+                    <div class="btn-group-vertical p-3" role="group" aria-label="Vertical button group">
+
+                    </div>
+                </div>
+                <!-- 컨텐츠 -->
+                <div class="col" style="margin-top: 300px">
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb mt-2">
+                            <li class="breadcrumb-item"><a href="#">HOME</a></li>
+                            <li class="breadcrumb-item"><a href="#">BOARD</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">LIST</li>
+                        </ol>
+                    </nav>
+                    <!-- title -->
+                    <h3>질문 게시판</h3>
+                    <div class="board-header">
+                        Page No (<span th:text="${pageNo}"></span> / <span th:text="${pageDto.totalpage}"></span> Page)
+                    </div>
+                    <div class="board-body">
+                        <!-- body -->
+                        <table class="table w-100">
+                            <thead>
+                                <tr>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">분류</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">글쓴이</th>
+                                    <th scope="col">날짜</th>
+                                    <th scope="col">조회수</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- BOARD LIST ITEMS -->
+                                <th:block>
+                                    <tr th:each="boardDto : ${boardList}">
+                                        <td th:text="${boardDto.no}"></td>
+                                        <td th:text="${boardDto.tag}"></td>
+                                        <td><a th:href="@{/board/read(no=${boardDto.no},pageNo=${pageNo})}"
+                                                th:text="${boardDto.title}"> </a> </td>
+                                        <td th:text="${boardDto.username}"></td>
+                                        <td th:text="${boardDto.regdate}"></td>
+                                        <td th:text="${boardDto.count}"></td>
+                                    </tr>
+                                </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="board-footer row position-relative">
+
+                        <!--  -->
+                        <div class="pagenation col-9">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <!-- PREV -->
+                                    <li class="page-item" th:if="${pageDto.prev}">
+                                        <a class="page-link"
+                                            th:href="@{/board/list(pageNo=${pageDto.nowBlock * pageDto.pagePerBlock - pageDto.pagePerBlock*2 + 1} )}"
+                                            aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- PAGENATION -->
+                                    <li class="page-item"
+                                        th:each="i : ${#numbers.sequence(pageDto.startPage, pageDto.endPage)}">
+                                        <a class="page-link" th:href="@{/board/list(pageNo=${i})}"> <span
+                                                th:text="${i}"></span> </a>
+                                    </li>
+
+                                    <!-- NEXT -->
+                                    <li class="page-item" th:if="${pageDto.next}">
+                                        <a class="page-link"
+                                            th:href="@{/board/list(pageNo=${pageDto.nowBlock*pageDto.pagePerBlock+1} )}"
+                                            aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--  -->
+                        <div class="button--group col-2">
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <a type="button" class="btn btn-outline-primary m-2" style="width:100px;"
+                                    href="/board/post">글쓰기</a>
+                                <button type="button" class="btn btn-outline-primary m-2"
+                                    style="width:100px;">처음으로</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <aside style="width: 15%;" class="floatingbanner" >
+                <!-- 플로팅 배너 --------------------- -->
+                <div style="height:100px">
+
+                </div>
+                <div id="floatMenu">
+                    <img src="/img/SlideIMG/desktopimg-removebg-preview.png"  style="max-width: 100%; height: 100%;  margin-top: 32%;" alt="">
+                </div>
+                <!-- 플로팅 배너 end -->
+            </aside>
+            <aside>
+                <!-- 사이드바 스타트 -->
+                <div class="header2">
+                    <div class="side-nav">
+                        <div class="user">
+                            <img src="" alt="">
+                            <div>
+                                <h2></h2>
+                                <p></p>
+                            </div>
+                            <img src="" alt="">
+                        </div>
+                        <ul>
+                            <li><img src="/img/ICONIMG/dashboard.png" alt="" width="50px">
+                                <p>dashboard</p>
+                            </li>
+                            <li><img src="/img/ICONIMG/dashboard.png" alt="" width="50px">
+                                <p>dashboard</p>
+                            </li>
+                            <li><img src="/img/ICONIMG/dashboard.png" alt="" width="50px">
+                                <p>dashboard</p>
+                            </li>
+                            <li><img src="/img/ICONIMG/dashboard.png" alt="" width="50px">
+                                <p>dashboard</p>
+                            </li>
+                            <li><img src="/img/ICONIMG/dashboard.png" alt="" width="50px">
+                                <p>dashboard</p>
+                            </li>
+                            <li><img src="/img/ICONIMG/dashboard.png" alt="" width="50px">
+                                <p>dashboard</p>
+                            </li>
+                            <li><img src="/img/ICONIMG/dashboard.png" alt="" width="50px">
+                                <p>dashboard</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 사이드바 엔드 -->
+            </aside>
+
+        </main>
+
+
+        <!-- JS슬라이더 Start------------------------ -->
+        <!-- img slider start-->
+        <div class="slider">
+            <div class="slides">
+                <!-- radio buttons start -->
+                <input type="radio" name="radio-btn" id="radio1">
+                <input type="radio" name="radio-btn" id="radio2">
+                <input type="radio" name="radio-btn" id="radio3">
+                <input type="radio" name="radio-btn" id="radio4">
+                <input type="radio" name="radio-btn" id="radio5">
+                <!-- radio buttons end -->
+                <!-- slide img start -->
+                <div class="slide first">
+                    <img src="/img/SlideIMG/Starfield_logo.svg.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="/img/SlideIMG/LostArkimg.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="/img/SlideIMG/pngwing.com.png" alt="">
+                </div>
+                <div class="slide">
+                    <img src="/img/SlideIMG/hero-logo-ko.webp" alt="">
+                </div>
+
+                <!-- slide img end -->
+                <!-- automatic navigation start -->
+                <div class="navigaiton-auto">
+                    <div class="auto-btn1"></div>
+                    <div class="auto-btn2"></div>
+                    <div class="auto-btn3"></div>
+                    <div class="auto-btn4"></div>
+                </div>
+                <!-- automatic navigation end -->
+            </div>
+            <!-- manual navigation start -->
+            <div class="navigaiton-manual">
+                <label for="radio1" class="manual-btn"></label>
+                <label for="radio2" class="manual-btn"></label>
+                <label for="radio3" class="manual-btn"></label>
+                <label for="radio4" class="manual-btn"></label>
+            </div>
+            <!-- manual navigation end -->
+        </div>
+
+                <!-- slide img end -->
+                <!-- automatic navigation start -->
+                <div class="navigaiton-auto">
+                    <div class="auto-btn1"></div>
+                    <div class="auto-btn2"></div>
+                    <div class="auto-btn3"></div>
+                    <div class="auto-btn4"></div>
+                </div>
+                <!-- automatic navigation end -->
+            </div>
+            <!-- manual navigation start -->
+            <div class="navigaiton-manual">
+                <label for="radio1" class="manual-btn"></label>
+                <label for="radio2" class="manual-btn"></label>
+                <label for="radio3" class="manual-btn"></label>
+                <label for="radio4" class="manual-btn"></label>
+            </div>
+            <!-- manual navigation end -->
+        </div>
+        <!-- 이미지 슬라이더 끝 -->
+
+        <!-- footer start -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col">
+                        <h4>company</h4>
+                        <ul>
+                            <li><a href="#">about us</a></li>
+                            <li><a href="#">about us</a></li>
+                            <li><a href="#">about us</a></li>
+                            <li><a href="#">about us</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>get help</h4>
+                        <ul>
+                            <li><a href="#">FQe</a></li>
+                            <li><a href="#">FQe</a></li>
+                            <li><a href="#">FQe</a></li>
+                            <li><a href="#">FQe</a></li>
+                            <li><a href="#">FQe</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>online shop</h4>
+                        <ul>
+                            <li><a href="#">FQe</a></li>
+                            <li><a href="#">FQe</a></li>
+                            <li><a href="#">FQe</a></li>
+                            <li><a href="#">FQe</a></li>
+                            <li><a href="#">FQe</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>follow us</h4>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer end -->
+    </div>
+
+
+</body>
+
+
+</html>

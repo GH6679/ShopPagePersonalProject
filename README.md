@@ -164,6 +164,10 @@ https://shields.io/
 |/product/keyword/delete/{no}|DELETE|키워드 삭제|
 |/product/keyword/update|PUT|키워드 수정|
 |--------|----|---------|
+|/product/cartlist|POST|장바구니 목록 호출|
+|/product/intocart|POST|장바구니 상품 등록|
+|/product/removecart|POST|장바구니 상품 제거|
+|--------|----|---------|
 |/search/find|GET|상품 전체 검색 페이지 이동|
 |/search/find|POST|상품 전체 검색|
 |--------|----|---------|
@@ -173,6 +177,7 @@ https://shields.io/
 |/user/join|POST|회원가입|
 |/user/auth/email/{username}|GET|메일 인증 발송|
 |/user/auth/confirm/{code}|GET|메일 인증 확인|
+
 
 
 

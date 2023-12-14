@@ -16,7 +16,7 @@ ShopPagePersonalProject
 
 
 
-### ▶️ 사용 가능 기능
+## ▶️ 사용 가능 기능
 
 #### 사용 스키마 이름 : cm_shopdb
 #### jpa로 테이블 자동생성

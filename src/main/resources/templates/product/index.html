@@ -467,12 +467,12 @@
                             <div class="product-search-option-box">
                                 <!-- 상품 검색 옵션 최상단 -->
                                 <!-- <div class="search-option-top">
-                                CPU
-                            </div> -->
+                            CPU
+                        </div> -->
                                 <!-- 상품 검색 옵션 목록 -->
                                 <!-- <div class="search-option-list">
 
-                            </div> -->
+                        </div> -->
 
                             </div>
                             <!-- ======================================================================================== -->
@@ -612,8 +612,12 @@
                     const productData = response.data;
                     productData.forEach(data => { CreateProductList(data) });
 
+                    //툴팁 적용
                     setTooltips();
+                    //카트 '담기' 버튼 활성화
                     intocart();
+                    // 상품목록 '담기' 버튼 숨기기
+                    hideproductbtn();
 
                 }
 
@@ -751,6 +755,7 @@
         product_itme_into_cart_El.textContent = "담기->";
         product_itme_into_cart_El.setAttribute('prod-code', data.prodcode);
 
+
         //생성한 테그들을 서로 연결
         product_item_El.appendChild(product_item_left_El);
         product_item_El.appendChild(product_item_center_El);
@@ -832,6 +837,9 @@
 
                         //장바구니 제거 등록
                         removecart();
+
+                        // 상품목록 '담기' 버튼 숨기기
+                        hideproductbtn();
 
 
                     }
@@ -1033,6 +1041,30 @@
 
     }
 
+    //====================================================================
+    //상품목록 '담기'버튼
+    //====================================================================
+    //상품목록에서 장바구니에 이미 있는 상품의 담기버튼 비활성화
+    const hideproductbtn = () => {
+        const product_itme_into_cart_El = document.querySelectorAll('.product-itme-into-cart');
+        const cart_itme_out_El = document.querySelectorAll('.cart-itme-out');
+
+        product_itme_into_cart_El.forEach(productitem => {
+
+            cart_itme_out_El.forEach(cartitem=>{
+
+                if (productitem.getAttribute('prod-code') == cartitem.getAttribute('prod-code')) {
+
+                    productitem.style.display = 'none';
+
+                }
+
+            });
+
+
+        });
+
+    }
 
 
 

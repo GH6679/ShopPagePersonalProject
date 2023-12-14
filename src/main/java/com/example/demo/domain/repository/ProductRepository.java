@@ -19,7 +19,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query("SELECT p FROM Product p WHERE CONCAT(p.prodtags) LIKE %:key%")
     List<Product> findBySearchTag(@Param("key") String key);
 
-    @Query(value = "SELECT P.* FROM cm_shopdb.cart C inner join bookdb.product P on C.prodcode = P.prodcode where C.username = :username", nativeQuery = true)
+    @Query(value = "SELECT P.* FROM cm_shopdb.cart C inner join cm_shopdb.product P on C.prodcode = P.prodcode where C.username = :username", nativeQuery = true)
     List<Product> findByCartLists(@Param("username")String username);
 
 }

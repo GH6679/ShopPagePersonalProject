@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -9,844 +9,710 @@
     <!-- th:fragment     -->
     <th:block th:insert="fragments/head :: headOutterLink" />
 
-    <!--css-->
-    <link rel="stylesheet" href="/css/product/index.css">
 
     <style>
-
-        section>.main-bottom>.shop-top>.shop-box>table>thead>tr>.shop-box-left {
-            width: 200px;
-            height: 100px;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            margin: 5px;
-
-            background-image: url("/img/280.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
+        /* ========================================================================== */
+        /* wepper_section */
+        /* ========================================================================== */
+        #wepper_section {
+            width: 100%;
         }
 
-        .nav-bottom>.nav-right {
-            background-image: url("/img/TeemoPC.png");
-            background-repeat: no-repeat;
-            background-size: 220px;
-            background-position: center;
-            width: 340px;
-            height: 95px;
+        .main-section {}
+
+        .main-section-area {
+            width: 1260px;
+            margin: 0 auto;
         }
+
+        .top-area {
+            height: 127px;
+            margin-top: 30px;
+
+            /* border: 1px solid #E0E0E0; */
+        }
+
+        .swiper {
+            width: 1260px;
+            height: 132px;
+        }
+
+        .swiper-slide {
+            height: 110px;
+            border: 1px solid #E0E0E0;
+        }
+
+        .main-area {
+            height: 1586px;
+            display: flex;
+        }
+
+        .product-area {
+            width: 845px;
+        }
+
+        .search-area {
+            /* height: 300px; */
+            margin-top: 12px;
+
+            /* border: 1px solid #E0E0E0; */
+        }
+
+        /* ========================================================================== */
+        /* 상품 검색 바 */
+        /* ========================================================================== */
+        .product-search-bar {
+            height: 41px;
+            display: flex;
+            position: relative;
+
+            border: 2px solid #E53B38;
+        }
+
+        .search-product-input {
+            width: calc(100% - 40px);
+            height: 41px;
+            padding: 0 15px;
+            font-family: "Malgun Gothic", Dotum, "돋움", "Apple SD Gothic Neo", Helvetica, Sans-serif;
+            font-size: 13px;
+            letter-spacing: -0.2px;
+            box-sizing: border-box;
+        }
+
+        .search-product-submit {
+            width: 40px;
+            height: 41px;
+            background-color: #E53B38;
+            vertical-align: top;
+            cursor: pointer;
+        }
+
+        /* ========================================================================== */
+        /* 상품 검색 옵션 */
+        /* ========================================================================== */
+        .product-search-option-box {
+            position: relative;
+            min-height: 253px;
+            margin-top: 12px;
+            border: 1px solid #C4C4C4;
+            box-sizing: border-box;
+        }
+
+        .search-option-top {
+            height: 43px;
+            line-height: 43px;
+            padding: 0 15px;
+            background: #F8F8F8;
+            border-bottom: 1px solid #E0E0E0;
+            font-size: 15px;
+            letter-spacing: -0.6px;
+            color: #0f0f0f;
+            font-weight: bold;
+        }
+
+        .search-option-list {
+            padding: 9px 0;
+        }
+
+        .search-option-lines {
+            position: relative;
+            padding: 0 17px;
+        }
+
+
+        /* ========================================================================== */
+        /* 상품 목록 */
+        /* ========================================================================== */
+        .list-area {
+            height: 1286px;
+            margin-top: 12px;
+            overflow: scroll;
+            overflow-x: hidden;
+
+            border: 1px solid #E0E0E0;
+
+        }
+
+        /* ========================================================================== */
+        /* 상품 목록 틀 */
+        /* ========================================================================== */
+        .product-item {
+            border-bottom: 1px solid #E0E0E0;
+            display: flex;
+        }
+
+        /* 상품 이미지 */
+        .product-image {
+            position: relative;
+
+        }
+
+        /* 상품 이미지 */
+        .product-img {
+            vertical-align: middle;
+            padding: 15px 21px 15px 26px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .product-item-center {
+            padding: 15px 0px 15px 0px;
+            width: 545px;
+        }
+
+        .product-item-title {
+            display: flex;
+        }
+
+        .product-item-title a {
+            text-decoration: none;
+        }
+
+        /* 상품 코드 넘버 */
+        .product-item-code-num {
+            padding-right: 5px;
+            /* padding-left: 5px; */
+            line-height: 25px;
+            color: #919191;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+
+        }
+
+        /* 상품 제목 */
+        .product-item-name {
+            padding-right: 5px;
+            line-height: 28px;
+            font-size: 15px;
+            letter-spacing: -0.6px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 상품 내용 */
+        .product-item-info {
+            padding-left: 5px;
+            max-width: 540px;
+            font-size: 12px;
+            color: #777;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .product-item-right {
+            padding: 15px 0px 15px 0px;
+            width: 155px;
+            position: relative;
+        }
+
+        /* 상품 가격표 */
+        .product-item-price {
+            position: absolute;
+            top: 26px;
+            right: 15px;
+            padding-right: 5px;
+            font-size: 20px;
+            letter-spacing: 0;
+            font-weight: bold;
+        }
+
+        /* 상품 테그 */
+        .product-item-tag {
+            padding-left: 5px;
+            padding-top: 13px;
+        }
+
+        /* 상품 등록 날짜 */
+        .product-item-ptime {
+            position: absolute;
+            top: 2px;
+            right: 5px;
+
+            font-size: 13px;
+            letter-spacing: -0.6px;
+            font-weight: bold;
+            color: #919191;
+        }
+
+        /* 장바구니 버튼 */
+        .product-itme-into-cart {
+            position: absolute;
+            top: 68px;
+            right: 23px;
+            cursor: pointer;
+        }
+
+        /* 상품 키워드 설명 */
+        .product-tooltip-icon {
+            position: relative;
+            display: inline-block;
+        }
+
+        .product-tooltip {
+
+            visibility: hidden;
+
+            display: inline-block;
+            min-width: 320px;
+            max-width: 350px;
+            max-height: 450px;
+            overflow: auto;
+            overflow-x: hidden;
+
+            background-color: #FFFF99;
+            border: 1px solid black;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            top: 100%;
+            left: -25%;
+            opacity: 0;
+            transition: opacity 0.2s;
+
+        }
+
+        .tooltip-tep {}
+
+        .tooltip-key {
+            font-size: 12px;
+            color: #FFA500;
+        }
+
+        .tooltip-text {
+            font-size: 11px;
+            color: #C0C0C0;
+        }
+
+        /* ========================================================================== */
+        /* 장바구니 */
+        /* ========================================================================== */
+        .cart-area {
+            height: 1586;
+            width: 403px;
+
+            margin-left: 12px;
+            margin-top: 12px;
+
+            position: relative;
+
+            /* border: 1px solid #E0E0E0; */
+        }
+
+        .cart-box {
+            border: 1px solid #C4C4C4;
+            position: sticky;
+            top: 0;
+        }
+
+        .product-cart {
+
+
+            width: 393px;
+            height: 595px;
+
+            border: 4px solid #F8F8F8;
+        }
+
+        .cart-option {
+            overflow: auto;
+            height: 412px;
+
+            background-color: #F8F8F8;
+
+        }
+
+        .cart-items {
+            margin-top: 12px;
+        }
+
+        .cart-option div:nth-last-child(1) {
+            margin-bottom: 12px;
+        }
+
+        .cart-option div>a {
+            text-decoration: none;
+        }
+
+        .cart-benner {
+            width: 393px;
+            height: 51px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 20px;
+            color: black;
+            background-color: #F8F8F8;
+        }
+
+        .cart-item-type {
+            display: block;
+            position: relative;
+            padding: 0 10px;
+            height: 38px;
+            line-height: 38px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+            letter-spacing: -0.4px;
+            background-color: white;
+        }
+
+        .cart-prod-list {}
+
+        .cart-buy-option {
+            height: 132px;
+
+            border: 1px solid #E0E0E0;
+        }
+
+
+
+        /* ========================================================================== */
+        /* 장바구니 상품 목록 */
+        /* ========================================================================== */
+        .cart-item {
+            border-top: 1px solid #E0E0E0;
+            height: 65px;
+            display: flex;
+
+        }
+
+        .cart-item-left {}
+
+        .cart-img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .cart-item-center {}
+
+        .cart-item-title {}
+
+        .cart-item-code-num {}
+
+        .cart-item-name {}
+
+        .cart-item-right {}
+
+        .cart-item-price {}
+
+        .cart-itme-out {}
     </style>
 
 </head>
 
 <body>
-<div>
+<!-- 바디  -->
+<div id="wepper">
+    <!-- 바디 헤더 -->
     <!--  header fragment      -->
-    <div th:replace="fragments/header :: headerFragment" />
+    <div th:replace="fragments/header_v1 :: headerFragment_menubar" />
 
-    <!--광고판-->
-    <section>
-        <nav class="nav-bottom">
-            <div class="nav-left bottom-left">
-                <ul class=" slide">
-                    <li class="slide_item img01"><img src="/img/game01.jpg" alt=""></li>
-                    <li class="slide_item img02"><img src="/img/game02.jpg" alt=""></li>
-                    <li class="slide_item img03"><img src="/img/game03.jpg" alt=""></li>
-                    <li class="slide_item img04"><img src="/img/game04.png" alt=""></li>
-                    <li class="slide_item img05"><img src="/img/game05.jpg" alt=""></li>
-                    <li class="slide_item img06"><img src="/img/game06.jpg" alt=""></li>
-                    <li class="slide_item img07"><img src="/img/game07.jpg" alt=""></li>
-                    <li class="slide_item img08"><img src="/img/game08.jpg" alt=""></li>
-                    <li class="slide_item img09"><img src="/img/game09.jpg" alt=""></li>
-                    <li class="slide_item img010"><img src="/img/game10.jpg" alt=""></li>
-                    <li class="slide_item img011"><img src="/img/game11.jpg" alt=""></li>
-                </ul>
-            </div>
-            <div class="arrow">
-                <div class="material-symbols-outlined slide_button slide_prev_button">navigate_before</div>
-                <div class="material-symbols-outlined slide_button slide_next_button" style="">navigate_next</div>
-            </div>
+    <!-- 바디 메인 섹션 -->
+    <div id="wepper_section">
+        <!-- 바디 메인 -->
+        <div class="main-section">
+            <!-- 바디 메인 -->
+            <div class="main-section-area">
+                <!-- 바디 메인 최상단 -->
+                <div class="top-area">
+                    <!-- Slider main container -->
+                    <div class="swiper">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                            <!-- Slides -->
+                            <div class="swiper-slide">Slide 1</div>
+                            <div class="swiper-slide">Slide 2</div>
+                            <div class="swiper-slide">Slide 3</div>
+                            <div class="swiper-slide">Slide 4</div>
+                            <div class="swiper-slide">Slide 5</div>
+                            <div class="swiper-slide">Slide 6</div>
+                            <div class="swiper-slide">Slide 7</div>
+                            <div class="swiper-slide">Slide 8</div>
+                            <div class="swiper-slide">Slide 9</div>
+                            <div class="swiper-slide">Slide 10</div>
+                            <div class="swiper-slide">Slide 11</div>
+                            <div class="swiper-slide">Slide 12</div>
 
-            <div class="nav-right">
+                        </div>
+                        <!-- If we need pagination -->
+                        <!-- <div class="swiper-pagination"></div> -->
 
-            </div>
-        </nav>
-    </section>
+                        <!-- If we need scrollbar -->
+                        <div class="swiper-scrollbar"></div>
 
-    <div class="main">
-        <section>
-            <article class="main-top">
-                <div class="option-top">
-                    <p>옵션선택</p>
-                    <div class="option">
-                        <div class="option-name">
-                            <ul class="op-ul">
-                                <li><input type="button" class="btn01" value="CPU"></li>
-                                <li><input type="button" class="btn2" value="메인보드"></li>
-                                <li><input type="button" class="btn3" value="메모리"></li>
-                                <li><input type="button" class="btn4" value="그래픽카드"></li>
-                                <li><input type="button" class="btn5" value="SSD"></li>
-                                <li><input type="button" class="btn6" value="HDD"></li>
-                                <li><input type="button" class="btn7" value="케이스"></li>
-                                <li><input type="button" class="btn8" value="파워"></li>
-                            </ul>
-                        </div>
-                        <!-- ///////////////////////// CPU //////////////////////////////// -->
-                        <div class="option-box opt-cpu" >
-                            <div class="op">
-                                <p>제조사</p>
-                                <ul class="op-ul">
-                                    <li><a href="">인텔</a></li>
-                                    <li><a href="">AMD</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>인텔 종류</p>
-                                <ul class="op-ul">
-                                    <li>코어i9</li>
-                                    <li>코어i7</li>
-                                    <li>코어i5</li>
-                                    <li>코어i3</li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>AMD 종류</p>
-                                <ul class="op-ul">
-                                    <li>라이젠9</li>
-                                    <li>라이젠7</li>
-                                    <li>라이젠5</li>
-                                    <li>라이젠3</li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>세대</p>
-                                <ul class="op-ul">
-                                    <li>13세대</li>
-                                    <li>12세대</li>
-                                    <li>11세대</li>
-                                    <li>10세대</li>
-                                    <li>9세대</li>
-                                    <li>8세대</li>
-                                    <li>7세대</li>
-                                    <li>6세대</li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>세대</p>
-                                <ul class="op-ul">
-                                    <li>5세대</li>
-                                    <li>4세대</li>
-                                    <li>3세대</li>
-                                    <li>2세대</li>
-                                    <li>1세대</li>
-                                    <li>PRO</li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>소켓</p>
-                                <ul class="op-ul">
-                                    <li>1200소켓</li>
-                                    <li>1700소켓</li>
-                                    <li>2066소켓</li>
-                                    <li>1151소켓</li>
-                                    <li>1151v2소켓</li>
-                                    <li>1150소켓</li>
-                                    <li>1155소켓</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- ///////////////////////// 메인보드 //////////////////////////////// -->
-                        <div class="option-box opt-board" style="display: none;">
-                            <div class="op">
-                                <p>제조사</p>
-                                <ul class="op-ul">
-                                    <li><a href="">MSI</a></li>
-                                    <li><a href="">ASUS</a></li>
-                                    <li><a href="">ASRock</a></li>
-                                    <li><a href="">GIGABYTE</a></li>
-                                    <li><a href="">ECS</a></li>
-                                    <li><a href="">NZXT</a></li>
-                                    <li><a href="">BIOSTAR</a></li>
-                                    <li><a href="">AFOX</a></li>
-                                    <li><a href="">ASRock Rack</a></li>
-                                    <li><a href="">COLORFUL</a></li>
-                                    <li><a href="">FOXCONN</a></li>
-                                    <li><a href="">LattePanda</a></li>
-                                    <li><a href="">PEGATRON</a></li>
-                                    <li><a href="">Retroflag</a></li>
-                                    <li><a href="">Supemicro</a></li>
-                                    <li><a href="">에너지옵티머스</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>제품 분류</p>
-                                <ul class="op-ul">
-                                    <li>인텔 CPU용</li>
-                                    <li>AMD CPU용</li>
-                                    <li>임베디드</li>
-                                    <li>주변기기</li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>CPU 서켓</p>
-                                <ul class="op-ul">
-                                    <li>인텔 1700 소켓</li>
-                                    <li>인텔 1200 소켓</li>
-                                    <li>인텔 4677 소켓</li>
-                                    <li>인텔 1151 소켓</li>
-                                    <li>AMD AM5 소켓</li>
-                                    <li>AMD AM4 소켓</li>
-                                    <li>AMD sTRX4 소켓</li>
-                                    <li>AMD sWRX8 소켓</li>
-                                    <li>AMD TR4 소켓</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- ///////////////////////// 메모리 ////////////////////////////////  -->
-                        <div class="option-box opt-ran" style="display: none;">
-                            <div class="op">
-                                <p>제조사</p>
-                                <ul class="op-ul">
-                                    <li><a href="">인텔</a></li>
-                                    <li><a href="">AMD</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>사용 장치</p>
-                                <ul class="op-ul">
-                                    <li></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>제품 분류</p>
-                                <ul class="op-ul">
-                                    <li>라이젠3</li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>메모리 용량</p>
-                                <ul class="op-ul">
-                                    <li>6세대</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- ///////////////////////// 그래픽카드 ////////////////////////////////  -->
-                        <div class="option-box opt-grap" style="display: none;">
-                            <div class="op">
-                                <p>제조사</p>
-                                <ul class="op-ul">
-                                    <li><a href="">인텔</a></li>
-                                    <li><a href="">AMD</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>칩셋 제조사</p>
-                                <ul class="op-ul">
-                                    <li></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>칩셋</p>
-                                <ul class="op-ul">
-                                    <li>라이젠3</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- ///////////////////////// SSD ////////////////////////////////  -->
-                        <div class="option-box opt-ssd" style="display: none;">
-                            <div class="op">
-                                <p>제조사</p>
-                                <ul class="op-ul">
-                                    <li><a href="">인텔</a></li>
-                                    <li><a href="">AMD</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p> 인터페이스</p>
-                                <ul class="op-ul">
-                                    <li></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>용량</p>
-                                <ul class="op-ul">
-                                    <li>라이젠3</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- ///////////////////////// HDD ////////////////////////////////  -->
-                        <div class="option-box opt-hdd" style="display: none;">
-                            <div class="op">
-                                <p>제조사</p>
-                                <ul class="op-ul">
-                                    <li><a href="">인텔</a></li>
-                                    <li><a href="">AMD</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>제품 분류</p>
-                                <ul class="op-ul">
-                                    <li><a href="">인텔</a></li>
-                                    <li><a href="">AMD</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>인터페이스</p>
-                                <ul class="op-ul">
-                                    <li></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>용량</p>
-                                <ul class="op-ul">
-                                    <li>라이젠3</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- ///////////////////////// 케이스 ////////////////////////////////  -->
-                        <div class="option-box opt-keis" style="display: none;">
-                            <div class="op">
-                                <p>제조사</p>
-                                <ul class="op-ul">
-                                    <li><a href="">인텔</a></li>
-                                    <li><a href="">AMD</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>제품 분류</p>
-                                <ul class="op-ul">
-                                    <li><a href="">인텔</a></li>
-                                    <li><a href="">AMD</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>케이스 크디</p>
-                                <ul class="op-ul">
-                                    <li></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>지원파워 규격</p>
-                                <ul class="op-ul">
-                                    <li>라이젠3</li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>지원보드 규격</p>
-                                <ul class="op-ul">
-                                    <li>라이젠3</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- ///////////////////////// 파워 ////////////////////////////////  -->
-                        <div class="option-box opt-power" style="display: none;">
-                            <div class="op">
-                                <p>제조사</p>
-                                <ul class="op-ul">
-                                    <li><a href="">인텔</a></li>
-                                    <li><a href="">AMD</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>제품 분류</p>
-                                <ul class="op-ul">
-                                    <li><a href="">인텔</a></li>
-                                    <li><a href="">AMD</a></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>정격 출력</p>
-                                <ul class="op-ul">
-                                    <li></li>
-                                </ul>
-                            </div>
-                            <div class="op">
-                                <p>80PLUS 인증</p>
-                                <ul class="op-ul">
-                                    <li>라이젠3</li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </article>
-            <article class="main-bottom">
-                <div class="shop-top">
-                    <p>오늘의 상품</p>
-                    <div class="shop-box">
+                <!-- 바디 메인 중단 -->
+                <div class="main-area">
+                    <!-- 상품 서비스 -->
+                    <div class="product-area">
+                        <!-- 상품 검색 서비스 -->
+                        <div class="search-area">
+                            <!-- 상품 검색바 -->
+                            <div class="product-search-bar">
 
-                        <!--                            <span th:text="${#authentication.hasRole}"> </span>-->
+                                <input type="text" class="search-product-input" placeholder="상품명을 입력해주세요">
+                                <button class="material-symbols-outlined search-product-submit"
+                                        type="button">search</button>
+
+                            </div>
+                            <!-- ======================================================================================= -->
+                            <!-- 상품 검색 옵션 -->
+                            <div class="product-search-option-box">
+                                <!-- 상품 검색 옵션 최상단 -->
+                                <!-- <div class="search-option-top">
+                                CPU
+                            </div> -->
+                                <!-- 상품 검색 옵션 목록 -->
+                                <!-- <div class="search-option-list">
+
+                            </div> -->
+
+                            </div>
+                            <!-- ======================================================================================== -->
+                        </div>
+                        <!-- 상품 목록 -->
+                        <div class="list-area">
+
+
+                        </div>
 
 
                     </div>
-                    <div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+
+                    <!-- 상품 장바구니 -->
+                    <div class="cart-area">
+                        <!-- 장바구니  -->
+                        <div class="cart-box">
+                            <!-- 장바구니  -->
+                            <div class="product-cart">
+                                <!-- 장바구니 최상단 -->
+                                <div class="cart-benner">장바구니</div>
+                                <!-- 장바구니 선택목록 -->
+                                <div class="cart-option">
+
+                                    <div class="cart-items">
+                                        <a class="cart-item-type citem-cpu" href="#"
+                                           onclick="event.preventDefault();">CPU</a>
+                                        <div class="cart-prod-list cprod-cpu"></div>
+                                    </div>
+                                    <div class="cart-items">
+                                        <a class="cart-item-type citem-motherboard" href="#"
+                                           onclick="event.preventDefault();">메인보드</a>
+                                        <div class="cart-prod-list"></div>
+                                    </div>
+                                    <div class="cart-items">
+                                        <a class="cart-item-type citem-memory" href="#"
+                                           onclick="event.preventDefault();">메모리</a>
+                                        <div class="cart-prod-list"></div>
+                                    </div>
+                                    <div class="cart-items">
+                                        <a class="cart-item-type citem-gpu" href="#"
+                                           onclick="event.preventDefault();">그레픽카드</a>
+                                        <div class="cart-prod-list"></div>
+                                    </div>
+                                    <div class="cart-items">
+                                        <a class="cart-item-type citem-ssd" href="#"
+                                           onclick="event.preventDefault();">SSD</a>
+                                        <div class="cart-prod-list"></div>
+                                    </div>
+                                    <div class="cart-items">
+                                        <a class="cart-item-type citem-hdd" href="#"
+                                           onclick="event.preventDefault();">HDD</a>
+                                        <div class="cart-prod-list"></div>
+                                    </div>
+                                    <div class="cart-items">
+                                        <a class="cart-item-type citem-case" href="#"
+                                           onclick="event.preventDefault();">케이스</a>
+                                        <div class="cart-prod-list"></div>
+                                    </div>
+                                    <div class="cart-items">
+                                        <a class="cart-item-type citem-power" href="#"
+                                           onclick="event.preventDefault();">파워</a>
+                                        <div class="cart-prod-list"></div>
+                                    </div>
+
+                                </div>
+                                <!-- 장바구니 하단 구매 옵션 -->
+                                <div class="cart-buy-option">
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
-            </article>
-        </section>
-        <!-- 장바구니 -->
-        <aside>
-            <div class="basket">
-                <p>선택 상품</p>
-                <div class="basket-box">
-                    <!-- CPU -->
-                    <input type="button" class="bask-cpu" value="CPU">
-                    <div class="cpu-box bask-in">
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 메인보드 -->
-                    <input type="button" class="bask-board" value="메인보드">
-                    <div class="board-box bask-in">
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 메모리 -->
-                    <input type="button" class="bask-ram" value="메모리">
-                    <div class="ram-box bask-in">
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 그래픽카드 -->
-                    <input type="button" class="bask-grap" value="그래픽카드">
-                    <div class="grap-box bask-in">
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- SSD -->
-                    <input type="button" class="bask-ssd" value="SSD">
-                    <div class="ssd-box bask-in">
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- HDD -->
-                    <input type="button" class="bask-hdd" value="HDD">
-                    <div class="hdd-box bask-in">
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 케이스 -->
-                    <input type="button" class="bask-keis" value="케이스">
-                    <div class="keis-box bask-in">
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>9
-                            </ul>
-                        </div>
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- 파워 -->
-                    <input type="button" class="bask-power" value="파워">
-                    <div class="power-box bask-in">
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p>상품 이름</p>
-                            <ul>
-                                <li class="left">갯수</li>
-                                <li class="center">금액</li>
-                                <li class="right">X</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="basket-bottom">
-                    <div class="back-bottom-box">
-                        <div class="back-bottom-top">
-                            <div class="back-top-left">총 0개 폼목 선택</div>
-                            <input type="button" class="bakc-top-right" value="전체삭제">
-                        </div>
-                        <div class="back-bottom-center">
-                            <div class="back-center-left">총 합계금액</div>
-                            <div class="back-center-right">0원</div>
-                        </div>
-                        <input type="button" class="back-bottom-bottom" value="구매하기">
-                    </div>
-                </div>
+
+
             </div>
-        </aside>
+
+        </div>
+
     </div>
 
+    <div id="wepper_footer">
 
-    <footer>
+    </div>
 
-    </footer>
-    <!-- js-->
-    <script src="/js/index.js"></script>
-    <script src="/js/user/logout.js"></script>
-    <script>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+        integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script th:inline="javascript">
 
 
-        function toggleDisplay(element, content) {
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        }
+    //============================================================
+    //장바구니 찾기
+    const citem_type_all_El = document.querySelectorAll('.cart-item-type');
+    //상품 검색 옵션 박스 찾기
+    const product_search_option_box_el = document.querySelector('.product-search-option-box');
+    //상품 목록 생성 위치
+    const list_area_El = document.querySelector('.list-area');
+    //유저 식별
+    const username = /*[[${#authentication.name}]]*/ {};
+    //============================================================
 
-        //장바구니 선택 창 닫기 설정
-        var CPUdropdown = document.querySelector(".bask-cpu");
-        var cpuContent = document.querySelector(".cpu-box");
+    //============================================================
+    //메인페이지 로드시 실행한 디폴트 설정들
+    //============================================================
+    const initfunc = () => {
 
-        var ramdropdown = document.querySelector(".bask-board");
-        var ramContent = document.querySelector(".board-box");
+        //카트 디폴트 설정
+        const cpu_item_defalut_El = document.querySelector('.citem-cpu');
+        const cpu_prod_defalut_El = document.querySelector('.cprod-cpu');
 
-        var boarddropdown = document.querySelector(".bask-ram");
-        var boardContent = document.querySelector(".ram-box");
+        cpu_item_defalut_El.style.backgroundColor = '#E53B38';
+        cpu_item_defalut_El.style.color = 'white';
+        cpu_prod_defalut_El.style.border = '1px solid #E53B38';
 
-        var GrapCarddropdown = document.querySelector(".bask-grap");
-        var GrapCardContent = document.querySelector(".grap-box");
+        var cpu_El = document.createElement('div');
+        cpu_El.className = 'search-option-top';
+        cpu_El.textContent = 'CPU';
 
-        var ssdropdown = document.querySelector(".bask-ssd");
-        var ssdContent = document.querySelector(".ssd-box");
+        var cpu_option_El = document.createElement('div');
+        cpu_option_El.className = 'search-option-list';
 
-        var hddropdown = document.querySelector(".bask-hdd");
-        var hddContent = document.querySelector(".hdd-box");
+        product_search_option_box_el.appendChild(cpu_El);
+        product_search_option_box_el.appendChild(cpu_option_El);
 
-        var keiseudropdown = document.querySelector(".bask-keis");
-        var keiseuContent = document.querySelector(".keis-box");
-
-        var Powerdropdown = document.querySelector(".bask-power");
-        var PowerContent = document.querySelector(".power-box");
-
-        CPUdropdown.addEventListener("click", function () {
-            toggleDisplay(CPUdropdown, cpuContent);
-        });
-        ramdropdown.addEventListener("click", function () {
-            toggleDisplay(ramdropdown, ramContent);
-        });
-        boarddropdown.addEventListener("click", function () {
-            toggleDisplay(boarddropdown, boardContent);
-        });
-        GrapCarddropdown.addEventListener("click", function () {
-            toggleDisplay(GrapCarddropdown, GrapCardContent);
-        });
-        ssdropdown.addEventListener("click", function () {
-            toggleDisplay(ssdropdown, ssdContent);
-        });
-        hddropdown.addEventListener("click", function () {
-            toggleDisplay(hddropdown, hddContent);
-        });
-        keiseudropdown.addEventListener("click", function () {
-            toggleDisplay(keiseudropdown, keiseuContent);
-        });
-        Powerdropdown.addEventListener("click", function () {
-            toggleDisplay(Powerdropdown, PowerContent);
-
-        });
-    </script>
-    <script>
-        // 옵션 선택
-        //장바구니 선택 창 닫기 설정
-        var CPUoption = document.querySelector(".btn01");
-        var cpuContentOP = document.querySelector(".opt-cpu");
-
-        var ramoption = document.querySelector(".btn2");
-        var ramContentOP = document.querySelector(".opt-board");
-
-        var boardoption = document.querySelector(".btn3");
-        var boardContentOP = document.querySelector(".opt-ran");
-
-        var GrapCardoption = document.querySelector(".btn4");
-        var GrapCardContentOP = document.querySelector(".opt-grap");
-
-        var ssdoption = document.querySelector(".btn5");
-        var ssdContentOP = document.querySelector(".opt-ssd");
-
-        var hddoption = document.querySelector(".btn6");
-        var hddContentOP = document.querySelector(".opt-hdd");
-
-        var keiseudoption = document.querySelector(".btn7");
-        var keiseuContentOP = document.querySelector(".opt-keis");
-
-        var Powerdoption = document.querySelector(".btn8");
-        var PowerContentOP = document.querySelector(".opt-power");
-
-        CPUoption.addEventListener("click", function () {
-            if (cpuContentOP.style.display === "block") {
-                cpuContentOP.style.display = "none";
-            } else {
-                cpuContentOP.style.display = "block";
-            }
-        });
-        ramoption.addEventListener("click", function () {
-            if (ramContentOP.style.display === "block") {
-                ramContentOP.style.display = "none";
-            } else {
-                ramContentOP.style.display = "block";
-            }
-        });
-        boardoption.addEventListener("click", function () {
-            if (boardContentOP.style.display === "block") {
-                boardContentOP.style.display = "none";
-            } else {
-                boardContentOP.style.display = "block";
-            }
-        });
-        GrapCardoption.addEventListener("click", function () {
-            if (GrapCardContentOP.style.display === "block") {
-                GrapCardContentOP.style.display = "none";
-            } else {
-                GrapCardContentOP.style.display = "block";
-            }
-        });
-        ssdoption.addEventListener("click", function () {
-            if (ssdContentOP.style.display === "block") {
-                ssdContentOP.style.display = "none";
-            } else {
-                ssdContentOP.style.display = "block";
-            }
-        });
-        hddoption.addEventListener("click", function () {
-            if (hddContentOP.style.display === "block") {
-                hddContentOP.style.display = "none";
-            } else {
-                hddContentOP.style.display = "block";
-            }
-        });
-        keiseudoption.addEventListener("click", function () {
-            if (keiseuContentOP.style.display === "block") {
-                keiseuContentOP.style.display = "none";
-            } else {
-                keiseuContentOP.style.display = "block";
-            }
-        });
-        Powerdoption.addEventListener("click", function () {
-            if (PowerContentOP.style.display === "block") {
-                PowerContentOP.style.display = "none";
-            } else {
-                PowerContentOP.style.display = "block";
-            }
-
-        });
-
-        //간단한 메인페이지 리다이렉트 함수
-        function redirectToPage() {
-        window.location.href = '/product/index';
-    }
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        const getProductList = ()=>{
-
-            axios.get('/product/list')
-            .then(response=>{
+        //상품 리스트 불러오기
+        axios.get('/product/list')
+            .then(response => {
                 console.log(response);
 
-                if(response != null){
-                const productData = response.data;
-                productData.forEach(data => {CreateProductList(data)});
+                if (response != null) {
+                    const productData = response.data;
+                    productData.forEach(data => { CreateProductList(data) });
 
-                setTooltips();
+                    setTooltips();
+                    intocart();
 
                 }
 
 
             })
-            .catch(error=>console.log(error));
+            .catch(error => console.log(error));
+
+        // 장바구니 호출
+        listcart();
+
+    }
 
 
 
-        };
 
-        getProductList();
 
-        const menu_list_el = document.querySelector('.shop-box');
-        const CreateProductList = (data)=>{
+    //============================================================
+    //상품 목록 생성
+    //============================================================
+    const CreateProductList = (data) => {
 
-        //전체 div
-        var divEl = document.createElement('div');
-        divEl.className = "productItem";
-        //-style
-            divEl.style.border = "1px solid";
-            divEl.style.width = "500px";
-            divEl.style.height = "150px";
+        //상품 아이템
+        var product_item_El = document.createElement('div');
+        product_item_El.className = "product-item";
 
-        //헤더
-        var headerEl = document.createElement('div')
-        headerEl.className = "header";
-        //-style
-            headerEl.style.display = "flex"
-            headerEl.style.border = "1px solid";
+        //상품 아이템 왼쪽
+        var product_item_left_El = document.createElement('div')
+        product_item_left_El.className = "product-item-left";
 
-        //헤더 이름표
-        var headernameEl = document.createElement('div')
-        headernameEl.className = "headername"
-        //-style
-            headernameEl.style.marginleft = "10px";
+        //상품이미지
+        var product_img_El = document.createElement('img')
+        product_img_El.className = "product-img";
+        product_img_El.src = data.prodimagepaths[0];
 
+
+        //상품 아이템 중앙
+        var product_item_center_El = document.createElement('div')
+        product_item_center_El.className = "product-item-center";
+
+        //상품 아이템 타이틀 틀
+        var product_item_title_El = document.createElement('div')
+        product_item_title_El.className = "product-item-title";
+
+        //상품 아이템 번호
+        var product_item_code_num_El = document.createElement('div')
+        product_item_code_num_El.className = "product-item-code-num";
+        product_item_code_num_El.textContent = data.prodcode;
+
+        //상품 아이템 제목
+        var product_item_name_El = document.createElement('a')
+        product_item_name_El.className = "product-item-name";
+        product_item_name_El.textContent = data.prodname;
+        product_item_name_El.href = "/product/get/" + data.prodcode;
 
         //키워드 툴팁 표시
-        var headkeyEl = document.createElement('div')
-        headkeyEl.className = "headkey"
-        //headkeyEl.textContent = "priority_high";
-        //-style
-            headkeyEl.style.position = "relative";
-            headkeyEl.style.display = "inline-block";
-            //priority.png
+        var product_tooltip_icon_El = document.createElement('div')
+        product_tooltip_icon_El.className = "product-tooltip-icon"
 
 
         //====================================================================
         //키워드 툴팁 생성기
-        console.log("data.prodkeywords = "+data.prodkeywords + typeof data.prodkeywords)
-        if(data.prodkeywords.length > 0){
-        var tooltipEl = document.createElement('div')
-        tooltipEl.className = "tooltip";
+        //====================================================================
+        console.log("data.prodkeywords = " + data.prodkeywords + typeof data.prodkeywords)
+        if (data.prodkeywords.length > 0) {
+            var product_tooltip_El = document.createElement('div')
+            product_tooltip_El.className = "product-tooltip";
 
 
-        //style
-            tooltipEl.style.visibility = "hidden";
-            tooltipEl.style.width = "350px";
-            tooltipEl.style.height = "350px";
-            tooltipEl.style.backgroundColor = "#FFFF99";
-            tooltipEl.style.border = "1px solid black";
-            tooltipEl.style.borderRadius = "6px";
-            tooltipEl.style.padding = "5px";
-            tooltipEl.style.position = "absolute";
-            tooltipEl.style.zIndex = "1";
-            tooltipEl.style.top = "100%";
-            tooltipEl.style.left = "-25%";
-            tooltipEl.style.opacity = 0;
-            tooltipEl.style.transition = "opacity 0.2s";
 
             //툴팁에 키워드 이름과 키워드 내용을 지정
             const keywordDto_prodkeywords = data.prodkeywords;
             const keywordDto_prodexplains = data.prodexplains;
 
             //해당 하는 키워드가 있을경우 느낌표 이미지를 표시
-            var tooltipimgEl = document.createElement('img')
-            tooltipimgEl.src = "/img/priority.png";
-            headkeyEl.appendChild(tooltipimgEl);
+            var tooltip_img_El = document.createElement('img')
+            tooltip_img_El.src = "/img/priority.png";
+            product_tooltip_icon_El.appendChild(tooltip_img_El);
 
-            keywordDto_prodkeywords.forEach((keydata , index) => {
+            keywordDto_prodkeywords.forEach((keydata, index) => {
 
-                var tooltiptepEl = document.createElement('div')
+                var tooltip_tep_El = document.createElement('div')
+                tooltip_tep_El.className = "tooltip-tep";
 
-                var tooltipkeyEl = document.createElement('li')
-                tooltipkeyEl.textContent = keydata;
-                    //style
-                    tooltipkeyEl.style.fontSize = "12px";
-                    tooltipkeyEl.style.color = "#FFA500";
+                var tooltip_key_El = document.createElement('li')
+                tooltip_key_El.textContent = keydata;
+                tooltip_tep_El.className = "tooltip-key";
 
 
-                var tooltiptextEl = document.createElement('span')
-                tooltiptextEl.textContent = keywordDto_prodexplains[index];
-                    //style
-                    tooltiptextEl.style.fontSize = "11px";
-                    tooltiptextEl.style.color = "#C0C0C0";
+                var tooltip_text_El = document.createElement('span')
+                tooltip_text_El.className = "tooltip-text";
+                tooltip_text_El.textContent = keywordDto_prodexplains[index];
 
 
 
-                tooltiptepEl.appendChild(tooltipkeyEl);
-                tooltiptepEl.appendChild(tooltiptextEl);
-                tooltipEl.appendChild(tooltiptepEl);
+                tooltip_tep_El.appendChild(tooltip_key_El);
+                tooltip_tep_El.appendChild(tooltip_text_El);
+                product_tooltip_El.appendChild(tooltip_tep_El);
 
-                headkeyEl.appendChild(tooltipEl);
+                product_tooltip_icon_El.appendChild(product_tooltip_El);
 
             });
         }
@@ -855,118 +721,504 @@
 
         //====================================================================
 
-        //보디
-        var bodyEl = document.createElement('div')
-        bodyEl.className = "body";
-        //-style
-            bodyEl.style.display = "flex";
+        //상품 아이템 설명
+        var product_item_info_El = document.createElement('div');
+        product_item_info_El.className = "product-item-info";
+        product_item_info_El.textContent = data.prodcontext;
 
-        //상품이미지
-        var bodyimgelEl = document.createElement('img')
-        bodyimgelEl.src = data.prodimagepaths[0];
-        //-style
-            bodyimgelEl.style.width = "90px";
-            bodyimgelEl.style.height = "90px";
-            bodyimgelEl.style.border = "1px solid";
+        //상품 아이템 테그
+        var product_item_tag_El = document.createElement('div');
+        product_item_tag_El.className = "product-item-tag";
+        product_item_tag_El.textContent = data.prodtags;
 
-        //상품 상세 설명
-        var bodytestEl = document.createElement('div')
-        bodytestEl.className = "bodytext"
-        var spanbodytext = document.createElement("span");
-        spanbodytext.className = "productcontext"
-        spanbodytext.textContent = data.prodcontext;
+        //상품 아이템 오른쪽
+        var product_item_right_El = document.createElement('div');
+        product_item_right_El.className = "product-item-right";
 
-        //상품코드
-        var pcod = document.createElement("span");
-        //상품 제목
-        var pname = document.createElement("a");
-        //상품 생성시간
-        var ptime = document.createElement("span");
+        //상품 아이템 날짜
+        var product_item_ptime_El = document.createElement('div');
+        product_item_ptime_El.className = "product-item-ptime";
+        product_item_ptime_El.textContent = data.prodtime;
 
-        pcod.className = "productcode"
-        pcod.textContent = data.prodcode;
+        //상품 아이템 가격
+        var product_item_price_El = document.createElement('div');
+        product_item_price_El.className = "product-item-price";
+        product_item_price_El.textContent = data.prodprice + "원";
 
-        pname.className = "productname"
-        pname.textContent = data.prodname;
-        pname.href = "/product/get/"+data.prodcode;
-
-        ptime.className = "producttime"
-        ptime.textContent = data.prodtime;
-
-        headernameEl.style.flex = "1";
-        ptime.style.flex = "1";
+        //상품 아이템 장바구니 이동
+        var product_itme_into_cart_El = document.createElement('button');
+        product_itme_into_cart_El.className = "product-itme-into-cart";
+        product_itme_into_cart_El.textContent = "담기->";
+        product_itme_into_cart_El.setAttribute('prod-code', data.prodcode);
 
         //생성한 테그들을 서로 연결
-        headerEl.appendChild(headernameEl);
-        headernameEl.appendChild(pcod);
-        headernameEl.appendChild(pname);
-        headerEl.appendChild(headkeyEl);
-        headerEl.appendChild(ptime);
+        product_item_El.appendChild(product_item_left_El);
+        product_item_El.appendChild(product_item_center_El);
+        product_item_El.appendChild(product_item_right_El);
 
-        //예시
-        // <div headerEl class="header">
-        //     <div headernameEl>
-        //         <div pcod>
+        product_item_left_El.appendChild(product_img_El);
 
-        //         </div>
-        //         <div pname>
+        product_item_center_El.appendChild(product_item_title_El);
 
-        //         </div>
-        //     </div>
-        //     <div headkeyEl>
+        product_item_title_El.appendChild(product_item_code_num_El);
+        product_item_title_El.appendChild(product_item_name_El);
+        product_item_title_El.appendChild(product_tooltip_icon_El);
 
-        //     </div>
-        //     <div ptime>
+        product_item_center_El.appendChild(product_item_info_El);
+        product_item_center_El.appendChild(product_item_tag_El);
 
-        //     </div>
-        // </div>
+        product_item_right_El.appendChild(product_item_ptime_El);
+        product_item_right_El.appendChild(product_item_price_El);
+        product_item_right_El.appendChild(product_itme_into_cart_El);
+
+        list_area_El.appendChild(product_item_El);
 
 
-        bodyEl.appendChild(bodyimgelEl);
-        bodytestEl.appendChild(spanbodytext);
-        bodyEl.appendChild(bodytestEl);
+    }
 
-        //style
-            bodyimgelEl.style.flex = "1";
-            bodytestEl.style.flex = "1";
+    //====================================================================
+    //키워드 툴팁 마우스 호버 이벤트 생성
+    //====================================================================
+    const setTooltips = () => {
 
-        divEl.appendChild(headerEl);
-        divEl.appendChild(bodyEl);
+        const getTooltips = document.querySelectorAll('.product-tooltip-icon')
 
-        menu_list_el.appendChild(divEl);
+        getTooltips.forEach(tooltips => {
 
-        }
+            if (tooltips.querySelector('.product-tooltip')) {
 
-        //키워드 툴팁 마우스 호버 이벤트 생성
-        const setTooltips = () => {
+                const tooltip_item = tooltips.querySelector('.product-tooltip')
 
-            const getHeadkey = document.querySelectorAll('.headkey')
-
-            getHeadkey.forEach(tooltips => {
-
-            if(tooltips.querySelector('.tooltip')){
-
-                const getTooltip = tooltips.querySelector('.tooltip')
-
-                tooltips.addEventListener('mouseover',function(){
-                    getTooltip.style.visibility = "visible";
-                    getTooltip.style.opacity = "1";
+                tooltips.addEventListener('mouseover', function () {
+                    tooltip_item.style.visibility = "visible";
+                    tooltip_item.style.opacity = "1";
                 })
 
-                tooltips.addEventListener('mouseout',function(){
-                    getTooltip.style.visibility = "hidden";
-                    getTooltip.style.opacity = "0";
+                tooltips.addEventListener('mouseout', function () {
+                    tooltip_item.style.visibility = "hidden";
+                    tooltip_item.style.opacity = "0";
                 })
 
-            }else{
+            } else {
                 tooltips.style.visibility = "hidden";
             }
 
-            })
+        })
 
-        };
-    </script>
-</div>
+    };
+
+
+    //================================================================
+    //장바구니에 목록 불러오기
+    //================================================================
+    const listcart = () => {
+
+        if (username != "anonymousUser") {
+            const user = { "username": username }
+            axios.post('/product/cartlist', user, { headers: { 'Content-Type': 'application/json' } })
+                .then(response => {
+                    console.log(response);
+
+                    if (response != null) {
+                        const productData = response.data;
+
+                        //장바구니 기존 목록 제거
+                        const cprod_El = document.querySelectorAll('.cart-prod-list');
+                        cprod_El.forEach(cprod => {
+                            cprod.innerHTML = '';
+                        })
+                        //장바구니 목록 생성
+                        productData.forEach(data => { CreateCartList(data) });
+
+                        //장바구니 제거 등록
+                        removecart();
+
+
+                    }
+
+                })
+                .catch(error => console.log(error));
+
+
+        }
+
+    }
+
+
+
+    //================================================================
+    //장바구니에 목록 생성
+    //================================================================
+    const CreateCartList = (data) => {
+
+        const viewProduct = (proddata) => {
+
+            //장바구니 상품 아이템
+            var cart_item_El = document.createElement('div');
+            cart_item_El.className = "cart-item";
+
+            //장바구니 상품 아이템 왼쪽
+            var cart_item_left_El = document.createElement('div')
+            cart_item_left_El.className = "cart-item-left";
+
+            //장바구니 상품 이미지
+            var cart_img_El = document.createElement('img')
+            cart_img_El.className = "cart-img";
+            cart_img_El.src = proddata.prodimagepaths[0];
+
+            //장바구니 상품 아이템 중앙
+            var cart_item_center_El = document.createElement('div')
+            cart_item_center_El.className = "cart-item-center";
+
+            //장바구니 상품 아이템 타이틀 틀
+            var cart_item_title_El = document.createElement('div')
+            cart_item_title_El.className = "cart-item-title";
+
+            //장바구니 상품 아이템 번호
+            var cart_item_code_num_El = document.createElement('div')
+            cart_item_code_num_El.className = "cart-item-code-num";
+            cart_item_code_num_El.textContent = proddata.prodcode;
+
+            //장바구니 상품 아이템 제목
+            var cart_item_name_El = document.createElement('a')
+            cart_item_name_El.className = "cart-item-name";
+            cart_item_name_El.textContent = proddata.prodname;
+            cart_item_name_El.href = "/product/get/" + proddata.prodcode;
+
+            //장바구니 상품 아이템 오른쪽
+            var cart_item_right_El = document.createElement('div');
+            cart_item_right_El.className = "cart-item-right";
+
+            //장바구니 상품 아이템 가격
+            var cart_item_price_El = document.createElement('div');
+            cart_item_price_El.className = "cart-item-price";
+            cart_item_price_El.textContent = proddata.prodprice + "원";
+
+            //장바구니 상품 아이템 제거
+            var cart_itme_out_cart_El = document.createElement('button');
+            cart_itme_out_cart_El.className = "cart-itme-out";
+            cart_itme_out_cart_El.textContent = "제거";
+            cart_itme_out_cart_El.setAttribute('prod-code', proddata.prodcode);
+
+            cart_item_El.appendChild(cart_item_left_El);
+            cart_item_El.appendChild(cart_item_center_El);
+            cart_item_El.appendChild(cart_item_right_El);
+
+            cart_item_left_El.appendChild(cart_img_El);
+
+            cart_item_center_El.appendChild(cart_item_title_El);
+
+            cart_item_title_El.appendChild(cart_item_code_num_El);
+            cart_item_title_El.appendChild(cart_item_name_El);
+
+            cart_item_right_El.appendChild(cart_item_price_El);
+            cart_item_right_El.appendChild(cart_itme_out_cart_El);
+
+            return cart_item_El;
+        }
+
+        const cprod_El = document.querySelectorAll('.cart-prod-list');
+        cprod_El.forEach((cprod, index) => {
+            //index 0 = cpu | 1 = motherboard | 2 = memory | 3 = gpu | 4 = ssd | 5 = hdd | 6 = case | 7 = power |
+
+            if (data.prodtype == "cpu" && index == 0) {
+                console.log("type cpu");
+                cprod.appendChild(viewProduct(data));
+
+            } else if (data.prodtype == "motherboard" && index == 1) {
+                console.log("type motherboard");
+                cprod.appendChild(viewProduct(data));
+
+            } else if (data.prodtype == "memory" && index == 2) {
+                console.log("type memory");
+                cprod.appendChild(viewProduct(data));
+
+            } else if (data.prodtype == "gpu" && index == 3) {
+                console.log("type gpu");
+                cprod.appendChild(viewProduct(data));
+
+            } else if (data.prodtype == "ssd" && index == 4) {
+                console.log("type ssd");
+                cprod.appendChild(viewProduct(data));
+
+            } else if (data.prodtype == "hdd" && index == 5) {
+                console.log("type hdd");
+                cprod.appendChild(viewProduct(data));
+
+            } else if (data.prodtype == "case" && index == 6) {
+                console.log("type case");
+                cprod.appendChild(viewProduct(data));
+
+            } else if (data.prodtype == "power" && index == 7) {
+                console.log("type power");
+                cprod.appendChild(viewProduct(data));
+
+            }
+
+
+        })
+
+
+
+    }
+
+    //================================================================
+    //장바구니에 상품 추가
+    //================================================================
+    const intocart = () => {
+
+        intocartbtn_El = document.querySelectorAll('.product-itme-into-cart');
+        intocartbtn_El.forEach((item) => {
+
+            item.addEventListener('click', function () {
+
+                if (username != "anonymousUser") {
+
+                    let pcode = item.getAttribute('prod-code');
+
+                    const intodata = { "prodcode": pcode, "username": username }
+
+                    axios.post("/product/intocart", intodata, { headers: { 'Content-Type': 'application/json' } })
+                        .then(response => {
+
+                            // 장바구니 재호출
+                            listcart();
+
+                        })
+                        .catch(error => console.log(error));
+
+                } else {
+                    alert("로그인 해주세요!")
+                }
+
+
+            });
+
+        });
+
+    }
+
+    //================================================================
+    //장바구니에 상품 제거
+    //================================================================
+    const removecart = () => {
+
+        const cart_itme_out_El = document.querySelectorAll('.cart-itme-out');
+        cart_itme_out_El.forEach(item => {
+
+            item.addEventListener('click', function () {
+
+                if (username != "anonymousUser") {
+
+                    let pcode = item.getAttribute('prod-code');
+
+                    const outdata = { "prodcode": pcode, "username": username }
+
+                    axios.post("/product/removecart", outdata, { headers: { 'Content-Type': 'application/json' } })
+                        .then(response => {
+
+                            // 장바구니 재호출
+                            listcart();
+
+                        })
+                        .catch(error => console.log(error));
+
+                } else {
+                    alert("로그인 해주세요!")
+                }
+
+            });
+
+        });
+
+    }
+
+
+
+
+    //====================================================================
+    //상품 검색 옵션
+    //====================================================================
+    citem_type_all_El.forEach((item, index) => {
+        item.addEventListener('click', function () {
+
+            //장바구니 리스트 찾기
+            const cprod_El = document.querySelectorAll('.cart-prod-list');
+
+            //기존 옵션 제거
+            product_search_option_box_el.innerHTML = '';
+
+            //태그 생성기
+            let customCreateElement = (tag, className) => {
+                var el = document.createElement(tag);
+                el.className = className;
+
+                return el;
+            }
+
+            //옵션 생성
+            if (item.classList.contains('citem-cpu')) {
+                var cpu_El = document.createElement('div');
+                cpu_El.className = 'search-option-top';
+                cpu_El.textContent = 'CPU';
+
+                var cpu_option_El = document.createElement('div');
+                cpu_option_El.className = 'search-option-list';
+
+                product_search_option_box_el.appendChild(cpu_El);
+                product_search_option_box_el.appendChild(cpu_option_El);
+
+            } else if (item.classList.contains('citem-motherboard')) {
+                var motherboard_El = document.createElement('div');
+                motherboard_El.className = 'search-option-top';
+                motherboard_El.textContent = '메인보드';
+
+
+                var motherboard_option_El = document.createElement('div');
+                motherboard_option_El.className = 'search-option-list';
+
+
+                for (let i = 0; i < 7; i++) {
+                    var option_lines_El = customCreateElement('div', 'search-option-lines')
+
+
+
+                    motherboard_option_El.appendChild(option_lines_El);
+                }
+
+
+                product_search_option_box_el.appendChild(motherboard_El);
+                product_search_option_box_el.appendChild(motherboard_option_El);
+
+            } else if (item.classList.contains('citem-memory')) {
+                var memory_El = document.createElement('div');
+                memory_El.className = 'search-option-top';
+                memory_El.textContent = '메모리';
+
+                var memory_option_El = document.createElement('div');
+                memory_option_El.className = 'search-option-list';
+
+                product_search_option_box_el.appendChild(memory_El);
+                product_search_option_box_el.appendChild(memory_option_El);
+
+            } else if (item.classList.contains('citem-gpu')) {
+                var gpu_El = document.createElement('div');
+                gpu_El.className = 'search-option-top';
+                gpu_El.textContent = '그래픽카드';
+
+                var gpu_option_El = document.createElement('div');
+                gpu_option_El.className = 'search-option-list';
+
+                product_search_option_box_el.appendChild(gpu_El);
+                product_search_option_box_el.appendChild(gpu_option_El);
+
+            } else if (item.classList.contains('citem-ssd')) {
+                var ssd_El = document.createElement('div');
+                ssd_El.className = 'search-option-top';
+                ssd_El.textContent = 'SSD';
+
+                var ssd_option_El = document.createElement('div');
+                ssd_option_El.className = 'search-option-list';
+
+                product_search_option_box_el.appendChild(ssd_El);
+                product_search_option_box_el.appendChild(ssd_option_El);
+
+            } else if (item.classList.contains('citem-hdd')) {
+                var hdd_El = document.createElement('div');
+                hdd_El.className = 'search-option-top';
+                hdd_El.textContent = 'HDD';
+
+                var hdd_option_El = document.createElement('div');
+                hdd_option_El.className = 'search-option-list';
+
+                product_search_option_box_el.appendChild(hdd_El);
+                product_search_option_box_el.appendChild(hdd_option_El);
+
+            } else if (item.classList.contains('citem-case')) {
+                var case_El = document.createElement('div');
+                case_El.className = 'search-option-top';
+                case_El.textContent = '케이스';
+
+                var case_option_El = document.createElement('div');
+                case_option_El.className = 'search-option-list';
+
+                product_search_option_box_el.appendChild(case_El);
+                product_search_option_box_el.appendChild(case_option_El);
+
+            } else if (item.classList.contains('citem-power')) {
+                var power_El = document.createElement('div');
+                power_El.className = 'search-option-top';
+                power_El.textContent = '파워';
+
+                var power_option_El = document.createElement('div');
+                power_option_El.className = 'search-option-list';
+
+                product_search_option_box_el.appendChild(power_El);
+                product_search_option_box_el.appendChild(power_option_El);
+
+            } else {
+
+            }
+
+
+            //모든 항목의 색을 디폴트로 변경
+            citem_type_all_El.forEach((item) => {
+                item.style.backgroundColor = 'white';
+                item.style.color = '#333';
+            })
+            cprod_El.forEach(cprod => {
+                cprod.style.border = ''
+            })
+            //클릭한 항목의 색을 변경
+            item.style.backgroundColor = '#E53B38';
+            item.style.color = 'white';
+            cprod_El.forEach((cprod, prodindex) => {
+                if (prodindex == index) {
+                    cprod.style.border = '1px solid #E53B38';
+                }
+            })
+        })
+    })
+
+    //====================================================================
+    // 스와이퍼 설정
+    //====================================================================
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        autoplay: {
+            delay: 3000,
+        },
+
+        // 보여지는 슬라이드 개수
+        slidesPerView: 5,
+
+        // 한 번에 움직일 슬라이드 개수
+        slidesPerGroup: 1,
+
+        // 적응형(swipe to fill) 모드 비활성화하면 지정된 slidesPerView대로만 표시됩니다.
+        spaceBetween: 10, // 옵션: 슬라이드 사이 간격(픽셀)
+
+        // If we need pagination
+        // pagination: {
+        //     el: '.swiper-pagination',
+        // },
+        // And if we need scrollbar
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+
+    });
+
+    //메인페이지 로드시 실행할 디폴트 설정들 실행
+    initfunc();
+
+</script>
+
+
+
 </body>
 
 </html>

@@ -11,234 +11,256 @@
     <!--css-->
     <link rel="stylesheet" href="/css/product/keyword/set.css">
 
+    <style>
+        #wepper_section {
+            width: 100%;
+        }
+
+        .main-section {}
+
+        .main-section-area {
+            width: 1260px;
+            margin: 0 auto;
+        }
+    </style>
+
 </head>
 
 <body>
-    <div>
-        <!--  header fragment      -->
-        <div th:replace="fragments/header :: headerFragment" />
-        <!-- --------------------------------- 키워드 등록---------------------------------------- -->
-        <section>
-            <div class="keyword-top">
-                <h1>키워드 등록</h1>
-            </div>
-            <div class="keyword-bottom">
-                <div>
-                    <a href="/product/index">메인 페이지로</a>
+<!--  header fragment      -->
+<div th:replace="fragments/header_v2 :: headerFragment_no_menubar" />
+
+<!-- 바디 메인 섹션 -->
+<div id="wepper_section">
+    <!-- 바디 메인 -->
+    <div class="main-section">
+        <!-- 바디 메인 -->
+        <div class="main-section-area">
+            <!-- --------------------------------- 키워드 등록---------------------------------------- -->
+            <section>
+                <div class="keyword-top">
+                    <h1>키워드 등록</h1>
                 </div>
-                <form method="post" action="/product/keyword/set">
-                    <article>
-                        키워드 입력 : <input type="text" name="keywname" />
-                        내용 입력 : <input type="text" name="keywtext" />
-                        <button>추가</button>
-                    </article>
-                </form>
-            </div>
+                <div class="keyword-bottom">
+                    <div>
+                        <a href="/product/index">메인 페이지로</a>
+                    </div>
+                    <form method="post" action="/product/keyword/set">
+                        <article>
+                            키워드 입력 : <input type="text" name="keywname" />
+                            내용 입력 : <input type="text" name="keywtext" />
+                            <button>추가</button>
+                        </article>
+                    </form>
+                </div>
 
-<!--            <div class="keyword-list">-->
+                <!--            <div class="keyword-list">-->
 
-<!--            </div>-->
-        </section>
-        <!-- ********************************* 추가 박스 위치 입니다 ****************************************** -->
-        <div class="keyword-box">
-            <div class="keyword-list">
+                <!--            </div>-->
+            </section>
+            <!-- ********************************* 추가 박스 위치 입니다 ****************************************** -->
+            <div class="keyword-box">
+                <div class="keyword-list">
 
+                </div>
             </div>
         </div>
     </div>
+</div>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
         integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script>
+<script>
 
-        //간단한 메인페이지 리다이렉트 함수
-        function redirectToPage() {
+    //간단한 메인페이지 리다이렉트 함수
+    function redirectToPage() {
         window.location.href = '/product/index';
-        }
+    }
 
-        //키워드 리스트 를 비동기로 불러오는 함수
-        const getKeywordList = ()=>{
+    //키워드 리스트 를 비동기로 불러오는 함수
+    const getKeywordList = () => {
 
         axios.get('/product/keyword/list')
-        .then(response=>{
-            console.log(response);
+            .then(response => {
+                console.log(response);
 
-            if(response != null){
-            const keywordData = response.data;
-            keywordData.forEach(data => {CreateKeywordList(data)});
+                if (response != null) {
+                    const keywordData = response.data;
+                    keywordData.forEach(data => { CreateKeywordList(data) });
 
-            //리스트 수정 기능 등록
-            addUpdateListeners();
+                    //리스트 수정 기능 등록
+                    addUpdateListeners();
 
-            //리스트 삭제 기능 등록
-            addDeleteListeners();
-            }
+                    //리스트 삭제 기능 등록
+                    addDeleteListeners();
+                }
 
 
-        })
-        .catch(error=>console.log(error));
+            })
+            .catch(error => console.log(error));
 
 
 
     };
 
-        //키워드 불러오기 함수 실행
-        getKeywordList();
+    //키워드 불러오기 함수 실행
+    getKeywordList();
 
-        //리스트를 목록으로 만들어 화면에 보여준다.
-        const keyword_list_el = document.querySelector('.keyword-list');
-        const CreateKeywordList = (data)=>{
+    //리스트를 목록으로 만들어 화면에 보여준다.
+    const keyword_list_el = document.querySelector('.keyword-list');
+    const CreateKeywordList = (data) => {
 
-            //본체
-            var list_El = document.createElement('div');
-            list_El.className = 'key-list';
-            list_El.style.marginLeft = '10px';
+        //본체
+        var list_El = document.createElement('div');
+        list_El.className = 'key-list';
+        list_El.style.marginLeft = '10px';
 
-            //리스트 번호
-            var list_El_no = document.createElement('input');
-            list_El_no.className = 'key-no'
-            list_El_no.value = data.keywno;
-            list_El_no.style.marginLeft = '10px';
-            list_El_no.readOnly = true;
+        //리스트 번호
+        var list_El_no = document.createElement('input');
+        list_El_no.className = 'key-no'
+        list_El_no.value = data.keywno;
+        list_El_no.style.marginLeft = '10px';
+        list_El_no.readOnly = true;
 
-            //리스트 이름
-            var list_El_name = document.createElement('input');
-            list_El_name.className = 'key-name';
-            list_El_name.value = data.keywname;
-            list_El_name.style.marginLeft = '10px';
+        //리스트 이름
+        var list_El_name = document.createElement('input');
+        list_El_name.className = 'key-name';
+        list_El_name.value = data.keywname;
+        list_El_name.style.marginLeft = '10px';
 
-            //리스트 내용
-            var list_El_text = document.createElement('input');
-            list_El_text.className = 'key-text';
-            list_El_text.value = data.keywtext;
-            list_El_text.style.marginLeft = '10px';
+        //리스트 내용
+        var list_El_text = document.createElement('input');
+        list_El_text.className = 'key-text';
+        list_El_text.value = data.keywtext;
+        list_El_text.style.marginLeft = '10px';
 
-            //리스트 삭제 버튼
-            var list_El_delete = document.createElement('a');
-            list_El_delete.className = 'key-delete';
-            list_El_delete.setAttribute('key-no',data.keywno);
-            list_El_delete.href = "javascript:void(0)";
-            list_El_delete.textContent = "삭제";
-            list_El_delete.style.marginLeft = '10px';
+        //리스트 삭제 버튼
+        var list_El_delete = document.createElement('a');
+        list_El_delete.className = 'key-delete';
+        list_El_delete.setAttribute('key-no', data.keywno);
+        list_El_delete.href = "javascript:void(0)";
+        list_El_delete.textContent = "삭제";
+        list_El_delete.style.marginLeft = '10px';
 
-            //묶기
-            list_El.appendChild(list_El_no);
-            list_El.appendChild(list_El_name);
-            list_El.appendChild(list_El_text);
-            list_El.appendChild(list_El_delete);
+        //묶기
+        list_El.appendChild(list_El_no);
+        list_El.appendChild(list_El_name);
+        list_El.appendChild(list_El_text);
+        list_El.appendChild(list_El_delete);
 
-            keyword_list_el.appendChild(list_El);
-        };
+        keyword_list_el.appendChild(list_El);
+    };
 
-        //리스트 수정 기능
-        const addUpdateListeners = () => {
-            const key_list_El = document.querySelectorAll('.key-list');
+    //리스트 수정 기능
+    const addUpdateListeners = () => {
+        const key_list_El = document.querySelectorAll('.key-list');
 
-            key_list_El.forEach((list_item)=>{
+        key_list_El.forEach((list_item) => {
 
-                const key_noEl = list_item.querySelector('.key-no');
-                const key_nameEl = list_item.querySelector('.key-name');
-                const key_textEl = list_item.querySelector('.key-text');
+            const key_noEl = list_item.querySelector('.key-no');
+            const key_nameEl = list_item.querySelector('.key-name');
+            const key_textEl = list_item.querySelector('.key-text');
 
-                key_nameEl.addEventListener('input', function(){
+            key_nameEl.addEventListener('input', function () {
 
-                    if(!list_item.querySelector('.key-update')){
+                if (!list_item.querySelector('.key-update')) {
                     console.log("변경됨!");
                     //수정 버튼 생성
                     var list_El_update = document.createElement('a');
-                        list_El_update.className = 'key-update';
-                        list_El_update.href = "javascript:void(0)";
-                        list_El_update.textContent = "수정";
-                        list_El_update.style.marginLeft = '10px';
+                    list_El_update.className = 'key-update';
+                    list_El_update.href = "javascript:void(0)";
+                    list_El_update.textContent = "수정";
+                    list_El_update.style.marginLeft = '10px';
 
-                        list_item.appendChild(list_El_update);
-                        //수정버튼 기능 활성화
-                        UpdateListener();
-                    }
+                    list_item.appendChild(list_El_update);
+                    //수정버튼 기능 활성화
+                    UpdateListener();
+                }
 
-                });
-                key_textEl.addEventListener('input', function(){
+            });
+            key_textEl.addEventListener('input', function () {
 
-                    if(!list_item.querySelector('.key-update')){
+                if (!list_item.querySelector('.key-update')) {
                     console.log("변경됨!");
                     //수정 버튼 생성
                     var list_El_update = document.createElement('a');
-                        list_El_update.className = 'key-update';
-                        list_El_update.href = "javascript:void(0)";
-                        list_El_update.textContent = "수정";
-                        list_El_update.style.marginLeft = '10px';
+                    list_El_update.className = 'key-update';
+                    list_El_update.href = "javascript:void(0)";
+                    list_El_update.textContent = "수정";
+                    list_El_update.style.marginLeft = '10px';
 
-                        list_item.appendChild(list_El_update);
-                        //수정버튼 기능 활성화
-                        UpdateListener()
-                    }
+                    list_item.appendChild(list_El_update);
+                    //수정버튼 기능 활성화
+                    UpdateListener()
+                }
 
-                });
+            });
 
-                const UpdateListener = () => {
+            const UpdateListener = () => {
 
-                    const updateEl = list_item.querySelector('.key-update').addEventListener('click', function(){
+                const updateEl = list_item.querySelector('.key-update').addEventListener('click', function () {
 
-                        const removeLEU = list_item.querySelector('.key-update');
+                    const removeLEU = list_item.querySelector('.key-update');
 
-                        const keywno = list_item.querySelector('.key-no').value;
-                        const keywname = list_item.querySelector('.key-name').value;
-                        const keywtext = list_item.querySelector('.key-text').value;
+                    const keywno = list_item.querySelector('.key-no').value;
+                    const keywname = list_item.querySelector('.key-name').value;
+                    const keywtext = list_item.querySelector('.key-text').value;
 
-                        console.log(keywno+"수정 클릭됨!")
+                    console.log(keywno + "수정 클릭됨!")
 
-                        const formData = new FormData();
-                        formData.append('keywno',keywno);
-                        formData.append('keywname',keywname);
-                        formData.append('keywtext',keywtext);
+                    const formData = new FormData();
+                    formData.append('keywno', keywno);
+                    formData.append('keywname', keywname);
+                    formData.append('keywtext', keywtext);
 
-                        axios.put('/product/keyword/update',formData,{headers: {'Content-Type' : 'multipart/form-data' } })
-                        .then(response =>{
+                    axios.put('/product/keyword/update', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+                        .then(response => {
                             list_item.removeChild(removeLEU);
                         })
                         .catch(error => {
-                            alert('수정 실패! '+error)
+                            alert('수정 실패! ' + error)
                         });
 
 
-                    })
+                })
 
-                }
+            }
 
 
 
-            })
+        })
 
-        }
+    }
 
-        //리스트 삭제 기능
-        const addDeleteListeners = () => {
+    //리스트 삭제 기능
+    const addDeleteListeners = () => {
 
         const key_delete_El = document.querySelectorAll('.key-delete');
         console.log(key_delete_El);
-        key_delete_El.forEach( (delete_item) => {
+        key_delete_El.forEach((delete_item) => {
 
-            delete_item.addEventListener('click',function(){
+            delete_item.addEventListener('click', function () {
                 const no = delete_item.getAttribute('key-no');
 
-                axios.delete("/product/keyword/delete/"+no)
-                .then(response=>{
-                    location.reload();
+                axios.delete("/product/keyword/delete/" + no)
+                    .then(response => {
+                        location.reload();
 
-                })
-                .catch(error=>console.log(error));
+                    })
+                    .catch(error => console.log(error));
 
             })
 
         });
 
-        };
+    };
 
 
-    </script>
+</script>
 </body>
 
 </html>

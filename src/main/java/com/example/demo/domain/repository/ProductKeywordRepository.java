@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface ProductKeywordRepository extends JpaRepository<ProductKeyword, Integer> {
-    @Query(value = "SELECT * FROM bookdb.product_keyword", nativeQuery = true)
-    List<ProductKeyword> getByProductKeywordLists();
+    @Query(value = "SELECT * FROM cm_shopdb.product_keyword", nativeQuery = true)
+    List<ProductKeyword> findByProductKeywordLists();
 
 
 }

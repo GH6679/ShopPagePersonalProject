@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- th:fragment     -->
+    <th:block th:insert="fragments/head :: headOutterLink" />
+
+    <style>
+        #wepper_section{
+            width: 100%;
+        }
+
+        .main-section{
+
+        }
+
+        .main-section-area{
+            width: 1260px;
+            margin: 0 auto;
+        }
+
+        /* 검색 결과물 박스 */
+        .search-result-box{
+            padding-top: 10px;
+        }
+        .search-result-tep{
+            border-bottom: 1px solid #C4C4C4;
+            margin-bottom: 15px;
+        }
+        .search-result{
+
+        }
+
+               /* 상품 목록 틀============================================================ */
+            .product-item{
+                border-bottom: 1px solid #E0E0E0;
+                display: flex;
+                border-top: 1px solid #E0E0E0;
+                border-bottom: 1px solid #E0E0E0;
+            }
+
+            /* 상품 이미지 */
+            .product-image{
+                position: relative;
+
+            }
+            /* 상품 이미지 */
+            .product-img{
+                vertical-align: middle;
+                padding: 15px 21px 15px 26px;
+                width: 80px;
+                height: 80px;
+            }
+
+            .product-item-center{
+                padding: 15px 0px 15px 0px;
+                width : 545px;
+            }
+
+            .product-item-title{
+                display: flex;
+            }
+            .product-item-title a{
+                text-decoration: none;
+            }
+            /* 상품 코드 넘버 */
+            .product-item-code-num{
+                padding-right: 5px;
+                /* padding-left: 5px; */
+                line-height: 25px;
+                color: #919191;
+                font-weight: bold;
+                font-size: 20px;
+                text-align: center;
+
+            }
+            /* 상품 제목 */
+            .product-item-name{
+                padding-right: 5px;
+                line-height: 28px;
+                font-size: 15px;
+                letter-spacing: -0.6px;
+                font-weight: bold;
+                color: #333;
+            }
+            /* 상품 내용 */
+            .product-item-info{
+                padding-left: 5px;
+                max-width: 540px;
+                font-size: 12px;
+                color: #777;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .product-item-right{
+                padding: 15px 0px 15px 0px;
+                width: 155px;
+                position: relative;
+            }
+            /* 상품 가격표 */
+            .product-item-price{
+                position: absolute;
+                top: 26px;
+                right : 15px;
+                padding-right: 5px;
+                font-size: 20px;
+                letter-spacing: 0;
+                font-weight: bold;
+            }
+
+            /* 상품 테그 */
+            .product-item-tag{
+                padding-left: 5px;
+                padding-top: 13px;
+            }
+
+            /* 상품 등록 날짜 */
+            .product-item-ptime{
+                position: absolute;
+                top: 2px;
+                right: 5px;
+
+                font-size: 13px;
+                letter-spacing: -0.6px;
+                font-weight: bold;
+                color: #919191;
+            }
+
+            /* =============================================================상품 목록 틀 */
+    </style>
+
+</head>
+<body>
+    <div id="wepper">
+
+        <!--  header fragment      -->
+        <div th:replace="fragments/header_v1 :: headerFragment_menubar" />
+
+        <!-- 바디 메인 섹션 -->
+        <div id="wepper_section">
+            <!-- 바디 메인 -->
+            <div class="main-section">
+                <!-- 바디 메인 -->
+                <div class="main-section-area">
+
+                    <!-- 바디 메인 최상단 -->
+                    <div class="search-result-box">
+                        <div class="search-result-tep product-result-tep">전체 검색 결과</div>
+
+                        <div class="search-result" id="result-product">
+
+                        </div>
+
+                    </div>
+
+                    <div class="search-result-box">
+                        <div class="search-result-tep tag-result-tep">테그 검색 결과</div>
+
+                        <div class="search-result" id="result-tag">
+
+                        </div>
+
+                    </div>
+
+                    <div class="search-result-box" id="result-board">
+                        <div class="search-result-tep board-result-tep">게시판 검색 결과</div>
+
+                        <div class="search-result">
+                            <div class="search-non">검색 결과가 없습니다.</div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+    const result_product_El = document.getElementById('result-product');
+    const result_tag_El = document.getElementById('result-tag');
+    const result_board_El = document.getElementById('result-board');
+
+    const initfunc = () => {
+        const getkey_El = document.querySelector('.search-input');
+
+        const searchKeyword = { "keyword": getkey_El.value };
+
+        axios.post('/search/list/product',searchKeyword,{ headers: { 'Content-Type': 'application/json' } })
+            .then(response=>{
+
+                if(response != null && response.data.length != 0){
+                    const productData = response.data;
+                    productData.forEach(data => {CreateList_product(data)});
+                }else{
+                    var search_non_El = document.createElement('div');
+                    search_non_El.className = "search-non";
+                    search_non_El.textContent = "검색 결과가 없습니다.";
+                    result_product_El.appendChild(search_non_El);
+                }
+
+            })
+            .catch(error=>console.log(error));
+
+        axios.post('/search/list/tag',searchKeyword,{ headers: { 'Content-Type': 'application/json' } })
+            .then(response=>{
+
+                if(response != null && response.data.length != 0){
+                    const productData = response.data;
+                    productData.forEach(data => {CreateList_tag(data)});
+                }else{
+                    var search_non_El = document.createElement('div');
+                    search_non_El.className = "search-non";
+                    search_non_El.textContent = "검색 결과가 없습니다.";
+                    result_tag_El.appendChild(search_non_El);
+                }
+
+            })
+            .catch(error=>console.log(error));
+
+    }
+    initfunc();
+
+        const CreateList_product = (data)=>{
+
+        //상품 아이템
+        var product_item_El = document.createElement('div');
+        product_item_El.className = "product-item";
+
+        //상품 아이템 왼쪽
+        var product_item_left_El = document.createElement('div')
+        product_item_left_El.className = "product-item-left";
+
+        //상품이미지
+        var product_img_El = document.createElement('img')
+        product_img_El.className = "product-img";
+        product_img_El.src = data.prodimagepaths[0];
+
+
+        //상품 아이템 중앙
+        var product_item_center_El = document.createElement('div')
+        product_item_center_El.className = "product-item-center";
+
+        //상품 아이템 타이틀 틀
+        var product_item_title_El = document.createElement('div')
+        product_item_title_El.className = "product-item-title";
+
+        //상품 아이템 번호
+        var product_item_code_num_El = document.createElement('div')
+        product_item_code_num_El.className = "product-item-code-num";
+        product_item_code_num_El.textContent = data.prodcode;
+
+        //상품 아이템 제목
+        var product_item_name_El = document.createElement('a')
+        product_item_name_El.className = "product-item-name";
+        product_item_name_El.textContent = data.prodname;
+        product_item_name_El.href = "/product/get/"+data.prodcode;
+
+        //상품 아이템 설명
+        var product_item_info_El = document.createElement('div');
+        product_item_info_El.className = "product-item-info";
+        product_item_info_El.textContent = data.prodcontext;
+
+        //상품 아이템 테그
+        var product_item_tag_El = document.createElement('div');
+        product_item_tag_El.className = "product-item-tag";
+        product_item_tag_El.textContent = data.prodtags;
+
+        //상품 아이템 오른쪽
+        var product_item_right_El = document.createElement('div');
+        product_item_right_El.className = "product-item-right";
+
+        //상품 아이템 날짜
+        var product_item_ptime_El = document.createElement('div');
+        product_item_ptime_El.className = "product-item-ptime";
+        product_item_ptime_El.textContent = data.prodtime;
+
+        //상품 아이템 가격
+        var product_item_price_El = document.createElement('div');
+        product_item_price_El.className = "product-item-price";
+        product_item_price_El.textContent = data.prodprice+"원";
+
+        //생성한 테그들을 서로 연결
+        product_item_El.appendChild(product_item_left_El);
+        product_item_El.appendChild(product_item_center_El);
+        product_item_El.appendChild(product_item_right_El);
+
+        product_item_left_El.appendChild(product_img_El);
+
+        product_item_center_El.appendChild(product_item_title_El);
+
+        product_item_title_El.appendChild(product_item_code_num_El);
+        product_item_title_El.appendChild(product_item_name_El);
+        //product_item_title_El.appendChild(product_tooltip_icon_El);
+
+        product_item_center_El.appendChild(product_item_info_El);
+        product_item_center_El.appendChild(product_item_tag_El);
+
+        product_item_right_El.appendChild(product_item_ptime_El);
+        product_item_right_El.appendChild(product_item_price_El);
+        //product_item_right_El.appendChild(product_itme_into_cart_El);
+
+        result_product_El.appendChild(product_item_El);
+
+    }
+
+    const CreateList_tag = (data)=>{
+
+        //상품 아이템
+        var product_item_El = document.createElement('div');
+        product_item_El.className = "product-item";
+
+        //상품 아이템 왼쪽
+        var product_item_left_El = document.createElement('div')
+        product_item_left_El.className = "product-item-left";
+
+        //상품이미지
+        var product_img_El = document.createElement('img')
+        product_img_El.className = "product-img";
+        product_img_El.src = data.prodimagepaths[0];
+
+
+        //상품 아이템 중앙
+        var product_item_center_El = document.createElement('div')
+        product_item_center_El.className = "product-item-center";
+
+        //상품 아이템 타이틀 틀
+        var product_item_title_El = document.createElement('div')
+        product_item_title_El.className = "product-item-title";
+
+        //상품 아이템 번호
+        var product_item_code_num_El = document.createElement('div')
+        product_item_code_num_El.className = "product-item-code-num";
+        product_item_code_num_El.textContent = data.prodcode;
+
+        //상품 아이템 제목
+        var product_item_name_El = document.createElement('a')
+        product_item_name_El.className = "product-item-name";
+        product_item_name_El.textContent = data.prodname;
+        product_item_name_El.href = "/product/get/"+data.prodcode;
+
+        //상품 아이템 설명
+        var product_item_info_El = document.createElement('div');
+        product_item_info_El.className = "product-item-info";
+        product_item_info_El.textContent = data.prodcontext;
+
+        //상품 아이템 테그
+        var product_item_tag_El = document.createElement('div');
+        product_item_tag_El.className = "product-item-tag";
+        product_item_tag_El.textContent = data.prodtags;
+
+        //상품 아이템 오른쪽
+        var product_item_right_El = document.createElement('div');
+        product_item_right_El.className = "product-item-right";
+
+        //상품 아이템 날짜
+        var product_item_ptime_El = document.createElement('div');
+        product_item_ptime_El.className = "product-item-ptime";
+        product_item_ptime_El.textContent = data.prodtime;
+
+        //상품 아이템 가격
+        var product_item_price_El = document.createElement('div');
+        product_item_price_El.className = "product-item-price";
+        product_item_price_El.textContent = data.prodprice+"원";
+
+        //생성한 테그들을 서로 연결
+        product_item_El.appendChild(product_item_left_El);
+        product_item_El.appendChild(product_item_center_El);
+        product_item_El.appendChild(product_item_right_El);
+
+        product_item_left_El.appendChild(product_img_El);
+
+        product_item_center_El.appendChild(product_item_title_El);
+
+        product_item_title_El.appendChild(product_item_code_num_El);
+        product_item_title_El.appendChild(product_item_name_El);
+        //product_item_title_El.appendChild(product_tooltip_icon_El);
+
+        product_item_center_El.appendChild(product_item_info_El);
+        product_item_center_El.appendChild(product_item_tag_El);
+
+        product_item_right_El.appendChild(product_item_ptime_El);
+        product_item_right_El.appendChild(product_item_price_El);
+        //product_item_right_El.appendChild(product_itme_into_cart_El);
+
+        result_tag_El.appendChild(product_item_El);
+
+    }
+
+</script>
+</body>
+</html>

@@ -31,31 +31,36 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler{
 
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		String provider = principalDetails.getUser().getProvider();
-		if(StringUtils.contains(provider,"kakao"))
-		{
-			System.out.println("GET /th/kakao/logoutWithKakao");
-			//URL
-			String url = "https://kauth.kakao.com/oauth/logout?client_id="+kakaoClientId+"&logout_redirect_uri="+LOGOUT_REDIRECT_URI;
-			response.sendRedirect(url);
-			return ;
-		}
-		else if(StringUtils.contains(provider,"google"))
-		{
-			String url = "https://accounts.google.com/Logout";
-			response.sendRedirect(url);
-			return;
+		if(!(provider == null)){
+
+			if(StringUtils.contains(provider,"kakao"))
+			{
+				System.out.println("GET /th/kakao/logoutWithKakao");
+				//URL
+				String url = "https://kauth.kakao.com/oauth/logout?client_id="+kakaoClientId+"&logout_redirect_uri="+LOGOUT_REDIRECT_URI;
+				response.sendRedirect(url);
+				return ;
+			}
+			else if(StringUtils.contains(provider,"google"))
+			{
+				String url = "https://accounts.google.com/Logout";
+				response.sendRedirect(url);
+				return;
+
+			}
+			else if(StringUtils.contains(provider,"naver"))
+			{
+				String url = "http://nid.naver.com/nidlogin.logout";
+				response.sendRedirect(url);
+				return ;
+			}
+
 
 		}
-		else if(StringUtils.contains(provider,"naver"))
-		{
-			String url = "http://nid.naver.com/nidlogin.logout";
-			response.sendRedirect(url);
-			return ;
-		}
 
 
 
-		response.sendRedirect("/user/login");
+		response.sendRedirect("/");
 	}
 
 }

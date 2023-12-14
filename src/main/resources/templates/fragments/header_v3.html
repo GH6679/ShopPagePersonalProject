@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:fragment="headerFragment_simple">
+
+    <div class="main-header">
+        <style>
+
+
+        </style>
+
+        <!-- 바디 헤더 최상단 그룹 -->
+        <div th:replace="fragments/headerpart/header_part_main/header_part_main_top :: headerFragment_part_main_top" />
+
+
+        <script>
+            //간단한 메인페이지 리다이렉트 함수
+            function redirectToPage() {
+            window.location.href = '/product/index';
+            }
+
+
+        </script>
+    </div>
+
+
+</header>
+</body>
+</html>

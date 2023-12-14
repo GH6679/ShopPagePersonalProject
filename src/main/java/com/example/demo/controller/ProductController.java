@@ -38,6 +38,9 @@ public class ProductController {
         return "product/index";
     }
 
+    //================================================================
+    //상품 등록
+    //================================================================
     @GetMapping("/set")
     public void product_set() {
         log.info("GET /product/set...");
@@ -46,12 +49,16 @@ public class ProductController {
     @PostMapping("/set")
     public String product_post(ProductDto dto, @RequestParam("files") MultipartFile[] files) throws IOException {
 
+        log.info("확인용"+dto);
         productService.setProduct(dto,files);
 
         return "redirect:/product/index";
     }
 
 
+    //================================================================
+    //상품 상세 보기
+    //================================================================
     @GetMapping("/get/{no}")
     public String product_get(@PathVariable Long no, Model model) throws IOException {
 
@@ -126,6 +133,9 @@ public class ProductController {
 
     }
 
+    //================================================================
+    //상품 정보 수정
+    //================================================================
 
     @GetMapping("/update")
     public String product_update(Long no,Model model) throws IOException {
@@ -201,8 +211,9 @@ public class ProductController {
 
     }
 
-
-
+    //================================================================
+    //키워드 등록
+    //================================================================
     @GetMapping("/keyword/set")
     public void product_keyword() {
 

@@ -1,10 +1,12 @@
 package com.example.demo.domain.dto;
 
+import com.example.demo.domain.entity.converters.ProductStringArrayConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Convert;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,6 +18,8 @@ public class ProductDto {
     private String prodtype;
     private String prodname;
     private LocalDateTime prodtime;
+    private Long prodprice;
+    private String[] prodtags;
 
     private String prodcontext;
     private String[] prodexplains;

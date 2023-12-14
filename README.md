@@ -151,18 +151,22 @@ https://shields.io/
 |------|---|---|
 |/product/index|GET|메인 페이지 이동|
 |/product/list|POST|상품 목록 호출|
+|--------|----|---------|
 |/product/set|GET|상품 등록 페이지 이동|
 |/product/set|POST|상품 등록|
 |/product/get/{no}|GET|상품 상세보기 페이지 이동|
 |/product/update|GET|상품 수정 페이지 이동|
 |/product/delete/{no}|DELETE|상품 삭제|
 |/product/update/{no}|PUT|상품 수정|
+|--------|----|---------|
 |/product/keyword/set|GET|키워드 동록 페이지 이동|
 |/product/keyword/set|POST|키워드 동록|
 |/product/keyword/delete/{no}|DELETE|키워드 삭제|
 |/product/keyword/update|PUT|키워드 수정|
+|--------|----|---------|
 |/search/find|GET|상품 전체 검색 페이지 이동|
 |/search/find|POST|상품 전체 검색|
+|--------|----|---------|
 |/user/login|GET|로그인 페이지 이동|
 |/user/logout|GET|로그아웃|
 |/user/join|GET|회원가입 페이지 이동|

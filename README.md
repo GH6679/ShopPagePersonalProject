@@ -1,4 +1,4 @@
-09PROJECTPLAN
+ShopPagePersonalProject
 =
 
 ## ▶️ 개발 동기

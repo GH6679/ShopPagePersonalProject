@@ -31,6 +31,11 @@ ShopPagePersonalProject
 ##### -판매자 도는 관리자 일경우 메인화면 유저 메뉴에서 상품등록 가능
 ##### -상품 등록시 제목 , 설명 , 사진등록 및 메인사진 선택 , 상품타입 선택 , 상품 테그 선택 , 가격 등록가능
 
+#### =상품 키워드=
+
+##### -등록된 키워드가 상품의 제목 , 테그 와 일치할 경우 메인 페이지 상품 목록의 ! 아이콘에 마우스를 올리면 등록된 키워드의 설명을 보여주는 기능입니다.
+##### -키워드 등록 페이지에서 키워드 등록 , 수정 ,삭제를 할수있습니다.
+
 #### =메인 검색=
 
 ##### -최상단 검색바로 상품 검색가능,
@@ -144,9 +149,35 @@ https://shields.io/
 
 |END POINT|METHOD|DESCRIPTION|
 |------|---|---|
-|/product/list|GET|상품 목록표시|
+|/product/index|GET|메인 페이지 이동|
+|/product/list|POST|상품 목록 호출|
+
+|/product/set|GET|상품 등록 페이지 이동|
 |/product/set|POST|상품 등록|
-|/product/keyword|POST|상품 설명용 키워드 등록|
+|/product/get/{no}|GET|상품 상세보기 페이지 이동|
+|/product/update|GET|상품 수정 페이지 이동|
+|/product/delete/{no}|DELETE|상품 삭제|
+|/product/update/{no}|PUT|상품 수정|
+
+
+|/product/keyword/set|GET|키워드 동록 페이지 이동|
+|/product/keyword/set|POST|키워드 동록|
+|/product/keyword/delete/{no}|DELETE|키워드 삭제|
+|/product/keyword/update|PUT|키워드 수정|
+
+
+|/search/find|GET|상품 전체 검색 페이지 이동|
+|/search/find|POST|상품 전체 검색|
+
+|/user/login|GET|로그인 페이지 이동|
+|/user/logout|GET|로그아웃|
+|/user/join|GET|회원가입 페이지 이동|
+|/user/join|POST|회원가입|
+|/user/auth/email/{username}|GET|메일 인증 발송|
+|/user/auth/confirm/{code}|GET|메일 인증 확인|
+
+
+
 <br/>
 
 

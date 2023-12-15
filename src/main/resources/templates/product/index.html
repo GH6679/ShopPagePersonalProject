@@ -625,6 +625,8 @@
                     setTooltips();
                     //카트 '담기' 버튼 활성화
                     intocart();
+                    // 장바구니 호출
+                    listcart();
 
                 }
 
@@ -632,8 +634,7 @@
             })
             .catch(error => console.log(error));
 
-        // 장바구니 호출
-        listcart();
+
 
     }
 
@@ -834,19 +835,16 @@
     //상품목록에서 장바구니에 이미 있는 상품의 담기버튼 비활성화
     const hideproductbtn = () => {
 
+        console.log("장바구니 담기버튼 제어")
         const product_item_right_El = document.querySelectorAll('.product-item-right');
         const cart_itme_out_El = document.querySelectorAll('.cart-itme-out');
-
-        //초기화
-        const product_into_all = document.querySelectorAll('product-itme-into-cart');
-        const product_out_all = document.querySelectorAll('product-itme-out-cart');
-        product_into_all.forEach(item => { item.style.visibility = 'visible'; })
-        product_out_all.forEach(item => { item.style.visibility = 'hidden'; })
 
         product_item_right_El.forEach((productitem, productindex) => {
 
             const productitem_into_cart_El = productitem.querySelector('.product-itme-into-cart');
             const productitem_out_cart_El = productitem.querySelector('.product-itme-out-cart');
+            productitem_into_cart_El.style.visibility = 'visible';
+            productitem_out_cart_El.style.visibility = 'hidden';
 
             cart_itme_out_El.forEach(cartitem => {
 

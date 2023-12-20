@@ -435,18 +435,6 @@
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                             <!-- Slides -->
-                            <div class="swiper-slide">Slide 1</div>
-                            <div class="swiper-slide">Slide 2</div>
-                            <div class="swiper-slide">Slide 3</div>
-                            <div class="swiper-slide">Slide 4</div>
-                            <div class="swiper-slide">Slide 5</div>
-                            <div class="swiper-slide">Slide 6</div>
-                            <div class="swiper-slide">Slide 7</div>
-                            <div class="swiper-slide">Slide 8</div>
-                            <div class="swiper-slide">Slide 9</div>
-                            <div class="swiper-slide">Slide 10</div>
-                            <div class="swiper-slide">Slide 11</div>
-                            <div class="swiper-slide">Slide 12</div>
 
                         </div>
                         <!-- If we need pagination -->
@@ -476,12 +464,12 @@
                             <div class="product-search-option-box">
                                 <!-- 상품 검색 옵션 최상단 -->
                                 <!-- <div class="search-option-top">
-                        CPU
-                    </div> -->
+                    CPU
+                </div> -->
                                 <!-- 상품 검색 옵션 목록 -->
                                 <!-- <div class="search-option-list">
 
-                    </div> -->
+                </div> -->
 
                             </div>
                             <!-- ======================================================================================== -->
@@ -589,6 +577,25 @@
     const username = /*[[${#authentication.name}]]*/ {};
     //============================================================
 
+    //스와이퍼 컨텐츠=============================================
+    const swiperitem = [0,
+        //이미지 ,              링크
+        "/img/game_img_1.jpg", "#",
+        "/img/game_img_2.jpg", "#",
+        "/img/game_img_1.jpg", "#",
+        "/img/game_img_1.jpg", "#",
+        "/img/game_img_1.jpg", "#",
+        "/img/game_img_1.jpg", "#",
+        "/img/game_img_1.jpg", "#",
+        "/img/game_img_2.jpg", "#",
+        "/img/game_img_1.jpg", "#",
+        "/img/game_img_1.jpg", "#",
+        "/img/game_img_1.jpg", "#",
+        "/img/game_img_1.jpg", "#"
+
+    ];
+    //============================================================
+
     //============================================================
     //메인페이지 로드시 실행한 디폴트 설정들
     //============================================================
@@ -611,6 +618,9 @@
 
         product_search_option_box_el.appendChild(cpu_El);
         product_search_option_box_el.appendChild(cpu_option_El);
+
+        //스와이퍼 등록
+        setSwiperContent();
 
         //상품 리스트 불러오기
         axios.get('/product/list')
@@ -1268,40 +1278,86 @@
         })
     })
 
-    //====================================================================
-    // 스와이퍼 설정
-    //====================================================================
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
 
-        autoplay: {
-            delay: 3000,
-        },
 
-        // 보여지는 슬라이드 개수
-        slidesPerView: 5,
+    const setSwiperContent = () => {
 
-        // 한 번에 움직일 슬라이드 개수
-        slidesPerGroup: 1,
+        const swiper_wrapper_El = document.querySelector('.swiper-wrapper');
+        let indexNum = 0;
 
-        // 적응형(swipe to fill) 모드 비활성화하면 지정된 slidesPerView대로만 표시됩니다.
-        spaceBetween: 10, // 옵션: 슬라이드 사이 간격(픽셀)
+        swiperitem.forEach((item, index) => {
 
-        // If we need pagination
-        // pagination: {
-        //     el: '.swiper-pagination',
-        // },
-        // And if we need scrollbar
-        scrollbar: {
-            el: '.swiper-scrollbar',
-        },
+            if (index === 0) {
+                //0번 인덱스는 버림
 
-    });
+            } else if (index % 2 === 0 && !(index === 0)) {
+                //링크 경로 (짝수번)
+                const swiper_item_El = document.querySelectorAll('.swiper-slide')
+                swiper_item_El.forEach((swiperitem) => {
+
+                    if (swiperitem.getAttribute('index') == indexNum) {
+                        //console.log('스와이퍼에 링크 삽입'+swiperitem.getAttribute('index')+'to'+indexNum);
+                        swiperitem.href = item;
+                    }
+
+                })
+
+            } else {
+                //이미지 경로 (홀수번)
+                var swiper_item_El = document.createElement('a');
+                swiper_item_El.className = 'swiper-slide';
+                swiper_item_El.setAttribute('index', index)
+
+                var swiper_item_img_El = document.createElement('img');
+                swiper_item_img_El.src = item;
+
+                swiper_item_El.appendChild(swiper_item_img_El);
+                swiper_wrapper_El.appendChild(swiper_item_El);
+                indexNum = index;
+
+            }
+
+        });
+
+
+        //====================================================================
+        // 스와이퍼 설정
+        //====================================================================
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+
+            autoplay: {
+                delay: 3000,
+            },
+
+            // 보여지는 슬라이드 개수
+            slidesPerView: 5,
+
+            // 한 번에 움직일 슬라이드 개수
+            slidesPerGroup: 1,
+
+            // 적응형(swipe to fill) 모드 비활성화하면 지정된 slidesPerView대로만 표시됩니다.
+            spaceBetween: 10, // 옵션: 슬라이드 사이 간격(픽셀)
+
+            // If we need pagination
+            // pagination: {
+            //     el: '.swiper-pagination',
+            // },
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+
+        });
+
+    }
 
     //메인페이지 로드시 실행할 디폴트 설정들 실행
     initfunc();
+
+
 
 </script>
 

@@ -75,7 +75,7 @@
                         </select>
                     </div>
                     <div>
-                        <label for="form-tags">분류</label>
+                        <label for="form-tags">분류 테그</label>
                         <div id="form-tags">
 
                         </div>
@@ -122,116 +122,137 @@
     //상품 테그 위치
     const tags_El = document.getElementById('form-tags');
 
-    const init = () => {
+    //검색 테그 ==========================================================
+    //타입별 생성 테그 입력 ('%n' 은 줄변경)
 
-        const tag = ['AMD', 'intel', '3세대', '4세대', '5세대'];
+    //cpu 테그
+    const tag_cpu = [
+
+        //제조사
+        'AMD', 'intel', '%n',
+        //제조사2
+        '라이젠', '인텔', '%n',
+        //세대
+        '3세대', '4세대', '5세대', '6세대', '7세대', '8세대', '9세대', '10세대', '11세대', '12세대', '13세대', '14세대', '%n',
+        //소켓
+        '인텔(소켓1700)', '인텔(소켓1200)', 'AMD(소켓AM5)', 'AMD(소켓AM4)', '%n',
+        //제조 공정
+        '5nm', '7mm', '10mm', '12mm', '14mm', '%n',
+        //코어 수
+        '2코어', '4코어', '6코어', '8코어', '10코어', '12코어', '%n',
+        //쓰레드 수
+        '2쓰레드', '4쓰레드', '6쓰레드', '8쓰레드', '10쓰레드', '12쓰레드'
+
+    ];
+    //메인보드 테그
+    const tag_motherboard = [
+
+        //제조사
+        'MSI', 'ASUS', 'ASRock', 'GIGABYTE', 'ECS', '%n',
+        //제품 분류
+        '인텔 CPU용', 'AMD CPU용', '임베디드', '주변기기', '%n',
+        //cpu 소켓
+        '인텔(소켓1700)', '인텔(소켓1200)', 'AMD(소켓AM5)', 'AMD(소켓AM4)', 'AMD(소켓sTRX4)', '%n',
+        //세부 칩셋
+        '인텔 B760', '인텔 B660', '인텔 H610', 'AMD B650', 'AMD A620', '%n',
+        //폼펙터
+        'ATX (30.5x24.4cm)', 'M-ATX (24.4x24.4c', 'M-iTX (17.0x17.0c', 'E-ATX (30.5x33.0c', 'EEB (30.5x33.0cm)', '%n',
+        //전원부
+        '28페이즈', '27페이즈', '25페이즈', '24페이즈', '23페이즈', '%n',
+        //Vcore출력합계
+        '2501~ A', '2001~2500 A', '1501~2000 A', '1001~1500 A', '501~1000 A'
+
+    ];
+    //메모리 테그
+    const tag_memory = [
+
+        '삼성전자', '마이크론', 'G.SKILL', 'TeamGroup', '이메이션', '%n',
+        '데스크탑용', '노트북용', '서버용', '%n',
+        'DDR5', 'DDR4', 'DDR3', 'DDR2', 'DDR', '%n',
+        '64GB', '32GB', '16GB', '8GB', '4GB', '2GB', '1GB', '512MB', '256MB'
+
+    ];
+    //그레픽카드 테그
+    const tag_gpu = [
+
+        '테스트', '테스트', '테스트'
+
+    ];
+    //SSE 테그
+    const tag_ssd = [
+
+        '테스트', '테스트', '테스트'
+
+    ];
+    //HDD 테그
+    const tag_hdd = [
+
+        '테스트', '테스트', '테스트'
+
+    ];
+    //본체 테그
+    const tag_case = [
+
+        '테스트', '테스트', '테스트'
+
+    ];
+    //파워 테그
+    const tag_power = [
+
+        '테스트', '테스트', '테스트'
+
+    ];
+
+    //================================================
+
+    //====================================================================
+    //테그 생성기
+    //====================================================================
+    const genTags = (tag) => {
 
         for (let i = 0; i < tag.length; i++) {
-            var option_label_El = document.createElement('label')
-            option_label_El.className = 'tag-labels'
-            // option_label_El.textContent = tag[i];
 
-            var textNode_El = document.createTextNode(tag[i]);
+            if (tag[i] === '%n') { //%n 이 입력될시 줄변경
 
-            var option_El = document.createElement('input')
-            option_El.setAttribute('type', 'checkbox');
-            option_El.setAttribute('name', 'prodtags');
-            option_El.setAttribute('value', tag[i]);
+                var br_El = document.createElement('br');
+                tags_El.appendChild(br_El);
+
+            } else {
+
+                var option_label_El = document.createElement('label')
+                option_label_El.className = 'tag-labels'
+                // option_label_El.textContent = tag[i];
+
+                var textNode_El = document.createTextNode(tag[i]);
+
+                var option_El = document.createElement('input')
+                option_El.setAttribute('type', 'checkbox');
+                option_El.setAttribute('name', 'prodtags');
+                option_El.setAttribute('value', tag[i]);
 
 
-            option_label_El.appendChild(option_El);
-            option_label_El.appendChild(textNode_El);
-            tags_El.appendChild(option_label_El);
+                option_label_El.appendChild(option_El);
+                option_label_El.appendChild(textNode_El);
+                tags_El.appendChild(option_label_El);
+
+            }
+
+
 
         }
+    }
+
+    //디폴트 설정
+    const init = () => {
+
+        createTags('cpu');
 
     }
 
-    init();
+
 
     //상품 태그 생성기
     const createTags = (settype) => {
-
-        console.log('settype = '+typeof settype);
-
-        //================================================
-        //타입별 생성 테그 입력
-
-        //cpu 테그
-        const tag_cpu = [
-
-            'AMD', 'intel',
-            '3세대', '4세대', '5세대' ,'6세대' ,'7세대' ,'8세대' ,'9세대', '10세대' ,'11세대' ,'12세대' ,'13세대' ,'14세대',
-            '라이젠','소켓1700','소켓1200'
-
-
-        ];
-        //메인보드 테그
-        const tag_motherboard = [
-
-            '테스트','테스트','테스트'
-
-        ];
-        //메모리 테그
-        const tag_memory = [
-
-            '테스트','테스트','테스트'
-
-        ];
-        //그레픽카드 테그
-        const tag_gpu = [
-
-            '테스트','테스트','테스트'
-
-        ];
-        //SSE 테그
-        const tag_ssd = [
-
-            '테스트','테스트','테스트'
-
-        ];
-        //HDD 테그
-        const tag_hdd = [
-
-            '테스트','테스트','테스트'
-
-        ];
-        //본체 테그
-        const tag_case = [
-
-            '테스트','테스트','테스트'
-
-        ];
-        //파워 테그
-        const tag_power = [
-
-            '테스트','테스트','테스트'
-
-        ];
-
-        //================================================
-
-        const genTags = (tag) =>{
-
-            for (let i = 0; i < tag.length; i++) {
-                    var option_label_El = document.createElement('label')
-                    option_label_El.className = 'tag-labels'
-                    // option_label_El.textContent = tag[i];
-
-                    var textNode_El = document.createTextNode(tag[i]);
-
-                    var option_El = document.createElement('input')
-                    option_El.setAttribute('type', 'checkbox');
-                    option_El.setAttribute('name', 'prodtags');
-                    option_El.setAttribute('value', tag[i]);
-
-
-                    option_label_El.appendChild(option_El);
-                    option_label_El.appendChild(textNode_El);
-                    tags_El.appendChild(option_label_El);
-
-        }
-    }
 
         switch (settype) {
 
@@ -265,7 +286,7 @@
 
 
 
-}
+    }
 
     //타입이 선택될때 그에맞는 테그들을 생성
     typeSelect_El.addEventListener('change', function () {
@@ -493,7 +514,7 @@
     };
 
 
-
+    init();
 
 </script>
 

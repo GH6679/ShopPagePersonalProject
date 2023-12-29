@@ -6,9 +6,11 @@ import com.example.demo.domain.entity.Cart;
 import com.example.demo.domain.entity.Product;
 import com.example.demo.domain.entity.ProductKeyword;
 import com.example.demo.domain.entity.User;
+import com.example.demo.domain.entity.converters.ProductStringArrayConverter;
 import com.example.demo.domain.repository.CartRepository;
 import com.example.demo.domain.repository.ProductKeywordRepository;
 import com.example.demo.domain.repository.ProductRepository;
+import com.example.demo.domain.repository.util.ProductSpecifications;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,9 +80,9 @@ public class ProductService {
     //================================================================================================
     //상품 목록을 불러오는 서비스
     //================================================================================================
-    public List<ProductDto> getProductList(){
+    public List<ProductDto> getProductList(String prodtype,List<String>prodtags){
 
-        List<Product> allProducts = productRepository.findByProductLists();
+        List<Product> allProducts = productRepository.findAll(ProductSpecifications.productContainsAllKeywordsAndTag(prodtags,prodtype));
 
         List<ProductDto> returnList = new ArrayList<ProductDto>();
         ProductDto dto = null;

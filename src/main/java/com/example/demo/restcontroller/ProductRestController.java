@@ -26,9 +26,12 @@ public class ProductRestController {
     //상품 목록 출력
     //================================================================
     @GetMapping("/list")
-    public List<ProductDto> product_list() throws IOException {
+    public List<ProductDto> product_list(@RequestParam String prodtype, @RequestParam List<String> prodtags) throws IOException {
+
+        System.out.println("상품 타입 : "+prodtype+" 검색 필터 : "+prodtags);
+
         //상품목록 을 불러온다.
-        List<ProductDto> listdto = productService.getProductList();
+        List<ProductDto> listdto = productService.getProductList(prodtype,prodtags);
         //키워드 목록을 불러온다.
         List<ProductKeywordDto> keydto = productService.getKeywordList();
 

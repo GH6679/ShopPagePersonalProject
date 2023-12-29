@@ -111,6 +111,8 @@
         }
 
         .search-option-list {
+            color: #0f0f0f;
+            font-weight: bold;
             padding: 9px 0;
         }
 
@@ -299,7 +301,7 @@
         /* 장바구니 */
         /* ========================================================================== */
         .cart-area {
-            height: 1586;
+            height: 1586px;
             width: 403px;
 
             margin-left: 12px;
@@ -313,11 +315,10 @@
         .cart-box {
             border: 1px solid #C4C4C4;
             position: sticky;
-            top: 0;
+            top: 10px;
         }
 
         .product-cart {
-
 
             width: 393px;
             height: 595px;
@@ -411,6 +412,17 @@
         .cart-item-price {}
 
         .cart-itme-out {}
+
+        /* ========================================================================== */
+        /* 스와이퍼 설정 */
+        /* ========================================================================== */
+        /* 스와이퍼 이미지 */
+        .swiper-img {
+
+            width: 255px;
+            height: 119px;
+
+        }
     </style>
 
 </head>
@@ -464,12 +476,12 @@
                             <div class="product-search-option-box">
                                 <!-- 상품 검색 옵션 최상단 -->
                                 <!-- <div class="search-option-top">
-                    CPU
-                </div> -->
+                                CPU
+                            </div> -->
                                 <!-- 상품 검색 옵션 목록 -->
                                 <!-- <div class="search-option-list">
 
-                </div> -->
+                            </div> -->
 
                             </div>
                             <!-- ======================================================================================== -->
@@ -575,6 +587,10 @@
     const list_area_El = document.querySelector('.list-area');
     //유저 식별
     const username = /*[[${#authentication.name}]]*/ {};
+    //리스트를 불러올 상품의 타입 저장 변수
+    let listProdType = '';
+    //상품 리스트를 불러올때 필터링할 테그 저장 함수
+    let listPordtagsFliter = [];
     //============================================================
 
     //스와이퍼 컨텐츠=============================================
@@ -582,26 +598,147 @@
         //이미지 ,              링크
         "/img/game_img_1.jpg", "#",
         "/img/game_img_2.jpg", "#",
-        "/img/game_img_1.jpg", "#",
-        "/img/game_img_1.jpg", "#",
-        "/img/game_img_1.jpg", "#",
-        "/img/game_img_1.jpg", "#",
+        "/img/game_img_3.jpg", "#",
+        "/img/game_img_4.jpg", "#",
+        "/img/game_img_5.jpg", "#",
         "/img/game_img_1.jpg", "#",
         "/img/game_img_2.jpg", "#",
+        "/img/game_img_3.jpg", "#",
+        "/img/game_img_4.jpg", "#",
+        "/img/game_img_5.jpg", "#",
         "/img/game_img_1.jpg", "#",
-        "/img/game_img_1.jpg", "#",
-        "/img/game_img_1.jpg", "#",
-        "/img/game_img_1.jpg", "#"
+        "/img/game_img_2.jpg", "#"
 
     ];
     //============================================================
+
+    //검색 테그 ==========================================================
+    //타입별 생성 테그 입력 ('%n' 은 줄변경)
+
+    //cpu 테그
+    const tag_cpu = [
+
+        //제조사
+        'AMD', 'intel', '%n',
+        //제조사2
+        '라이젠', '인텔', '%n',
+        //세대
+        '3세대', '4세대', '5세대', '6세대', '7세대', '8세대', '9세대', '10세대', '11세대', '12세대', '13세대', '14세대', '%n',
+        //소켓
+        '인텔(소켓1700)', '인텔(소켓1200)', 'AMD(소켓AM5)', 'AMD(소켓AM4)', '%n',
+        //제조 공정
+        '5nm', '7mm', '10mm', '12mm', '14mm', '%n',
+        //코어 수
+        '2코어', '4코어', '6코어', '8코어', '10코어', '12코어', '%n',
+        //쓰레드 수
+        '2쓰레드', '4쓰레드', '6쓰레드', '8쓰레드', '10쓰레드', '12쓰레드'
+
+    ];
+    //메인보드 테그
+    const tag_motherboard = [
+
+        //제조사
+        'MSI', 'ASUS', 'ASRock', 'GIGABYTE', 'ECS', '%n',
+        //제품 분류
+        '인텔 CPU용', 'AMD CPU용', '임베디드', '주변기기', '%n',
+        //cpu 소켓
+        '인텔(소켓1700)', '인텔(소켓1200)', 'AMD(소켓AM5)', 'AMD(소켓AM4)', 'AMD(소켓sTRX4)', '%n',
+        //세부 칩셋
+        '인텔 B760', '인텔 B660', '인텔 H610', 'AMD B650', 'AMD A620', '%n',
+        //폼펙터
+        'ATX (30.5x24.4cm)', 'M-ATX (24.4x24.4c', 'M-iTX (17.0x17.0c', 'E-ATX (30.5x33.0c', 'EEB (30.5x33.0cm)', '%n',
+        //전원부
+        '28페이즈', '27페이즈', '25페이즈', '24페이즈', '23페이즈', '%n',
+        //Vcore출력합계
+        '2501~ A', '2001~2500 A', '1501~2000 A', '1001~1500 A', '501~1000 A'
+
+    ];
+    //메모리 테그
+    const tag_memory = [
+
+        '삼성전자', '마이크론', 'G.SKILL', 'TeamGroup', '이메이션', '%n',
+        '데스크탑용', '노트북용', '서버용', '%n',
+        'DDR5', 'DDR4', 'DDR3', 'DDR2', 'DDR', '%n',
+        '64GB', '32GB', '16GB', '8GB', '4GB', '2GB', '1GB', '512MB', '256MB'
+
+    ];
+    //그레픽카드 테그
+    const tag_gpu = [
+
+        '테스트', '테스트', '테스트'
+
+    ];
+    //SSE 테그
+    const tag_ssd = [
+
+        '테스트', '테스트', '테스트'
+
+    ];
+    //HDD 테그
+    const tag_hdd = [
+
+        '테스트', '테스트', '테스트'
+
+    ];
+    //본체 테그
+    const tag_case = [
+
+        '테스트', '테스트', '테스트'
+
+    ];
+    //파워 테그
+    const tag_power = [
+
+        '테스트', '테스트', '테스트'
+
+    ];
+
+    //================================================
+
+    //====================================================================
+    //테그 생성기
+    //====================================================================
+    const genTags = (tag, optionEl) => {
+
+        for (let i = 0; i < tag.length; i++) {
+
+            if (tag[i] === '%n') { //%n 이 입력될시 줄변경
+
+                var br_El = document.createElement('br');
+                optionEl.appendChild(br_El);
+
+            } else {
+
+                var option_label_El = document.createElement('label')
+                option_label_El.className = 'tag-labels'
+                // option_label_El.textContent = tag[i];
+
+                var textNode_El = document.createTextNode(tag[i]);
+
+                var option_El = document.createElement('input')
+                option_El.setAttribute('type', 'checkbox');
+                option_El.setAttribute('class', 'prodtags-checkbox');
+                option_El.setAttribute('name', 'prodtags');
+                option_El.setAttribute('value', tag[i]);
+
+
+                option_label_El.appendChild(option_El);
+                option_label_El.appendChild(textNode_El);
+                optionEl.appendChild(option_label_El);
+
+            }
+
+
+
+        }
+    }
 
     //============================================================
     //메인페이지 로드시 실행한 디폴트 설정들
     //============================================================
     const initfunc = () => {
 
-        //카트 디폴트 설정
+        //카트 디폴트 설정=================================================
         const cpu_item_defalut_El = document.querySelector('.citem-cpu');
         const cpu_prod_defalut_El = document.querySelector('.cprod-cpu');
 
@@ -616,19 +753,45 @@
         var cpu_option_El = document.createElement('div');
         cpu_option_El.className = 'search-option-list';
 
+        genTags(tag_cpu, cpu_option_El);
+
         product_search_option_box_el.appendChild(cpu_El);
         product_search_option_box_el.appendChild(cpu_option_El);
+
+        //리스트를 불러올 상품타입 변경
+        listProdType = 'cpu';
+
+        //체크박스 이벤트 리스너
+        setSearchFilterListener();
+        //=================================================================
 
         //스와이퍼 등록
         setSwiperContent();
 
         //상품 리스트 불러오기
-        axios.get('/product/list')
+        getProdList();
+
+    }
+
+    //============================================================
+    //상품 리스트 불러오기
+    //============================================================
+    const getProdList = () => {
+
+        //서버 전송용으로 문자열로 변환
+        let lptfliterToQueryString = listPordtagsFliter.join(',');
+
+        axios.get('/product/list', { params: { prodtype: listProdType, prodtags: lptfliterToQueryString } })
             .then(response => {
                 console.log(response);
 
                 if (response != null) {
                     const productData = response.data;
+
+                    //기존 목록 제거
+                    const list_area_El = document.querySelector('.list-area');
+                    list_area_El.innerHTML = '';
+
                     productData.forEach(data => { CreateProductList(data) });
 
                     //툴팁 적용
@@ -644,13 +807,7 @@
             })
             .catch(error => console.log(error));
 
-
-
     }
-
-
-
-
 
     //============================================================
     //상품 목록 생성
@@ -765,7 +922,7 @@
         //상품 아이템 가격
         var product_item_price_El = document.createElement('div');
         product_item_price_El.className = "product-item-price";
-        product_item_price_El.textContent = data.prodprice + "원";
+        product_item_price_El.textContent = priceConverter(data.prodprice) + "원";
 
         //상품 아이템 장바구니 이동
         var product_itme_into_cart_El = document.createElement('button');
@@ -959,7 +1116,7 @@
             //장바구니 상품 아이템 가격
             var cart_item_price_El = document.createElement('div');
             cart_item_price_El.className = "cart-item-price";
-            cart_item_price_El.textContent = proddata.prodprice + "원";
+            cart_item_price_El.textContent = priceConverter(proddata.prodprice) + "원";
 
             //장바구니 상품 아이템 제거
             var cart_itme_out_cart_El = document.createElement('button');
@@ -1037,29 +1194,34 @@
         intocartbtn_El = document.querySelectorAll('.product-itme-into-cart');
         intocartbtn_El.forEach((item) => {
 
-            item.addEventListener('click', function () {
+            // 이벤트 리스너가 이미 추가되었는지 확인
+            if (!item.hasEventListener) {
 
-                if (username != "anonymousUser") {
+                item.addEventListener('click', function () {
 
-                    let pcode = item.getAttribute('prod-code');
+                    if (username != "anonymousUser") {
 
-                    const intodata = { "prodcode": pcode, "username": username }
+                        let pcode = item.getAttribute('prod-code');
 
-                    axios.post("/product/intocart", intodata, { headers: { 'Content-Type': 'application/json' } })
-                        .then(response => {
+                        const intodata = { "prodcode": pcode, "username": username }
 
-                            // 장바구니 재호출
-                            listcart();
+                        axios.post("/product/intocart", intodata, { headers: { 'Content-Type': 'application/json' } })
+                            .then(response => {
 
-                        })
-                        .catch(error => console.log(error));
+                                // 장바구니 재호출
+                                listcart();
 
-                } else {
-                    alert("로그인 해주세요!")
-                }
+                            })
+                            .catch(error => console.log(error));
+
+                    } else {
+                        alert("로그인 해주세요!")
+                    }
 
 
-            });
+                });
+
+            } item.hasEventListener = true;
 
         });
 
@@ -1130,12 +1292,50 @@
 
     }
 
+    //====================================================================
+    //상품 테그 필터 옵션 선택
+    //====================================================================
+    const setSearchFilterListener = () => {
+
+        //생성된 모든 체크 박스를 찾는다
+        const prodtags_checkbox_El = document.querySelectorAll('.prodtags-checkbox');
+        prodtags_checkbox_El.forEach(item => {
+            //이벤트 리스너가 이미 등록돘는지 확인
+            if (!item.hasEventListener) {
+                //체크 박스 변경시
+                item.addEventListener('change', function () {
+                    //체크 박스가 체크되면
+                    if (item.checked) {
+                        //리스트 필터에 해당 체크박스이 값을 추가한다.
+                        listPordtagsFliter.push(item.value)
+                        //상품 리스트 불러오기
+                        getProdList();
+
+                        //체크 박스를 체크 헤제하면
+                    } else {
+                        //헤제된 체크박스의 값을 받는다.
+                        const valueToRemove = item.value;
+
+                        //받은 체크박스의 값과 동일한 값을 제거한 새로운 배열을 콜백함수로 내보낸다.
+                        listPordtagsFliter = listPordtagsFliter.filter(function (item) {
+                            return item !== valueToRemove;
+                        });
+                        //상품 리스트 불러오기
+                        getProdList();
+
+                    }
 
 
+                });
 
+            } item.hasEventListener = true;
+
+        })
+
+    }
 
     //====================================================================
-    //상품 검색 옵션
+    //상품 리스트 필터 옵션 생성
     //====================================================================
     citem_type_all_El.forEach((item, index) => {
         item.addEventListener('click', function () {
@@ -1145,14 +1345,8 @@
 
             //기존 옵션 제거
             product_search_option_box_el.innerHTML = '';
-
-            //태그 생성기
-            let customCreateElement = (tag, className) => {
-                var el = document.createElement(tag);
-                el.className = className;
-
-                return el;
-            }
+            //기존 필터 제거
+            listFliterKeywords = [];
 
             //옵션 생성
             if (item.classList.contains('citem-cpu')) {
@@ -1163,8 +1357,13 @@
                 var cpu_option_El = document.createElement('div');
                 cpu_option_El.className = 'search-option-list';
 
+                genTags(tag_cpu, cpu_option_El);
+
                 product_search_option_box_el.appendChild(cpu_El);
                 product_search_option_box_el.appendChild(cpu_option_El);
+
+                //리스트를 불러올 상품타입 변경
+                listProdType = 'cpu';
 
             } else if (item.classList.contains('citem-motherboard')) {
                 var motherboard_El = document.createElement('div');
@@ -1175,18 +1374,13 @@
                 var motherboard_option_El = document.createElement('div');
                 motherboard_option_El.className = 'search-option-list';
 
-
-                for (let i = 0; i < 7; i++) {
-                    var option_lines_El = customCreateElement('div', 'search-option-lines')
-
-
-
-                    motherboard_option_El.appendChild(option_lines_El);
-                }
-
+                genTags(tag_motherboard, motherboard_option_El);
 
                 product_search_option_box_el.appendChild(motherboard_El);
                 product_search_option_box_el.appendChild(motherboard_option_El);
+
+                //리스트를 불러올 상품타입 변경
+                listProdType = 'motherboard';
 
             } else if (item.classList.contains('citem-memory')) {
                 var memory_El = document.createElement('div');
@@ -1196,8 +1390,13 @@
                 var memory_option_El = document.createElement('div');
                 memory_option_El.className = 'search-option-list';
 
+                genTags(tag_memory, memory_option_El);
+
                 product_search_option_box_el.appendChild(memory_El);
                 product_search_option_box_el.appendChild(memory_option_El);
+
+                //리스트를 불러올 상품타입 변경
+                listProdType = 'memory';
 
             } else if (item.classList.contains('citem-gpu')) {
                 var gpu_El = document.createElement('div');
@@ -1207,8 +1406,13 @@
                 var gpu_option_El = document.createElement('div');
                 gpu_option_El.className = 'search-option-list';
 
+                genTags(tag_gpu, gpu_option_El);
+
                 product_search_option_box_el.appendChild(gpu_El);
                 product_search_option_box_el.appendChild(gpu_option_El);
+
+                //리스트를 불러올 상품타입 변경
+                listProdType = 'gpu';
 
             } else if (item.classList.contains('citem-ssd')) {
                 var ssd_El = document.createElement('div');
@@ -1218,8 +1422,13 @@
                 var ssd_option_El = document.createElement('div');
                 ssd_option_El.className = 'search-option-list';
 
+                genTags(tag_ssd, ssd_option_El);
+
                 product_search_option_box_el.appendChild(ssd_El);
                 product_search_option_box_el.appendChild(ssd_option_El);
+
+                //리스트를 불러올 상품타입 변경
+                listProdType = 'ssd';
 
             } else if (item.classList.contains('citem-hdd')) {
                 var hdd_El = document.createElement('div');
@@ -1229,8 +1438,13 @@
                 var hdd_option_El = document.createElement('div');
                 hdd_option_El.className = 'search-option-list';
 
+                genTags(tag_hdd, hdd_option_El);
+
                 product_search_option_box_el.appendChild(hdd_El);
                 product_search_option_box_el.appendChild(hdd_option_El);
+
+                //리스트를 불러올 상품타입 변경
+                listProdType = 'hdd';
 
             } else if (item.classList.contains('citem-case')) {
                 var case_El = document.createElement('div');
@@ -1240,8 +1454,13 @@
                 var case_option_El = document.createElement('div');
                 case_option_El.className = 'search-option-list';
 
+                genTags(tag_case, case_option_El);
+
                 product_search_option_box_el.appendChild(case_El);
                 product_search_option_box_el.appendChild(case_option_El);
+
+                //리스트를 불러올 상품타입 변경
+                listProdType = 'case';
 
             } else if (item.classList.contains('citem-power')) {
                 var power_El = document.createElement('div');
@@ -1251,12 +1470,24 @@
                 var power_option_El = document.createElement('div');
                 power_option_El.className = 'search-option-list';
 
+                genTags(tag_power, power_option_El);
+
                 product_search_option_box_el.appendChild(power_El);
                 product_search_option_box_el.appendChild(power_option_El);
+
+                //리스트를 불러올 상품타입 변경
+                listProdType = 'power';
 
             } else {
 
             }
+
+
+            //체크박스 이벤트 리스너
+            setSearchFilterListener();
+
+            //상품목록 다시 불러오기
+            getProdList();
 
 
             //모든 항목의 색을 디폴트로 변경
@@ -1277,6 +1508,8 @@
             })
         })
     })
+
+
 
 
 
@@ -1309,6 +1542,7 @@
                 swiper_item_El.setAttribute('index', index)
 
                 var swiper_item_img_El = document.createElement('img');
+                swiper_item_img_El.className = 'swiper-img';
                 swiper_item_img_El.src = item;
 
                 swiper_item_El.appendChild(swiper_item_img_El);
@@ -1353,6 +1587,20 @@
         });
 
     }
+
+    //장바구니텝 부드럽게 이동 테스트
+    // window.addEventListener('scroll', function () {
+    //     const cartBox_El = document.querySelector('.cart-box');
+    //     const cartArea_El = document.querySelector('.cart-area');
+    //     const scrollTop = cartArea_El.scrollY;
+    //     const someThreshold = 10;
+
+    //     if (scrollTop >= someThreshold) { // someThreshold는 원하는 스티키 행동을 시작할 Y 위치입니다.
+    //         cartBox_El.style.transform = 'translateY(' + (scrollTop - someThreshold) + 'px)';
+    //     } else {
+    //         cartBox_El.style.transform = 'translateY(0px)';
+    //     }
+    // });
 
     //메인페이지 로드시 실행할 디폴트 설정들 실행
     initfunc();

@@ -288,7 +288,7 @@
         //상품 아이템 가격
         var product_item_price_El = document.createElement('div');
         product_item_price_El.className = "product-item-price";
-        product_item_price_El.textContent = data.prodprice+"원";
+        product_item_price_El.textContent = priceConverter(data.prodprice)+"원";
 
         //생성한 테그들을 서로 연결
         product_item_El.appendChild(product_item_left_El);
@@ -371,7 +371,7 @@
         //상품 아이템 가격
         var product_item_price_El = document.createElement('div');
         product_item_price_El.className = "product-item-price";
-        product_item_price_El.textContent = data.prodprice+"원";
+        product_item_price_El.textContent = priceConverter(data.prodprice)+"원";
 
         //생성한 테그들을 서로 연결
         product_item_El.appendChild(product_item_left_El);

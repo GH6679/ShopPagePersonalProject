@@ -80,9 +80,9 @@ public class ProductService {
     //================================================================================================
     //상품 목록을 불러오는 서비스
     //================================================================================================
-    public List<ProductDto> getProductList(String prodtype,List<String>prodtags){
+    public List<ProductDto> getProductList(String prodtype,String prodname,List<String>prodtags){
 
-        List<Product> allProducts = productRepository.findAll(ProductSpecifications.productContainsAllKeywordsAndTag(prodtags,prodtype));
+        List<Product> allProducts = productRepository.findAll(ProductSpecifications.productContainsAllKeywordsAndTag(prodtype,prodname,prodtags));
 
         List<ProductDto> returnList = new ArrayList<ProductDto>();
         ProductDto dto = null;

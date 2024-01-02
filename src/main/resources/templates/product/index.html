@@ -570,7 +570,7 @@
                                 <!-- 장바구니 하단 구매 옵션 -->
                                 <div class="cart-buy-option">
 
-                                    <div class="cart-price-sum"></div>
+                                    <div class="cart-price-sum">합계 : 0원</div>
                                     <button type="button" class="btn btn-danger cart-buy-product" href="#">구매하기</button>
 
                                 </div>
@@ -1105,8 +1105,13 @@
         axios.post('/product/cartprice', {username: username})
         .then(response =>{
 
-            let getAllPrice = response.data;
-            cart_price_sum_El.textContent = '합계 : '+priceConverter(getAllPrice)+'원'
+            console.log(response);
+            if(response !== null){
+                let getAllPrice = response.data;
+                cart_price_sum_El.textContent = '합계 : '+priceConverter(getAllPrice)+'원'
+            }else{
+                cart_price_sum_El.textContent = '합계 : 0원'
+            }
 
         })
         .catch(error => console.log(error))

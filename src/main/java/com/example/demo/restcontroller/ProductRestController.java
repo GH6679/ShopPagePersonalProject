@@ -243,7 +243,12 @@ public class ProductRestController {
 
         Long price = productService.cartSumOfPrice(user);
 
-        return price;
+        if(price != null){
+            return price;
+        }else{
+            return 0L;
+        }
+
     }
 
 

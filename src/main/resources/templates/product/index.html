@@ -9,7 +9,6 @@
     <!-- th:fragment     -->
     <th:block th:insert="fragments/head :: headOutterLink" />
 
-
     <style>
         /* ========================================================================== */
         /* wepper_section */
@@ -71,7 +70,6 @@
 
         .search-product-input {
             width: calc(100% - 40px);
-            height: 41px;
             padding: 0 15px;
             font-family: "Malgun Gothic", Dotum, "돋움", "Apple SD Gothic Neo", Helvetica, Sans-serif;
             font-size: 13px;
@@ -375,10 +373,30 @@
         .cart-prod-list {}
 
         .cart-buy-option {
+            position: relative;
             height: 132px;
 
             border: 1px solid #E0E0E0;
         }
+        .cart-price-sum {
+            position: absolute;
+            font-weight: bold;
+            color: #333;
+            font-size: 22px;
+            top: 15px;
+            left: 15px;
+        }
+        .cart-buy-product{
+            position: absolute;
+            top: 80px;
+            left: 21px;
+            color: white;
+            width: 350px;
+            height: 40px;
+            background-color: #E53B38;
+
+        }
+
 
 
 
@@ -551,6 +569,9 @@
                                 </div>
                                 <!-- 장바구니 하단 구매 옵션 -->
                                 <div class="cart-buy-option">
+
+                                    <div class="cart-price-sum"></div>
+                                    <button type="button" class="btn btn-danger cart-buy-product" href="#">구매하기</button>
 
                                 </div>
 
@@ -1061,6 +1082,9 @@
                         // 상품목록 '담기' 버튼 숨기기
                         hideproductbtn();
 
+                        //장바구니 상품 가격 합계 구하기
+                        cartSumOfPrice();
+
 
                     }
 
@@ -1072,7 +1096,22 @@
 
     }
 
+    //================================================================
+    //장바구니에 상품 가격 함계 불러오기
+    //================================================================
+    const cartSumOfPrice = () => {
 
+        const cart_price_sum_El = document.querySelector('.cart-price-sum')
+        axios.post('/product/cartprice', {username: username})
+        .then(response =>{
+
+            let getAllPrice = response.data;
+            cart_price_sum_El.textContent = '합계 : '+priceConverter(getAllPrice)+'원'
+
+        })
+        .catch(error => console.log(error))
+
+    }
 
     //================================================================
     //장바구니에 목록 생성
@@ -1189,6 +1228,8 @@
 
 
     }
+
+
 
     //================================================================
     //장바구니에 상품 추가

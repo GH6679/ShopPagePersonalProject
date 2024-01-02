@@ -352,4 +352,11 @@ public class ProductService {
 
         cartRepository.deleteAll(cart);
     }
+
+    public Long cartSumOfPrice(String username) {
+
+        Long price = cartRepository.sumByCartPrice(username);
+
+        return price;
+    }
 }

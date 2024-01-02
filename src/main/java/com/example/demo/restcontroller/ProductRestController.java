@@ -234,5 +234,17 @@ public class ProductRestController {
 
     }
 
+    //================================================================
+    //장바구니에 상품 가격 합계 불러오기
+    //================================================================
+    @PostMapping("/cartprice")
+    public Long product_sumCartPrice(@RequestBody Map<String,String> username){
+        String user = username.get("username");
+
+        Long price = productService.cartSumOfPrice(user);
+
+        return price;
+    }
+
 
 }

@@ -336,7 +336,7 @@
             margin-top: 12px;
         }
 
-        .cart-option div:nth-last-child(1) {
+        .cart-option > div:nth-last-child(1) {
             margin-bottom: 12px;
         }
 
@@ -403,33 +403,101 @@
         /* ========================================================================== */
         /* 장바구니 상품 목록 */
         /* ========================================================================== */
+        /* 장바구니 상품 */
         .cart-item {
+            position: relative;
             border-top: 1px solid #E0E0E0;
+            border-bottom: 1px solid #E0E0E0;
             height: 65px;
             display: flex;
+            padding: 10px;
 
         }
-
+        /* 장바구니 상품 왼족 */
         .cart-item-left {}
 
+        /* 장바구니 상품 이미지 */
         .cart-img {
-            width: 45px;
-            height: 45px;
+            width: 60px;
+            height: 60px;
         }
 
-        .cart-item-center {}
+        /* 장바구니 상품 내용 */
+        .cart-item-content {
+            position: relative;
+            width: 100%;
+        }
+        /* 장바구니 상품 타이틀 */
+        .cart-item-title {
+            display: flex;
+            position: relative;
+        }
+        /* 장바구니 번호 */
+        .cart-item-code-num {
+            margin-left: 5px;
+            color: #919191;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        /* 장바구니 상품 이름 */
+        .cart-item-name {
+            margin-left: 5px;
+            margin-top: 5px;
+            font-weight: bold;
+            color: #333;
+            font-size: 15px;
+        }
+        /* 장바구니 상품 가격 */
+        .cart-item-price {
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            font-weight: bold;
+            color: #333;
+            font-size: 20px;
+        }
+        /* 장바구니 제거 버튼 */
+        .cart-itme-out {
+            position: absolute;
+            width: 45px;
+            height: 25px;
+            right: 5px;
+            top: 5px;
+            cursor: pointer;
+            background-color: #E53B38;
+        }
+        /* 장바구니 상품 수량 표시 */
+        .cart-quantity {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 55px;
+            right: 10px;
+            bottom: 3px;
+            position: absolute;
+        }
 
-        .cart-item-title {}
+        /* 장바구니 상품 수량 증가 버튼*/
+        .cart-quantity-up {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
 
-        .cart-item-code-num {}
+        }
+        /* 장바구니 상품 수량 */
+        .cart-quantity_count {
+            font-weight: bold;
+            color: #333;
+            font-size: 20px;
 
-        .cart-item-name {}
+        }
+        /* 장바구니 상품 감소 버튼 */
+        .cart-quantity-down {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
 
-        .cart-item-right {}
-
-        .cart-item-price {}
-
-        .cart-itme-out {}
+        }
 
         /* ========================================================================== */
         /* 스와이퍼 설정 */
@@ -1138,9 +1206,9 @@
             cart_img_El.className = "cart-img";
             cart_img_El.src = proddata.prodimagepaths[0];
 
-            //장바구니 상품 아이템 중앙
-            var cart_item_center_El = document.createElement('div')
-            cart_item_center_El.className = "cart-item-center";
+            //장바구니 상품 아이템 상세내용
+            var cart_item_content_El = document.createElement('div')
+            cart_item_content_El.className = "cart-item-content";
 
             //장바구니 상품 아이템 타이틀 틀
             var cart_item_title_El = document.createElement('div')
@@ -1157,10 +1225,6 @@
             cart_item_name_El.textContent = proddata.prodname;
             cart_item_name_El.href = "/product/get/" + proddata.prodcode;
 
-            //장바구니 상품 아이템 오른쪽
-            var cart_item_right_El = document.createElement('div');
-            cart_item_right_El.className = "cart-item-right";
-
             //장바구니 상품 아이템 가격
             var cart_item_price_El = document.createElement('div');
             cart_item_price_El.className = "cart-item-price";
@@ -1172,19 +1236,45 @@
             cart_itme_out_cart_El.textContent = "제거";
             cart_itme_out_cart_El.setAttribute('prod-code', proddata.prodcode);
 
+            //장바구니 상품 수량 표시
+            var cart_quantity_El = document.createElement('div');
+            cart_quantity_El.className = "cart-quantity";
+
+            //장바구니 상품 수량
+            var cart_quantity_count_El = document.createElement('div');
+            cart_quantity_count_El.className = "cart-quantity_count";
+            cart_quantity_count_El.setAttribute('cart-no', proddata.cartno);
+            cart_quantity_count_El.textContent = '0';
+
+            //장바구니 상품 수량 증가
+            var cart_quantity_up_El = document.createElement('button');
+            cart_quantity_up_El.className = "cart-quantity-up";
+            cart_quantity_up_El.textContent = '>';
+
+            //장바구니 상품 수량 감소
+            var cart_quantity_down_El = document.createElement('button');
+            cart_quantity_down_El.className = "cart-quantity-down";
+            cart_quantity_down_El.textContent = '<';
+
             cart_item_El.appendChild(cart_item_left_El);
-            cart_item_El.appendChild(cart_item_center_El);
-            cart_item_El.appendChild(cart_item_right_El);
+            cart_item_El.appendChild(cart_item_content_El);
 
             cart_item_left_El.appendChild(cart_img_El);
 
-            cart_item_center_El.appendChild(cart_item_title_El);
+            cart_item_content_El.appendChild(cart_item_title_El);
+            cart_item_content_El.appendChild(cart_item_price_El);
 
             cart_item_title_El.appendChild(cart_item_code_num_El);
             cart_item_title_El.appendChild(cart_item_name_El);
 
-            cart_item_right_El.appendChild(cart_item_price_El);
-            cart_item_right_El.appendChild(cart_itme_out_cart_El);
+            cart_item_content_El.appendChild(cart_itme_out_cart_El);
+            cart_item_content_El.appendChild(cart_quantity_El);
+
+            cart_quantity_El.appendChild(cart_quantity_down_El);
+            cart_quantity_El.appendChild(cart_quantity_count_El);
+            cart_quantity_El.appendChild(cart_quantity_up_El);
+
+
 
             return cart_item_El;
         }

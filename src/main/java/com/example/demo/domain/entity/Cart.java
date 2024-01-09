@@ -29,6 +29,8 @@ public class Cart {
             foreignKeyDefinition = "FOREIGN KEY (prodcode) REFERENCES product(prodcode) ON DELETE CASCADE ON UPDATE CASCADE") ) //FK설정
     private Product product;
 
+    private int cartcount;
+
     private LocalDateTime cartintime;
 
 

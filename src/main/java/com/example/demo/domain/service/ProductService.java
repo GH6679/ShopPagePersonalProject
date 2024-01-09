@@ -1,12 +1,13 @@
 package com.example.demo.domain.service;
 
+import com.example.demo.domain.dto.CartDto_interface;
+import com.example.demo.domain.dto.CartDto;
 import com.example.demo.domain.dto.ProductDto;
 import com.example.demo.domain.dto.ProductKeywordDto;
 import com.example.demo.domain.entity.Cart;
 import com.example.demo.domain.entity.Product;
 import com.example.demo.domain.entity.ProductKeyword;
 import com.example.demo.domain.entity.User;
-import com.example.demo.domain.entity.converters.ProductStringArrayConverter;
 import com.example.demo.domain.repository.CartRepository;
 import com.example.demo.domain.repository.ProductKeywordRepository;
 import com.example.demo.domain.repository.ProductRepository;
@@ -279,35 +280,41 @@ public class ProductService {
     //================================================================
     //장바구니에 상품목록을 불러오는 서비스
     //================================================================
-    public List<ProductDto> getProductCartList(String username){
+    public List<CartDto> getProductCartList(String username){
 
-        List<Product> allProducts = productRepository.findByCartLists(username);
+        List<CartDto_interface> allProducts = productRepository.findByCartLists(username);
+        List<CartDto> returnList = new ArrayList<CartDto>();
+        CartDto dto = null;
 
-        List<ProductDto> returnList = new ArrayList<ProductDto>();
-        ProductDto dto = null;
-
-        //entity => dto
         for(int i=0;i<allProducts.size();i++){
 
-            dto = new ProductDto();
-            dto.setProdcode(allProducts.get(i).getProdcode());
-            dto.setProdauthor(allProducts.get(i).getProdauthor());
-            dto.setProdtype(allProducts.get(i).getProdtype());
-            dto.setProdname(allProducts.get(i).getProdname());
-            dto.setProdtime(allProducts.get(i).getProdtime());
-            dto.setProdcontext(allProducts.get(i).getProdcontext());
-            dto.setProdtype(allProducts.get(i).getProdtype());
-            dto.setProdtags(allProducts.get(i).getProdtags());
-            dto.setProdprice(allProducts.get(i).getProdprice());
+            dto = new CartDto();
+            dto.setCartno(allProducts.get(i).getcartno());
+            dto.setProdcode(allProducts.get(i).getprodcode());
+            dto.setProdauthor(allProducts.get(i).getprodauthor());
+            dto.setProdtype(allProducts.get(i).getprodtype());
+            dto.setProdname(allProducts.get(i).getprodname());
+            dto.setProdtime(allProducts.get(i).getprodtime());
+            dto.setProdcontext(allProducts.get(i).getprodcontext());
+            dto.setProdtype(allProducts.get(i).getprodtype());
+//            dto.setProdtags(allProducts.get(i).getProdtags());
+            dto.setProdprice(allProducts.get(i).getprodprice());
+            dto.setCartcount(allProducts.get(i).getcartcount());
+
 
             //경로와 이미지이름을 합쳐서 dto에 저장
+
+            //cartDtointerface에서 받아오는 요소는 자동으로 , 단위 컨버트가 안되기 때문에 여기서 직접 , 단위로 잘라 변환한다.
+            String imgNames = allProducts.get(i).getprodimages();
+            String[] cutImgNames = imgNames.split(",");
+
             List<String> imagePaths = new ArrayList<String>();
             String[] imagePathstoString = null;
-            String[] entityimageNames = allProducts.get(i).getProdimages();
+            String[] entityimageNames = cutImgNames;
 
             for(int j=0; j<entityimageNames.length;j++){
 
-                imagePaths.add(allProducts.get(i).getProdpath()+File.separator+entityimageNames[j]);
+                imagePaths.add(allProducts.get(i).getprodpath()+File.separator+entityimageNames[j]);
 
             }
             imagePathstoString = imagePaths.toArray(new String[0]);
@@ -316,6 +323,7 @@ public class ProductService {
 
 
             returnList.add(dto);
+
         }
 
         return returnList;
@@ -336,6 +344,7 @@ public class ProductService {
                 .cartno(null)
                 .product(product)
                 .user(user)
+                .cartcount(1)
                 .cartintime(LocalDateTime.now())
                 .build();
 
@@ -353,10 +362,29 @@ public class ProductService {
         cartRepository.deleteAll(cart);
     }
 
+    //================================================================
+    //장바구니에 상품 가격 함계를 구하는 서비스
+    //================================================================
     public Long cartSumOfPrice(String username) {
 
         Long price = cartRepository.sumByCartPrice(username);
 
         return price;
+    }
+
+    //================================================================
+    //장바구니에 상품 수량을 저장하는 서비스
+    //================================================================
+    public void setCartCount(Long cartno, int count) {
+
+        Optional<Cart> cart = cartRepository.findById(cartno);
+
+        cart.ifPresent(item -> {
+
+            item.setCartcount(count);
+            cartRepository.save(item);
+
+        });
+
     }
 }

@@ -1150,6 +1150,9 @@
                         // 상품목록 '담기' 버튼 숨기기
                         hideproductbtn();
 
+                        //상품 수량 조절기능 등록
+                        setQuantityUpDownBtn();
+
                         //장바구니 상품 가격 합계 구하기
                         cartSumOfPrice();
 
@@ -1242,9 +1245,9 @@
 
             //장바구니 상품 수량
             var cart_quantity_count_El = document.createElement('div');
-            cart_quantity_count_El.className = "cart-quantity_count";
+            cart_quantity_count_El.className = "cart-quantity-count";
             cart_quantity_count_El.setAttribute('cart-no', proddata.cartno);
-            cart_quantity_count_El.textContent = '0';
+            cart_quantity_count_El.textContent = proddata.cartcount;
 
             //장바구니 상품 수량 증가
             var cart_quantity_up_El = document.createElement('button');
@@ -1323,6 +1326,72 @@
 
 
     }
+
+    //================================================================
+    //장바구니에 상품 수량
+    //================================================================
+
+    //수량 증가
+    const cartCountUp = (cartno,count) => {
+
+        console.log(typeof cartno , typeof count);
+
+        axios.post('/product/ccup',{cartno: cartno,count: count})
+        .then(response => {
+            listcart();
+        }).catch(error => console.log(error))
+
+    };
+
+    //수량 감소
+    const cartCountDown = (cartno,count) => {
+
+        axios.post('/product/ccdown',{cartno: cartno,count: count})
+        .then(response => {
+            listcart();
+        }).catch(error => console.log(error))
+
+    };
+
+    const setQuantityUpDownBtn = () =>{
+
+        const cart_quantity_count_El = document.querySelectorAll('.cart-quantity');
+
+        cart_quantity_count_El.forEach(quantity => {
+
+            let quantiy_up = quantity.querySelector('.cart-quantity-up');
+            let quantiy_down = quantity.querySelector('.cart-quantity-down');
+            let quantiy_count = quantity.querySelector('.cart-quantity-count');
+
+
+                if(!quantiy_up.hasEventListener){
+
+                    quantiy_up.addEventListener('click',function(){
+
+                        cartCountUp(quantiy_count.getAttribute('cart-no'),quantiy_count.textContent);
+
+                    })
+
+                }quantiy_up.hasEventListener = true;
+
+                if(!quantiy_down.hasEventListener){
+
+                    quantiy_down.addEventListener('click',function(){
+
+                        if(parseInt(quantiy_count.textContent,10) > 1){
+
+                            cartCountDown(quantiy_count.getAttribute('cart-no'),quantiy_count.textContent);
+
+                        }
+
+                    })
+
+                }quantiy_up.hasEventListener = true;
+
+        });
+
+    }
+
 
 
 

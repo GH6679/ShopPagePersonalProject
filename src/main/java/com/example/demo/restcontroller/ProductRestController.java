@@ -1,8 +1,8 @@
 package com.example.demo.restcontroller;
 
+import com.example.demo.domain.dto.CartDto;
 import com.example.demo.domain.dto.ProductDto;
 import com.example.demo.domain.dto.ProductKeywordDto;
-import com.example.demo.domain.repository.ProductKeywordRepository;
 import com.example.demo.domain.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,11 +170,11 @@ public class ProductRestController {
     //장바구니에 상품 불러오기
     //================================================================
     @PostMapping("/cartlist")
-    public List<ProductDto> product_cartlist(@RequestBody Map<String,String> username) throws IOException {
+    public List<CartDto> product_cartlist(@RequestBody Map<String,String> username) throws IOException {
 
         String user = username.get("username");
 
-        List<ProductDto> listdto = productService.getProductCartList(user);
+        List<CartDto> listdto = productService.getProductCartList(user);
 
         System.out.println(listdto.size());
 
@@ -248,6 +248,32 @@ public class ProductRestController {
         }else{
             return 0L;
         }
+
+    }
+    //================================================================
+    //장바구니에 상품 수량 증가
+    //================================================================
+    @PostMapping("/ccup")
+    public void product_quantityUp(@RequestBody Map<String,String> countdata){
+        Long cartno = Long.valueOf(countdata.get("cartno"));
+        int count = (Integer.valueOf(countdata.get("count")))+1;
+
+        productService.setCartCount(cartno, count);
+
+        System.out.println("카트 번호 : " + cartno+" 카운트 : "+count);
+    }
+    //================================================================
+    //장바구니에 상품 수량 감소
+    //================================================================
+    @PostMapping("/ccdown")
+    public void product_quantityDown(@RequestBody Map<String,String> countdata){
+
+        Long cartno = Long.valueOf(countdata.get("cartno"));
+        int count = (Integer.valueOf(countdata.get("count")))-1;
+
+        productService.setCartCount(cartno, count);
+
+        System.out.println("카트 번호 : " + cartno+" 카운트 : "+count);
 
     }
 

@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <header th:fragment="headerFragment_menubar">
+    <header th:fragment="headerFragment_no_menubar">
 
         <style>
 
@@ -30,13 +30,7 @@
         <div id="wepper_header">
             <!-- 바디 헤더 메인 -->
             <!--  header fragment      -->
-            <div th:replace="fragments/headerpart/header_part_main :: headerFragment_part_main" />
-
-
-            <!-- 헤더 메뉴 바 -->
-            <!--  header fragment      -->
-            <div th:replace="fragments/headerpart/header_part_menubar :: headerFragment_part_menubar" />
-
+            <div th:replace="fragments/product/headerpart/header_part_main :: headerFragment_part_main" />
 
         </div>
 

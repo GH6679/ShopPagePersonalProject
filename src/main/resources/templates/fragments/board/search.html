@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--
+ SEARCH(수정할것..이미지보드 vs 기본 보드)
+-->
+<div class="search-block"    th:fragment="searchFragment">
+  <form class="d-flex" action="/board/list">
+    <select name="type"  class="form-select me-2" style="width:120px;">
+      <option value="title" selected>TITLE</option>
+      <option value="username">WRITER</option>
+      <option value="content">CONTENTS</option>
+    </select>
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width:150px;" name="keyword">
+    <button class="btn  btn-success btn-outline-light" type="submit">Search</button>
+  </form>
+</div>
+
+
+
+</body>
+</html>

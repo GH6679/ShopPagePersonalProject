@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface BoardRepository extends JpaRepository<Board,Long> {
 
-    @Query(value = "SELECT * FROM cmshopdb.board ORDER BY no DESC LIMIT :amount OFFSET :offset", nativeQuery = true)
+    @Query(value = "SELECT * FROM cm_shopdb.board ORDER BY no DESC LIMIT :amount OFFSET :offset", nativeQuery = true)
     List<Board> findBoardAmountStart(@Param("amount") int amount,@Param("offset") int offset);
 
 

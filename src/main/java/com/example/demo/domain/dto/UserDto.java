@@ -9,15 +9,18 @@ import javax.validation.constraints.Pattern;
 
 @Data
 public class UserDto {
-	@NotBlank(message = "username을 입력하세요")
+	@NotBlank(message = "이메일주소를 입력하세요")
 	@Email(message = "올바른 이메일 주소를 입력하세요")
 	private String username;
 
-	@NotBlank(message = "password를 입력하세요")
+	@NotBlank(message = "계정명을 입력하세요")
+	private String nickname;
+
+	@NotBlank(message = "패스워드를 입력하세요")
 //	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
 	private String password;
 
-	@NotBlank(message = "password를 다시 입력하세요")
+	@NotBlank(message = "패스워드를 다시 입력하세요")
 //	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
 	private String repassword;
 	private String role;
@@ -35,6 +38,7 @@ public class UserDto {
 	public static User dtoToEntity(UserDto dto){
 		User user = User.builder()
 				.username(dto.getUsername())
+				.nickname(dto.getNickname())
 				.password(dto.getPassword())
 				.role(dto.getRole())
 				.phone(dto.getPhone())

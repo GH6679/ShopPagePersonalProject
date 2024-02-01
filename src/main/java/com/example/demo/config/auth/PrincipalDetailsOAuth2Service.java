@@ -55,7 +55,7 @@ public class PrincipalDetailsOAuth2Service extends DefaultOAuth2UserService   im
         if(userRequest.getClientRegistration().getRegistrationId().equals("kakao"))
         {
             System.out.println("[] 카카오 로그인");
-            KakaoUserInfo kakaoUserInfo = new KakaoUserInfo((Map<String, Object>) oauth2User.getAttributes().get("properties"));
+            KakaoUserInfo kakaoUserInfo = new KakaoUserInfo((Map<String, Object>) oauth2User.getAttributes().get("kakao_account"));
             kakaoUserInfo.setId(userRequest.getClientRegistration().getClientId());
             oAuth2UserInfo = kakaoUserInfo;
             //oAuth2UserInfo = new KakaoUserInfo((Map<String, Object>) oauth2User.getAttributes().get("properties"));
@@ -77,6 +77,7 @@ public class PrincipalDetailsOAuth2Service extends DefaultOAuth2UserService   im
         String email = oAuth2UserInfo.getEmail();
         String username = email;
         String password = passwordEncoder.encode("1234");
+        System.out.println("확인?"+provider+providerId+email);
 
         String role = "ROLE_USER";
 

@@ -9,7 +9,6 @@
     <th:block th:insert="fragments/product/head :: headOutterLink" />
 
     <style>
-
         #wepper_section {
             width: 100%;
         }
@@ -30,60 +29,49 @@
         #product-set-form{
 
         }
-        #product-set-form > div > input{
+        #product-set-form input{
             border-bottom: 1px solid #E0E0E0;
-        }
-        #product-set-form > div > p{
-            font-size: 18px;
-            font-weight: bold;
-            color: black;
         }
         /* 작성자 이름 */
         #form-author{
+
+            margin-top: 10px;
 
         }
         /* 제목 */
         #form-title{
             width: 1200px;
-
+            margin-top: 10px;
         }
         /* 내용 */
         #form-text{
+            margin-top: 10px;
             resize: none; /* 사용자 크기 조절 비활성화 */
-            width: 1200px;
+            width: 300px;
             height: 150px;
             overflow: auto; /* 내용이 넘칠 경우 스크롤바 표시 */
         }
         /* 가격 */
         #form-price{
-
+            margin-top: 10px;
         }
         /* 제품 종류 */
         #form-select{
-
+            margin-top: 10px;
         }
         /* 제품 태그 */
         #form-tags{
-
+            margin-top: 10px;
         }
         /* 제품 이미지 선택 */
         #form-image-input{
-
-        }
-        /* 등록 버튼 */
-        #form-submit-button{
-            margin-bottom: 10em;
-            margin-top: 1em;
+            margin-top: 10px;
         }
 
 
         /* 이미지 미리보기 ============================== */
         #set-preview{
-
-        }
-        .img-preview{
             display: flex;
-            width: 1200px;
         }
 
         .previews{
@@ -126,24 +114,24 @@
 
                 <form id="product-set-form" action="/product/set" method="post" enctype="multipart/form-data">
                     <div>
-                        <p>작성자</p>
+                        <label for="form-author">작성자</label>
                         <input type="text" name="prodauthor" id="form-author" th:value="${#authentication.name}"
                                readonly>
                     </div>
                     <div>
-                        <p>제목</p>
+                        <label for="form-title">제목</label>
                         <input type="text" name="prodname" id="form-title">
                     </div>
                     <div>
-                        <p>내용</p>
+                        <label for="form-text">내용</label>
                         <textarea type="text" name="prodcontext" id="form-text"></textarea>
                     </div>
                     <div>
-                        <p>가격</p>
+                        <label for="form-price">가격</label>
                         <input type="number" name="prodprice" id="form-price"></input>
                     </div>
                     <div>
-                        <p>제품 종류</p>
+                        <label for="form-select">제품 종류</label>
                         <select name="prodtype" id="form-select">
 
                             <option value="cpu">CPU</option>
@@ -157,23 +145,23 @@
                         </select>
                     </div>
                     <div>
-                        <p>제품 테그</p>
+                        <label for="form-tags">제품 테그</label>
                         <div id="form-tags">
 
                         </div>
 
                     </div>
                     <div>
-                        <p>이미지 선택</p>
+                        <label for="form-image-input">이미지 선택</label>
                         <input type="file" name="files" id="form-image-input" multiple>
                     </div>
-                    <!-- 이미지 미리보기 생성위치 -->
-                    <div id="set-preview"></div>
-
-                    <button id="form-submit-button">등록</button>
+                    <button>등록</button>
                 </form>
 
+                <div id="set-preview">
 
+
+                </div>
 
             </div>
 
@@ -469,14 +457,6 @@
     //이미지 프리뷰 생성
     const getpreview = () => {
 
-        var previewp = document.createElement('p');
-        previewp.textContent = '이미지 미리보기 (클릭시 대표이미지 선택)';
-        set_previewEl.appendChild(previewp);
-
-        var img_preview = document.createElement('div');
-        img_preview.className='img-preview';
-
-
         const imgs = formData.getAll('files');
         for (let i = 0; i < imgs.length; i++) {
 
@@ -492,10 +472,9 @@
 
             preview.appendChild(viewimg);
             preview.appendChild(cutimg);
-            img_preview.appendChild(preview);
+            set_previewEl.appendChild(preview);
 
         }
-        set_previewEl.appendChild(img_preview);
 
         //업로드 이미지를 불러오기 시작
         onreaderimg();

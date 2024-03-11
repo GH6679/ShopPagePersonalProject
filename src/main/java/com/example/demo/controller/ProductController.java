@@ -234,4 +234,9 @@ public class ProductController {
         return "redirect:/product/keyword/set";
 
     }
+
+    @GetMapping("/cartinfo")
+    public void product_cartinfo(){
+
+    }
 }

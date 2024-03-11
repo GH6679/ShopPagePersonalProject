@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -60,7 +63,21 @@ public class UserService {
     }
 
 
+    public UserDto getUserInfo(String username) {
 
+       Optional<User> user = userRepository.findById(username);
+       User userInfo = user.get();
+       UserDto dto = new UserDto();
 
+        dto.setNickname(userInfo.getNickname());
+        dto.setPassword(userInfo.getPassword());
+        dto.setZipcode(userInfo.getZipcode());
+        dto.setPhone(userInfo.getPhone());
+        dto.setRole(userInfo.getRole());
+        dto.setAddr1(userInfo.getAddr1());
+        dto.setAddr2(userInfo.getAddr2());
 
+       return dto;
+
+    }
 }

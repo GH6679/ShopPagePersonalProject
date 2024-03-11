@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CartINFO</title>
+
+    <!-- bootstrap3.3.7 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- BS 3.7.7 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
+    <!-- headOutterLinks     -->
+    <th:block th:insert="fragments/product/head :: headOutterLink" />
+
+    <style>
+        #wepper_section {
+            width: 100%;
+        }
+
+        .main-section {}
+
+        .main-section-area {
+            width: 1260px;
+            margin: 0 auto;
+        }
+
+
+        .tag-labels {
+            margin-right: 5px;
+        }
+
+        .btn {
+            color: white;
+            flex: 1;
+        }
+
+        .main-section-area>div>p {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0px 15px 15px;
+            color: black;
+        }
+
+        /* 구획 구분 */
+        .main-section-area>div>div {
+            width: 100%;
+            padding: 20px 24px;
+            background-color: #F8F8F8;
+            border: solid 1px #d3d3d3;
+            box-sizing: border-box;
+        }
+
+        /* 장바구니 구분선 */
+        .cart-list>div {
+            border-top: 1px solid #c9c9c9;
+        }
+
+        .cart-list>div:nth-last-child(1) {
+            border-bottom: 1px solid #c9c9c9;
+        }
+
+        /* 장바구니 */
+        .cart-item {
+            padding: 20px 0px 20px 0px;
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        /* 장바구니 왼편 */
+        .cart-item-left {
+            display: flex;
+        }
+
+        /* 장바구니 중앙 */
+        .cart-item-center {
+            border-left: 1px solid #c9c9c9;
+            border-right: 1px solid #c9c9c9;
+            width: 470px;
+        }
+
+        /* 장바구니 오른편 */
+        .cart-item-right {
+            display: flex;
+            width: 400px;
+        }
+
+        /* 장바구니 이미지 */
+        .cart-img {
+            margin-right: 10px;
+            height: 100px;
+            width: 100px;
+        }
+
+        /* 장바구니 상품 이름 */
+        .cart-item-title {
+            font-size: 17px;
+            letter-spacing: -0.6px;
+            font-weight: bold;
+            color: #333;
+            width: 220px;
+            margin-right: 10px;
+
+            display: flex;
+        }
+
+        /* 장바구니 상품 수량 */
+        .cart-quantity {
+            width: 150px;
+            border-right: 1px solid #c9c9c9;
+            position: relative;
+        }
+
+        /* 수량 버튼 */
+        .cart-quantity-btn {
+            width: 28px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 수량 증가버튼튼 */
+        .cart-quantity-up {
+            position: absolute;
+            top: 50%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 상품 수량 */
+        .cart-quantity-count {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 상품 감소 버튼 */
+        .cart-quantity-down {
+            position: absolute;
+            top: 50%;
+            right: 35%;
+            transform: translate(+50%, -50%);
+        }
+
+        /* 장바구니 상품 가격 */
+        .cart-item-price {
+            font-weight: bold;
+            color: #333;
+            font-size: 22px;
+            display: flex;
+            width: 150px;
+            line-height: 100px;
+            justify-content: center;
+            border-right: 1px solid #c9c9c9;
+        }
+
+        /* 장바구니 상품 제거 */
+        .cart-remove {
+            /* display: flex; */
+            /* line-height: 100px;
+            justify-content: center; */
+            width: 100px;
+            position: relative;
+        }
+
+        /* 장바구니 상품 제거 버튼 */
+        .cart-item-out {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+        /* 상품 통계 */
+        .prod-statistics {
+
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        /* 상품 구입 상품 통계 */
+        .buy-prod-info {
+            background: #F8F8F8;
+            width: 50%;
+            display: block;
+            padding: 25px 45px 25px 45px;
+            overflow: auto;
+            position: relative;
+
+            border-right: 1px solid #c9c9c9;
+        }
+
+        /* 상품 구입 가격 통계 */
+        .buy-price-info {
+            background: #F8F8F8;
+            width: 50%;
+            display: block;
+            padding: 25px 45px 25px 45px;
+            overflow: auto;
+            position: relative;
+
+            text-align: right;
+
+        }
+
+        /* 통계 텍스트 스타일 */
+        .prod-statistics>div>div {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .s-prodname {
+            color: #333;
+        }
+
+        .s-price {
+            color: #333;
+        }
+
+        .s-prodname-delivery {
+            color: red;
+        }
+
+        .s-price-delivery {
+            color: red;
+        }
+
+        .s-price-line {
+            border-top: 1px solid #c9c9c9;
+        }
+
+        .s-price-sum {
+            color: #333;
+        }
+
+
+        /* 결제 버튼 상자 */
+        .payment-submit-box {
+
+            position: relative;
+            height: 100px;
+
+        }
+
+        /* 결제 버튼 */
+        .payment-submit {
+            position: absolute;
+            height: 45px;
+            width: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div id="wepper">
+
+    <!--  header fragment      -->
+    <div th:replace="fragments/product/header_v2 :: headerFragment_no_menubar" />
+
+    <!-- 바디 메인 섹션 -->
+    <div id="wepper_section">
+        <!-- 바디 메인 -->
+        <div class="main-section">
+            <!-- 바디 메인 -->
+            <div class="main-section-area">
+
+                <div class="addr-box">
+                    <p>배송 주소</p>
+                    <div class="user-addr"></div>
+
+                </div>
+
+                <div class="cart-box">
+                    <p>상품 목록</p>
+                    <div class="cart-list">
+                    </div>
+
+
+                </div>
+
+                <div class="statistics-box">
+                    <p>전체 합계</p>
+                    <div class="prod-statistics">
+
+                        <div class="buy-prod-info">
+
+                            <!-- <div class="s-prodname-delivery">배송비</div> -->
+                        </div>
+
+                        <div class="buy-price-info">
+
+                            <!-- <div class="s-price-delivery">-3,000</div>
+                        <div class="s-price-line"></div>
+                        <div class="s-price-sum">합계 : 797,000</div> -->
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="payment-box">
+                    <p>결제 방법</p>
+                    <div class="prod-payment">
+
+                        <input type="radio" name="payment-type" id="kakao" checked>
+                        <label for="kakao">카카오 페이</label>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="payment-submit-box">
+                    <button class="btn btn-danger payment-submit">결제 하기</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- common.js   -->
+<script src="/js/common.js"></script>
+
+<script th:inline="javascript">
+
+    //============================================================
+    //유저 식별
+    const username = /*[[${#authentication.name}]]*/ {};
+    //주소 생성 위치
+    const user_addr_El = document.querySelector('.user-addr');
+    //장바구니 상품목록 생성위치
+    const cart_list_El = document.querySelector('.cart-list');
+    //장바구니 통계 생성위치
+    const buy_prod_info_El = document.querySelector('.buy-prod-info'); //항목
+    const buy_price_info_El = document.querySelector('.buy-price-info'); //가격
+
+    //============================================================
+
+
+    //페이지 로드시 실행할 디폴트 설정들 실행
+    const init = () => {
+
+        //주소 불러오기
+        setuseraddr();
+
+        //장바구니에 목록 불러오기
+        listcart();
+
+    }
+
+    //================================================================
+    //주소 불러오기
+    //================================================================
+    const setuseraddr = () => {
+
+        if (username != "anonymousUser") {
+
+            const user = { "username": username }
+
+            axios.post('/user/addr', user)
+                .then(response => {
+
+                    const addrData = response.data;
+
+                    var user_addr_1_El = document.createElement('div');
+                    user_addr_1_El.className = 'user-addr-1';
+                    user_addr_1_El.textContent = addrData.addr1;
+
+                    var user_addr_2_El = document.createElement('div');
+                    user_addr_2_El.className = 'user-addr-2';
+                    user_addr_2_El.textContent = addrData.addr2;
+
+                    user_addr_El.appendChild(user_addr_1_El);
+                    user_addr_El.appendChild(user_addr_2_El);
+
+
+                })
+                .catch(error => console.log(error));
+
+        }
+
+    }
+
+    //================================================================
+    //장바구니에 목록 불러오기
+    //================================================================
+    const listcart = () => {
+
+        if (username != "anonymousUser") {
+            const user = { "username": username }
+            axios.post('/product/cartlist', user, { headers: { 'Content-Type': 'application/json' } })
+                .then(response => {
+                    console.log(response);
+
+                    if (response != null) {
+                        const productData = response.data;
+
+                        //장바구니 기존 목록 제거
+                        cart_list_El.innerHTML = '';
+
+                        //장바구니 목록 생성
+                        productData.forEach(data => {
+
+                            cart_list_El.appendChild(CreateCartList(data));
+
+                        });
+
+
+
+                        //장바구니 제거 등록
+                        removecart();
+
+                        //상품 수량 조절기능 등록
+                        setQuantityUpDownBtn();
+
+                        //상품 통계 생성
+                        createStatistics(productData);
+
+                    }
+
+                })
+                .catch(error => console.log(error));
+
+
+        }
+
+    }
+
+    //================================================================
+    //장바구니에 목록 생성
+    //================================================================
+    const CreateCartList = (data) => {
+
+        //장바구니 상품 아이템
+        var cart_item_El = document.createElement('div');
+        cart_item_El.className = "cart-item";
+
+        //장바구니 상품 아이템 왼쪽 라인
+        var cart_item_left_El = document.createElement('div')
+        cart_item_left_El.className = "cart-item-left";
+
+        //장바구니 상품 이미지
+        var cart_img_El = document.createElement('img')
+        cart_img_El.className = "cart-img";
+        cart_img_El.src = data.prodimagepaths[0];
+
+        //장바구니 상품 제목란
+        var cart_item_title_El = document.createElement('div')
+        cart_item_title_El.className = "cart-item-title";
+
+        //장바구니 상품 아이템 제목
+        var cart_item_name_El = document.createElement('a')
+        cart_item_name_El.className = "cart-item-name";
+        cart_item_name_El.textContent = data.prodname;
+        cart_item_name_El.href = "/product/get/" + data.prodcode;
+
+        //장바구니 상품 중앙 라인
+        var cart_item_center_El = document.createElement('div')
+        cart_item_center_El.className = "cart-item-center";
+
+        //장바구니 상품 오른쪽 라인
+        var cart_item_right_El = document.createElement('div')
+        cart_item_right_El.className = "cart-item-right"
+
+        //장바구니 상품 수량 표시
+        var cart_quantity_El = document.createElement('div');
+        cart_quantity_El.className = "cart-quantity";
+
+        //장바구니 상품 수량
+        var cart_quantity_count_El = document.createElement('div');
+        cart_quantity_count_El.className = "cart-quantity-count";
+        cart_quantity_count_El.setAttribute('cart-no', data.cartno);
+        cart_quantity_count_El.textContent = data.cartcount;
+
+        //장바구니 상품 수량 증가
+        var cart_quantity_up_El = document.createElement('button');
+        cart_quantity_up_El.className = "btn btn-primary cart-quantity-up cart-quantity-btn";
+        cart_quantity_up_El.textContent = '+';
+
+        //장바구니 상품 수량 감소
+        var cart_quantity_down_El = document.createElement('button');
+        cart_quantity_down_El.className = "btn btn-primary cart-quantity-down cart-quantity-btn";
+        cart_quantity_down_El.textContent = '-';
+
+        //장바구니 상품 아이템 가격
+        var cart_item_price_El = document.createElement('div');
+        cart_item_price_El.className = "cart-item-price";
+        cart_item_price_El.textContent = priceConverter(data.prodprice) + "원";
+
+        //장바구니 상품 아이템 제거 버튼 틀
+        var cart_remove_El = document.createElement('div')
+        cart_remove_El.className = "cart-remove";
+
+        //장바구니 상품 아이템 제거 버튼
+        var cart_item_out_cart_El = document.createElement('button');
+        cart_item_out_cart_El.className = "btn btn-danger cart-item-out";
+        cart_item_out_cart_El.textContent = "제거";
+        cart_item_out_cart_El.setAttribute('prod-code', data.prodcode);
+
+
+
+        cart_item_left_El.appendChild(cart_img_El);
+
+        cart_item_left_El.appendChild(cart_item_title_El);
+        cart_item_title_El.appendChild(cart_item_name_El);
+
+        // cart_item_center_El.appendChild(cart_item_center_El);
+
+        cart_item_right_El.appendChild(cart_quantity_El);
+        cart_quantity_El.appendChild(cart_quantity_down_El);
+        cart_quantity_El.appendChild(cart_quantity_count_El);
+        cart_quantity_El.appendChild(cart_quantity_up_El);
+
+        cart_item_right_El.appendChild(cart_item_price_El);
+
+        cart_item_right_El.appendChild(cart_remove_El);
+        cart_remove_El.appendChild(cart_item_out_cart_El);
+
+
+        cart_item_El.appendChild(cart_item_left_El);
+        cart_item_El.appendChild(cart_item_center_El);
+        cart_item_El.appendChild(cart_item_right_El);
+
+        return cart_item_El;
+
+    }
+
+
+    //================================================================
+    //장바구니에 상품 제거
+    //================================================================
+    const removecart = () => {
+
+        const removeitem = (item) => {
+
+            if (username != "anonymousUser") {
+
+                let pcode = item.getAttribute('prod-code');
+
+                const outdata = { "prodcode": pcode, "username": username }
+
+                axios.post("/product/removecart", outdata, { headers: { 'Content-Type': 'application/json' } })
+                    .then(response => {
+
+                        // 장바구니 재호출
+                        listcart();
+
+                    })
+                    .catch(error => console.log(error));
+
+            } else {
+                alert("로그인 해주세요!")
+            }
+
+        }
+
+        const cart_item_out_El = document.querySelectorAll('.cart-item-out');
+
+        //장바구니 에서 '제거' 클릭
+        cart_item_out_El.forEach(item => {
+
+            // 이벤트 리스너가 이미 추가되었는지 확인
+            if (!item.hasEventListener) {
+                item.addEventListener('click', function () {
+
+                    removeitem(item);
+
+                });
+            }
+
+            item.hasEventListener = true;
+
+        });
+
+    }
+
+
+    //================================================================
+    //장바구니에 상품 수량
+    //================================================================
+
+    //수량 증가
+    const cartCountUp = (cartno, count) => {
+
+        console.log(typeof cartno, typeof count);
+
+        axios.post('/product/ccup', { cartno: cartno, count: count })
+            .then(response => {
+                listcart();
+            }).catch(error => console.log(error))
+
+    };
+
+    //수량 감소
+    const cartCountDown = (cartno, count) => {
+
+        axios.post('/product/ccdown', { cartno: cartno, count: count })
+            .then(response => {
+                listcart();
+            }).catch(error => console.log(error))
+
+    };
+
+    const setQuantityUpDownBtn = () => {
+
+        const cart_quantity_count_El = document.querySelectorAll('.cart-quantity');
+
+        cart_quantity_count_El.forEach(quantity => {
+
+            let quantiy_up = quantity.querySelector('.cart-quantity-up');
+            let quantiy_down = quantity.querySelector('.cart-quantity-down');
+            let quantiy_count = quantity.querySelector('.cart-quantity-count');
+
+
+            if (!quantiy_up.hasEventListener) {
+
+                quantiy_up.addEventListener('click', function () {
+
+                    cartCountUp(quantiy_count.getAttribute('cart-no'), quantiy_count.textContent);
+
+                })
+
+            } quantiy_up.hasEventListener = true;
+
+            if (!quantiy_down.hasEventListener) {
+
+                quantiy_down.addEventListener('click', function () {
+
+                    if (parseInt(quantiy_count.textContent, 10) > 1) {
+
+                        cartCountDown(quantiy_count.getAttribute('cart-no'), quantiy_count.textContent);
+
+                    }
+
+                })
+
+            } quantiy_up.hasEventListener = true;
+
+        });
+
+    }
+
+
+    //================================================================
+    //장바구니 통계 생성
+    //================================================================
+    const createStatistics = (productData) => {
+
+        // 이전 항목 제거
+        buy_prod_info_El.innerHTML = '';
+        buy_price_info_El.innerHTML = '';
+
+        //상품 이름 X 수량 생성기
+        const setSProdname = (prodname, cartcount) => {
+
+            var s_prodname_El = document.createElement('div')
+            s_prodname_El.className = "s-prodname";
+            s_prodname_El.textContent = prodname + ' X ' + cartcount;
+
+            return s_prodname_El;
+
+        }
+        // 상품 가격 생성기
+        const setSPrice = (prodprice, cartcount) => {
+
+            var s_price_El = document.createElement('div');
+            s_price_El.className = "s-price";
+            s_price_El.textContent = "+ " + priceConverter(prodprice * cartcount) + "원";
+
+            return s_price_El;
+
+        }
+
+
+        //상품 항목 생성
+        productData.forEach(data => {
+
+            buy_prod_info_El.appendChild(setSProdname(data.prodname, data.cartcount));
+            buy_price_info_El.appendChild(setSPrice(data.prodprice, data.cartcount));
+
+        })
+
+        // 추가 항목 생성
+
+        // 라인 생성
+        var price_line_El = document.createElement('div');
+        price_line_El.className = 's-price-line';
+        buy_price_info_El.appendChild(price_line_El);
+
+        //최종 합계 계산 후 생성
+        axios.post('/product/cartprice', { username: username })
+            .then(response => {
+
+                var s_price_sum_El = document.createElement('div');
+                s_price_sum_El.className = 's-price-sum';
+
+                console.log(response);
+                if (response !== null) {
+
+                    s_price_sum_El.textContent = '합계 : ' + priceConverter(response.data) + '원'
+
+                } else {
+
+                    s_price_sum_El.textContent = '합계 : 0원'
+
+                }
+
+                buy_price_info_El.appendChild(s_price_sum_El);
+
+            })
+            .catch(error => console.log(error))
+
+    }
+
+
+
+
+    //페이지 로드시 실행할 디폴트 설정들 실행
+    init();
+
+</script>
+
+</body>
+
+</html>

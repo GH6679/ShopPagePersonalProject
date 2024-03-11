@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
 
-    <!-- th:fragment     -->
+    <!-- headOutterLinks     -->
     <th:block th:insert="fragments/product/head :: headOutterLink" />
 
-    <!-- bootstrap3.3.7 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+    <!-- bs3.3.7   -->
+    <th:block th:insert="fragments/product/bs3 :: head_bs3" />
 
     <style>
         #wepper_section {
@@ -177,13 +176,6 @@
     </div>
 </div>
 
-<!-- JQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- BS 3.7.7 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<!-- axios -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- common.js   -->
 <script src="/js/common.js"></script>
 

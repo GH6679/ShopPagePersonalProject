@@ -76,8 +76,9 @@ public class PrincipalDetailsOAuth2Service extends DefaultOAuth2UserService   im
         String providerId = oAuth2UserInfo.getProviderId();
         String email = oAuth2UserInfo.getEmail();
         String username = email;
+        String nickname = oAuth2UserInfo.getName();
         String password = passwordEncoder.encode("1234");
-        System.out.println("확인?"+provider+providerId+email);
+        System.out.println("확인?"+nickname);
 
         String role = "ROLE_USER";
 
@@ -86,6 +87,7 @@ public class PrincipalDetailsOAuth2Service extends DefaultOAuth2UserService   im
         if(optional.isEmpty()) {
             User user = User.builder()
                     .username(username)
+                    .nickname(nickname)
                     .password(password)
                     .role(role)
                     .provider(provider)
@@ -102,15 +104,15 @@ public class PrincipalDetailsOAuth2Service extends DefaultOAuth2UserService   im
         PrincipalDetails principalDetails = new PrincipalDetails();
         principalDetails.setAttributes(oauth2User.getAttributes());
 
-        User user = optional.get();
         UserDto dto = new UserDto();
-
-        dto.setUsername(user.getUsername());
-        dto.setPassword(user.getPassword());
-        dto.setRole(user.getRole());
+        dto.setUsername(username);
+        dto.setNickname(nickname);
+        dto.setPassword(password);
+        dto.setRole(role);
         //OAUTH2 LOGOUT
-        dto.setProvider(user.getProvider());
-        dto.setProviderId(user.getProviderId());
+        dto.setProvider(provider);
+        dto.setProviderId(providerId);
+//        dto.setProfileimage(profileimage);
         principalDetails.setUser(dto);
         principalDetails.setAccessToken(userRequest.getAccessToken().getTokenValue());
 
@@ -128,6 +130,7 @@ public class PrincipalDetailsOAuth2Service extends DefaultOAuth2UserService   im
         UserDto dto = new UserDto();
         dto.setUsername(user.get().getUsername());
         dto.setPassword(user.get().getPassword());
+        dto.setNickname(user.get().getNickname());
         dto.setRole(user.get().getRole());
         dto.setPhone(user.get().getPhone());
         dto.setZipcode(user.get().getZipcode());

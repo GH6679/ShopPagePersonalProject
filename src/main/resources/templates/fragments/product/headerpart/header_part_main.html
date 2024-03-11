@@ -199,7 +199,7 @@
                         <div class="user-info-left">
                             <img class="user-image" src="" alt="">
                             <th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')} or ${#authorization.expression('hasRole(''ROLE_MEMBER'')')} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-                                <div sec:authentication="principal.username" class="user-name"></div>
+                                <div sec:authentication="principal.nickname" class="user-name"></div>
                             </th:block>
                             <th:block th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')} or ${#authorization.expression('hasRole(''ROLE_MEMBER'')')} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                                 <div class="user-name">gest</div>
@@ -239,6 +239,7 @@
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
             }
+
 
         </script>
     </div>

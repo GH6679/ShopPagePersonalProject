@@ -64,6 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/product/set","/product/update","/product/delete/**").hasAnyRole("MEMBER","ADMIN") //상품 등록 , 상품 수정
 				.antMatchers("/product/keyword/set","/product/keyword/list","/product/keyword/delete/**").hasAnyRole("ADMIN")    //키워드 등록 , 수정 , 삭제
 
+				.antMatchers("product/kakao/pay/**","product/kakao/**").permitAll() //카카오 페이
+
 				.antMatchers("/board/list","/board/read","/board/read/**").permitAll()
 				.antMatchers("/board/reply/list","/board/reply/count","/board/getVouch/**").permitAll()
 				.antMatchers("/board/post","/board/delete","/board/update").hasAnyRole("USER","ADMIN","MEMBER")

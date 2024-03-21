@@ -277,5 +277,18 @@ public class ProductRestController {
 
     }
 
+    //================================================================
+    //장바구니 목록 모두 제거
+    //================================================================
+    @PostMapping("/cartremoveDB")
+    public void product_cartremoveDB(@RequestBody Map<String,String> username){
+        String user = username.get("username");
+
+        productService.removeCartDB(user);
+
+
+
+    }
+
 
 }

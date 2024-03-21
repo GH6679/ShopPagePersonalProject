@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>kakaoFailPage</title>
+</head>
+<body>
+
+<h1>결제 성공</h1>
+
+<script>
+
+    window.opener.postMessage('paymentFail', 'http://localhost:8080/product/cartinfo');
+    window.close();
+
+</script>
+
+</body>
+</html>

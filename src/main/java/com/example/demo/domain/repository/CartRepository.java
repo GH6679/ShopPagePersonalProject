@@ -15,6 +15,9 @@ public interface CartRepository extends JpaRepository<Cart,Long> {
     @Query(value = "SELECT * FROM cm_shopdb.cart C WHERE C.prodcode = :prodcode AND C.username = :username" , nativeQuery = true)
     List<Cart> findByCartProd(@Param("prodcode") Long prodcode, @Param("username")String username);
 
+    @Query(value = "SELECT * FROM cm_shopdb.cart C WHERE C.username = :username" , nativeQuery = true)
+    List<Cart> findByUserCartList(@Param("username")String username);
+
     @Query(value = "SELECT SUM(P.prodprice * C.cartcount) FROM cm_shopdb.cart C inner join cm_shopdb.product P on C.prodcode = P.prodcode where C.username = :username", nativeQuery = true)
     Long sumByCartPrice(@Param("username") String username);
 

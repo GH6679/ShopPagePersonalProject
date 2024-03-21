@@ -212,6 +212,17 @@ public class ProductController {
     }
 
     //================================================================
+    //결제 성공여부 이동 페이지
+    //================================================================
+    @GetMapping("/payment/successinfo")
+    public void successinfo() {}
+    @GetMapping("/payment/cancelinfo")
+    public void cancelinfo() {}
+    @GetMapping("/payment/failinfo")
+    public void failinfo() {}
+
+
+    //================================================================
     //키워드 등록
     //================================================================
     @GetMapping("/keyword/set")

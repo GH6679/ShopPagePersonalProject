@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>cancel Info</title>
+
+    <!-- bootstrap3.3.7 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- BS 3.7.7 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <!-- headOutterLinks     -->
+    <th:block th:insert="fragments/product/head :: headOutterLink" />
+
+    <style>
+        #wepper_section {
+            width: 100%;
+        }
+
+        .main-section {}
+
+        .main-section-area {
+            width: 1260px;
+            margin: 0 auto;
+        }
+
+
+        .tag-labels {
+            margin-right: 5px;
+        }
+
+        .btn {
+            color: white;
+            flex: 1;
+        }
+
+        .main-section-area>div>p {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0px 15px 15px;
+            color: black;
+        }
+
+        /* 구획 구분 */
+        .main-section-area>div>div {
+            width: 100%;
+            padding: 20px 24px;
+            background-color: #F8F8F8;
+            border: solid 1px #d3d3d3;
+            box-sizing: border-box;
+        }
+
+        /* 메인페이지로 버튼 상자 */
+        .info-complete-box {
+
+            position: relative;
+            height: 100px;
+
+        }
+
+        /* 메인페이지로 버튼 */
+        .info-complete {
+            position: absolute;
+            height: 45px;
+            width: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #complete-massage-info {
+            background-color: yellow;
+            border: 0px;
+
+            width: 100%;
+            height: 360px;
+
+            display: flex;
+            justify-content: center;
+            line-height: 320px;
+
+        }
+
+        .complete-massage {
+
+            font-size: 72px;
+            font-weight: bold;
+
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div id="wepper">
+
+    <!--  header fragment      -->
+    <div th:replace="fragments/product/header_v2 :: headerFragment_no_menubar" />
+
+    <!-- 바디 메인 섹션 -->
+    <div id="wepper_section">
+        <!-- 바디 메인 -->
+        <div class="main-section">
+            <!-- 바디 메인 -->
+            <div class="main-section-area">
+
+                <div class="complete-massage-box">
+                    <div id="complete-massage-info">
+                        <div class="complete-massage">🖐️결제 중단!</div>
+                    </div>
+                </div>
+
+
+                <div>
+                    <p>사유</p>
+                    <div>걀제가 중단되었습니다.</div>
+                </div>
+
+                <div class="info-complete-box">
+                    <button class="btn btn-danger info-complete">장바구니로 돌아가기</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- common.js   -->
+<script src="/js/common.js"></script>
+
+<script th:inline="javascript">
+
+    //============================================================
+    //유저 식별
+    const username = /*[[${#authentication.name}]]*/ {};
+    //============================================================
+
+    //페이지 로드시 실행할 디폴트 설정들 실행
+    const init = () => {
+
+
+    }
+
+    //메인페이지로 이동 버튼
+    const info_complete_El = document.querySelector('.info-complete');
+    info_complete_El.addEventListener('click', function(){
+
+        window.location.href = '/product/cartinfo';
+
+    })
+
+    //페이지 로드시 실행할 디폴트 설정들 실행
+    init();
+
+</script>
+
+
+</body>
+
+</html>

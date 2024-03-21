@@ -20,10 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -385,6 +382,17 @@ public class ProductService {
             cartRepository.save(item);
 
         });
+
+    }
+
+    //================================================================
+    //장바구니 목록 모두 제거
+    //================================================================
+    public void removeCartDB(String username) {
+
+        List<Cart> cart = cartRepository.findByUserCartList(username);
+
+        cartRepository.deleteAll(cart);
 
     }
 }

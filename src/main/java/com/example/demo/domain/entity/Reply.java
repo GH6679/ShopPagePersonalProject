@@ -23,6 +23,7 @@ public class Reply {
             foreignKeyDefinition = "FOREIGN KEY (bno) REFERENCES board(no) ON DELETE CASCADE ON UPDATE CASCADE") ) //FK설정\
     private Board board;
     private String username;
+    private String nickname;
     private String content;
     private Long likecount;       //좋아요 Count
     private Long unlikecount;     //싫어요 Count

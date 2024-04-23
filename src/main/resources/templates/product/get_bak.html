@@ -111,20 +111,20 @@
 
 
 
-<!--    const updateProduct = () => {-->
-<!--    const no = document.getElementById('product-No').textContent;-->
-<!--        if(confirm("상품내용을 수정하시겠습니까?")){-->
-<!--            axios.delete('/product/update/'+no)-->
-<!--            .then(respons => {-->
+    const updateProduct = () => {
+    const no = document.getElementById('product-No').textContent;
+        if(confirm("상품내용을 수정하시겠습니까?")){
+            axios.delete('/product/update/'+no)
+            .then(respons => {
 
-<!--                window.location.href = '/product/update';-->
-<!--            })-->
-<!--            .catch(error=>{-->
-<!--                alert('상품수정에 문제가 발생했습니다.'+error);-->
-<!--            });-->
+                window.location.href = '/product/update';
+            })
+            .catch(error=>{
+                alert('상품수정에 문제가 발생했습니다.'+error);
+            });
 
-<!--        }-->
-<!--    };-->
+        }
+    };
 
 </script>
 

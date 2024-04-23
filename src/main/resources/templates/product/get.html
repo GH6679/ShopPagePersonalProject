@@ -1,155 +1,1216 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
-    <title>ProductPage</title>
+    <title>Title</title>
+
+    <!-- headOutterLinks     -->
+    <th:block th:insert="fragments/product/head :: headOutterLink" />
+
+    <!-- bootstrap3.3.7 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- BS 3.7.7 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
 
-    <!-- th:fragment     -->
-    <th:block th:insert="fragments/product/head :: headOutterLink"/>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <!--css-->
-    <link rel="stylesheet" href="/css/product/get.css">
-
-</head>
-<body>
-<div>
-    <!--  header fragment      -->
-    <div th:replace="fragments/product/header_v2 :: headerFragment_no_menubar"/>
-    <!-- +++++++++++++++++++++++++++++++++++++++++ get 추가된 부분+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <section>
-        <!-- ++++++++++++++++++++++++++++++++ 메인 상품 이미지 +++++++++++++++++++++++++++++++++++++++++++ -->
-            <article class="page-top">
-                <div class="page-top-one">
-                    <img th:src="${productDto.prodimagepaths[0]}" class="page-top-img">
-                </div>
-            </article>
-        <!-- ++++++++++++++++++++++++++++++++ 구매 +++++++++++++++++++++++++++++++++++++++++++ -->
-        <article class="page-bottom" style="">
-            <div class="page-box-one" style="">
-                <ul>
-                    <li id="product-No" th:text="${productDto.prodcode}"></li>
-                    <li class="page-one-top" th:text="${productDto.prodname}"></li>
-                    <li class="page-one-bottom" style="display: flex;">
-                        <div class="material-symbols-outlined">star</div>
-                        <div class="material-symbols-outlined">star</div>
-                        <div class="material-symbols-outlined">star</div>
-                        <div class="material-symbols-outlined">star</div>
-                        <div class="material-symbols-outlined">star</div>
-                    </li>
-                </ul>
-            </div>
-            <div class="page-box-two" style="">
-                <div>1,590,000원</div>
-                <ul style="">
-                    <li class="page-two-discount">1,467,300원</li>
-                    <li class="page-two-link" style="display: flex;">
-                        <div class="material-symbols-outlined">favorite</div>
-                        <div class="material-symbols-outlined">share</div>
-                    </li>
-                </ul>
-            </div>
-            <div class="page-box-three" style="">
-                <div style="margin-right: 0px; width: 70px; font-weight: bold; font-size: 18px;">배송비</div>
-                <div style="font-size: 30px;" class="material-symbols-outlined">local_shipping</div>
-                <div style="display: flex; text-align: right;">
-                    <div style="width: 350px;">3000원</div>
-                </div>
-            </div>
-            <div class="page-box-four" style="">
-                <input type="button" style="" value="장바구니">
-                <input type="button" style="" value="구매하기">
-            </div>
-        </article>
-    </section>
-    <!-- ++++++++++++++++++++++++++++++++ 상세 내용 +++++++++++++++++++++++++++++++++++++++++++ -->
-<!--    <aside class="page-center">-->
-<!--        <div th:each="item,i : ${productDto.prodkeywords}">-->
-<!--            <li th:text="${item}"></li>-->
-<!--            <div>-->
-<!--                <span th:text="${productDto.prodexplains[i.index]}"></span>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </aside>-->
-    <aside class="page-two">
-        <!-- ++++++++++++++++++++++++++++++++ 상품 페이지 +++++++++++++++++++++++++++++++++++++++++++ -->
-
-        <!-- ++++++++++++++++++++++++++++++++ 상품 내용 +++++++++++++++++++++++++++++++++++++++++++ -->
-        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-        <div class="thing" >
-            <div class="thing-com-list">
-                <div th:each="item,i : ${productDto.prodkeywords}" class="page-two-list">
-                    <li th:text="${item}"></li>
-                    <div>
-                        <span th:text="${productDto.prodexplains[i.index]}"></span>
-                    </div>
-                </div>
-            </div>
-            <!-- ++++++++++++++++++++++++++++++++ 상품 내용 +++++++++++++++++++++++++++++++++++++++++++ -->
-            <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-            <div class="thing-left" id="thing-img-id" style="">
-                <span th:text="${productDto.prodcontext}"></span>
-                <div th:each="item : ${productDto.prodimagepaths}" th:if="${item} != ${productDto.prodimagepaths[0]}">
-                    <img class="thing-left-in" th:src="${item}">
-                </div>
-            </div>
-            <div class="thing-center">
-                <a class="btn btn-primary" th:href="@{/product/update(no=${productDto.prodcode})}">수정하기</a>
-            </div>
-        </div>
-        <!-- ++++++++++++++++++++++++++++++++ 장바구니 +++++++++++++++++++++++++++++++++++++++++++ -->
-        <div class="page-tow-box">
-            <div class="thing-right" style="">
-                <div class="thing-box-onw" style="">
-                    <div>
-                        선택 물건
-                    </div>
-                </div>
-                <div class="thing-box-two">
-                    <input type="button" value="장바구니">
-                </div>
-                <div class="thing-box-three">
-                    <input type="button" value="구매하기">
-                </div>
-            </div>
-        </div>
-    </aside>
-    <footer style="">
-
-    </footer>
-</div>
-<!-- ++++++++++++++++++++++++++++++++ 장바구니 스크롤 +++++++++++++++++++++++++++++++++++++++++++ -->
-<script>
-    window.addEventListener('scroll', function () {
-        const fixedBox = document.querySelector('.page-tow-box');
-        const scrollY = window.scrollY;
-        const yThreshold = 800  ; // 특정 y측 위치
-
-        if (scrollY >= yThreshold) {
-            fixedBox.style.top = `${scrollY - yThreshold}px`;
-        } else {
-            fixedBox.style.top = '0';
+    <style>
+        #wepper_section {
+            width: 100%;
         }
-    });
-</script>
 
-<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+        .main-section {}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
-        integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
+        .main-section-area {
+            width: 1260px;
+            margin: 0 auto;
+        }
 
-    //간단한 메인페이지 리다이렉트 함수
-    function redirectToPage() {
-    window.location.href = '/product/index';
-    }
+        .btn {
+            color: white;
+            flex: 1;
+        }
+
+        /* 구획 구분 */
+        .main-section-area>div>div {
+            width: 100%;
+            padding: 20px 24px;
+            background-color: #F8F8F8;
+            border: solid 1px #d3d3d3;
+            box-sizing: border-box;
+        }
+
+        /* 각 구획 간격 조절 */
+        .product-information>div {
+
+            margin-top: 15px;
+
+        }
+
+        /* 상품 주요 정보 박스 */
+        .product-maininfo-box {
+
+            display: flex;
+
+        }
+
+        /* 상품 메인 이미지 박스 */
+        .product-img-box {
+
+            width: 620px;
+            height: 620px;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        /* 상품 메인 이미지 */
+        .product-img {
+
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+
+        }
+
+        /* 상품 주요 정보 */
+        .product-maininfo {
+
+            border-left: 1px solid #c9c9c9;
+            padding: 10px 8px 10px 12px;
+
+        }
+
+        /* 상품 메인 정보 헤더 */
+        .product-maininfo-header {
+
+            height: 75px;
+            display: flex;
+
+        }
+
+        /* 상품 메인 정보 보디 */
+        .product-maininfo-body {
+            height: 395px;
+            border-top: 1px solid #c9c9c9;
+
+        }
+
+        /* 상품 메인 정보 풋터 */
+        .product-maininfo-footer {
+
+            height: 130px;
+            border-top: 1px solid #c9c9c9;
+
+        }
+
+        .product-maininfo-body>div {
+
+            display: flex;
+            padding: 5px 0px 0px 0px;
+
+        }
+
+        .maininfo-header-left {
+
+            width: 470px;
 
 
-</script>
+        }
+
+        .maininfo-header-right {
+
+            width: 150px;
+
+        }
+
+
+        /* 상품 타이틀 */
+        .product-title {
+
+            display: flex;
+
+        }
+
+        /* 상품 번호 */
+        .product-no {
+
+            line-height: 25px;
+            color: #919191;
+            font-weight: bold;
+            font-size: 32px;
+            text-align: center;
+
+        }
+
+        /* 상품 이름 */
+        .product-name {
+
+            padding-right: 5px;
+            line-height: 28px;
+            font-size: 27px;
+            letter-spacing: -0.6px;
+            font-weight: bold;
+            color: #333;
+
+        }
+
+        /* 작성자 박스 */
+        .product-author-box {
+
+            display: flex;
+            padding: 5px 0px 5px 2px;
+
+        }
+
+        .product-author-box>div {
+
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+
+        }
+
+        /* 상품 생성 날짜 */
+        .product-time {
+
+            font-weight: bold;
+
+        }
+
+        /* 상품 타입 라벨 */
+        .product-type-label {
+
+            font-size: 18px;
+            font-weight: bold;
+
+        }
+
+        /* 상품 타입 */
+        .product-type {
+
+            font-size: 24px;
+            font-weight: bold;
+            color: #E53B38;
+            line-height: 25px;
+            /* 문자 수직 위치를 조절 */
+
+        }
+
+        /* 상품 태그 목록 박스 */
+        .product-tag-box {
+
+            height: 250px;
+
+
+        }
+
+        /* 상품 테그 목록 라벨 */
+        .product-tag-list-label {
+
+            font-size: 18px;
+            font-weight: bold;
+
+
+        }
+
+        /* 상품 테그 목록 */
+        .product-tag-list {
+
+            display: inline-block;
+            width: 450px;
+
+        }
+
+        /* 상품 테그 */
+        .product-tag {
+
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 25px;
+            /* 문자 수직 위치를 조절 */
+            white-space: nowrap;
+            /* 한 줄에 텍스트를 표시하고, 넘칠 경우 자동으로 다음 줄로 이동하지 않도록 함 */
+
+        }
+
+        /* 상품 수량 박스 */
+        .product-quantity-box {
+
+            height: 40px;
+            display: flex;
+            justify-content: end;
+
+        }
+
+        /* 상품 수량 표시 */
+        .product-quantity {
+            /* height: 40px; */
+            width: 150px;
+            position: relative;
+        }
+
+        /* 수량 버튼 */
+        .product-quantity-btn {
+            width: 28px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 수량 증가버튼튼 */
+        .product-quantity-up {
+            position: absolute;
+            top: 50%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 상품 수량 */
+        .product-quantity-count {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 상품 감소 버튼 */
+        .product-quantity-down {
+            position: absolute;
+            top: 50%;
+            right: 35%;
+            transform: translate(+50%, -50%);
+        }
+
+        /* 상품 가격 박스 */
+        .product-price-box {
+
+            display: flex;
+            justify-content: end;
+            width: 585px;
+
+        }
+
+        /* 상품 가격 */
+        .product-price {
+
+            font-size: 30px;
+            font-weight: bold;
+            color: #333;
+
+        }
+
+        /* 옵션 버튼 박스 */
+        .option-btn-box {
+
+            position: relative;
+            padding: 10px 0px 0px 0px;
+
+        }
+
+        .option-btn-box>button {
+
+            height: 40px;
+
+        }
+
+        /* 상품 수정 버튼 */
+        .product-update-btn {
+
+            position: absolute;
+            right: 238px;
+
+        }
+
+        /* 장바구니 버튼 */
+        .cart-btn {
+
+            position: absolute;
+            right: 120px;
+
+        }
+
+        /* 바로 구매 버튼 */
+        .cartinfo-btn {
+
+            position: absolute;
+            right: 30px;
+
+        }
+
+        /* 상품 키워드 박스 */
+        .product-keyword-box {}
+
+        /* 상품 키워드 리스트 */
+        .product-keyword-list {}
+
+        /* 키워드 펼치기 버튼 박스 */
+        .key-open-btn-box {
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        /* 키워드 펼치기 버튼 */
+        .key-open-button {
+
+            cursor: pointer;
+
+        }
+
+        .key-open-button:hover {
+
+            color: blue;
+
+        }
+
+        /* 키워드 닫기 버튼 박스 */
+        .key-close-btn-box {
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 5px 0px 5px;
+            border-top: 1px solid #d3d3d3;
+
+        }
+
+        /* 키워드 닫기 버튼 */
+        .key-close-btn-box>div {
+
+
+            width: 35px;
+
+        }
+
+        .key-close-btn {}
+
+        /* 키워드 툴팁 */
+        .tooltip-tep {
+            padding: 5px 0px 5px 0px;
+
+        }
+
+        /* 키워드 툴팁 [키워드] */
+        .tooltip-key {
+            font-size: 15px;
+            font-weight: bold;
+            color: #333;
+
+        }
+
+        /* 키워드 툴팁 [내용] */
+        .tooltip-text {
+
+            font-size: 13px;
+            padding: 5px 0px 5px 5px;
+        }
+
+        /* 상품 상세정보 박스 */
+        .product-moreinfo-box {}
+
+        /* 상품 상세정보 헤더 */
+        .product-moreinfo-header {}
+
+        /* 상품 상세정보 보디 */
+        .product-moreinfo-body {}
+
+        /* 상품 상세정보 이미지 박스 */
+        .product-info-image-box {
+
+            display: flex;
+            justify-content: center;
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+<div id="wepper">
+
+    <!--  header fragment      -->
+    <div th:replace="fragments/product/header_v2 :: headerFragment_no_menubar" />
+
+    <!-- 바디 메인 섹션 -->
+    <div id="wepper_section">
+        <!-- 바디 메인 -->
+        <div class="main-section">
+            <!-- 바디 메인 -->
+            <div class="main-section-area">
+                <!-- 상품 정보  -->
+                <div class="product-information">
+                    <!-- 상품 주요 정보 박스 -->
+                    <div class="product-maininfo-box">
+
+                        <!-- 상품 메인 이미지 -->
+                        <div class="product-img-box">
+
+                            <img class="product-img" th:src="${productDto.prodimagepaths[0]}"></img>
+
+                        </div>
+                        <!-- 상품 주요 정보 -->
+                        <div class="product-maininfo">
+
+
+                            <div class="product-maininfo-header">
+                                <div class="maininfo-header-left">
+                                    <!-- 상품 타이틀 -->
+                                    <div class="product-title">
+                                        <!-- 상품번호 -->
+                                        <div class="product-no" th:text="${productDto.prodcode + ','}"></div>
+                                        <!-- 상품 이름 -->
+                                        <div class="product-name" th:text="${productDto.prodname}"></div>
+                                    </div>
+                                    <!-- 작성자 -->
+                                    <div class="product-author-box">
+                                        <div class="product-author-label">작성자 : </div>
+                                        <div class="product-author" th:text="${productDto.prodauthor}"></div>
+                                    </div>
+
+                                </div>
+                                <div class="maininfo-header-right">
+
+                                    <div class="product-time" th:text="${productDto.prodtime}"></div>
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="product-maininfo-body">
+
+                                <!-- 상품 타입 -->
+                                <div class="product-type-box">
+                                    <div class="product-type-label">상품 타입 :</div>&nbsp; <!-- &nbsp; 여백 엔티티 -->
+                                    <span class="product-type" th:text="${productDto.prodtype}"></span>
+                                </div>
+
+                                <!-- 상품 테그 -->
+                                <div class="product-tag-box">
+                                    <div class="product-tag-list-label">상품 테그 :</div>&nbsp;
+                                    <div class="product-tag-list">
+                                            <span th:each="item,i : ${productDto.prodtags}">
+                                                <span class="product-tag" th:if="${i.index eq 0}"
+                                                      th:text="'[' + ${item} + '] '"></span> <!-- eq: 등호(=)와 같은지를 비교  -->
+                                                <span class="product-tag" th:if="${i.index ne 0}"
+                                                      th:text="',[' + ${item} + '] '"></span> <!-- ne: 같지 않음(!=)을 비교 -->
+                                            </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="product-maininfo-footer">
+
+                                <!-- 수량 박스 -->
+                                <div class="product-quantity-box">
+
+                                </div>
+
+
+                                <!-- 가격표 박스 -->
+                                <div class="product-price-box">
+                                    <span class="product-price">200,000</span>
+                                </div>
+
+                                <!-- 버튼 박스 -->
+                                <div class="option-btn-box">
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <!-- 상품 키워드 박스 -->
+                    <div class="product-keyword-box">
+
+
+
+                    </div>
+
+                    <!-- 상품 상세 정보 박스 -->
+                    <div class="product-moreinfo-box">
+
+                        <div class="product-moreinfo-header">
+
+
+                        </div>
+                        <div class="product-moreinfo-body">
+                                <span th:text="${productDto.prodcontext}">
+
+                                </span>
+                            <div class="product-info-image-box" th:each="item : ${productDto.prodimagepaths}"
+                                 th:if="${item} != ${productDto.prodimagepaths[0]}">
+                                <img th:src="${item}">
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- common.js   -->
+    <script src="/js/common.js"></script>
+
+    <script th:inline="javascript">
+
+        //================================================================
+        //유저 식별
+        const username = /*[[${#authentication.name}]]*/ {};
+        //가격표 생성 위치
+        const product_price_El = document.querySelector(".product-price");
+        //상품 번호
+        const product_no = /*[[${productDto.prodcode}]]*/ {};
+        //작성자 이름
+        const product_prodauthor = /*[[${productDto.prodauthor}]]*/ {};
+        //상품 수량 표시 박스
+        const product_quantity_box_El = document.querySelector('.product-quantity-box');
+        //버튼 생성 위치
+        const option_btn_box_El = document.querySelector('.option-btn-box');
+        //키워드 설명 생성위치
+        const product_keyword_box_El = document.querySelector('.product-keyword-box');
+        //================================================================
+
+        //================================================================
+        //페이지로드시 실행할 요소
+        //================================================================
+        const init = () => {
+
+            console.log(product_no);
+
+            getPrice();
+
+            setKeyword('close');
+
+        }
+
+        //================================================================
+        //가격표 생성 및 장바구니 담기 여부 확인
+        //================================================================
+        const getPrice = () => {
+
+            //상품 상세페이지 버튼 생성
+            const intocatBtnGen = (iscart) => {
+
+                //기존 버튼 제거
+                option_btn_box_El.innerHTML = '';
+
+                // 장바구니에 있고 사용자가 게시글 작성자가 아닐 경우
+                if (iscart === "true" && product_prodauthor !== username) {
+
+                    //장바구니에 제거 버튼
+                    var product_outcart_btn_El = document.createElement('button');
+                    product_outcart_btn_El.className = 'btn btn-danger product-outcart-btn cart-btn';
+                    product_outcart_btn_El.textContent = '장바구니 빼기';
+
+                    // 구입페이지로 이동 버튼
+                    var cartinfo_btn_El = document.createElement('button');
+                    cartinfo_btn_El.className = 'btn btn-danger cartinfo-btn';
+                    cartinfo_btn_El.textContent = '바로 구매';
+
+                    option_btn_box_El.appendChild(product_outcart_btn_El);
+                    option_btn_box_El.appendChild(cartinfo_btn_El);
+
+                    //장바구니 제거 기능 등록
+                    removecart();
+
+
+                    // 장바구니에 있고 사용자가 게시글 작성자일 경우
+                } else if (iscart === "true" && product_prodauthor === username) {
+
+                    //상품 수정 버튼
+                    var product_update_btn_El = document.createElement('button');
+                    product_update_btn_El.className = 'btn btn-primary product-update-btn';
+                    product_update_btn_El.textContent = '상품 수정';
+
+
+                    //장바구니에 제거 버튼
+                    var product_outcart_btn_El = document.createElement('button');
+                    product_outcart_btn_El.className = 'btn btn-danger product-outcart-btn cart-btn';
+                    product_outcart_btn_El.textContent = '장바구니 빼기';
+
+
+                    // 구입페이지로 이동 버튼
+                    var cartinfo_btn_El = document.createElement('button');
+                    cartinfo_btn_El.className = 'btn btn-danger cartinfo-btn';
+                    cartinfo_btn_El.textContent = '바로 구매';
+
+                    option_btn_box_El.appendChild(product_update_btn_El);
+                    option_btn_box_El.appendChild(product_outcart_btn_El);
+                    option_btn_box_El.appendChild(cartinfo_btn_El);
+
+                    //상품 수정 기능 등록
+                    updateProduct();
+
+                    //장바구니 제거 기능 등록
+                    removecart();
+
+                    //장바구니에 없고 사용자가 게시글 작성자일 경우
+                } else if (iscart === "false" && product_prodauthor === username) {
+
+                    //상품 수정 버튼
+                    var product_update_btn_El = document.createElement('button');
+                    product_update_btn_El.className = 'btn btn-primary product-update-btn';
+                    product_update_btn_El.textContent = '상품 수정';
+
+
+                    //장바구니에 담기 버튼
+                    var product_intocart_btn_El = document.createElement('button');
+                    product_intocart_btn_El.className = 'btn btn-primary product-intocart-btn cart-btn';
+                    product_intocart_btn_El.textContent = '장바구니 담기';
+
+
+                    // 구입페이지로 이동 버튼
+                    var cartinfo_btn_El = document.createElement('button');
+                    cartinfo_btn_El.className = 'btn btn-danger cartinfo-btn';
+                    cartinfo_btn_El.textContent = '바로 구매';
+
+                    option_btn_box_El.appendChild(product_update_btn_El);
+                    option_btn_box_El.appendChild(product_intocart_btn_El);
+                    option_btn_box_El.appendChild(cartinfo_btn_El);
+
+                    //상품 수정 기능 등록
+                    updateProduct();
+
+                    //장바구니 담기 기능 등록
+                    intocart();
+
+
+                    //그외
+                } else {
+
+                    //장바구니에 담기 버튼
+                    var product_intocart_btn_El = document.createElement('button');
+                    product_intocart_btn_El.className = 'btn btn-primary product-intocart-btn cart-btn';
+                    product_intocart_btn_El.textContent = '장바구니 담기';
+
+
+                    // 구입페이지로 이동 버튼
+                    var cartinfo_btn_El = document.createElement('button');
+                    cartinfo_btn_El.className = 'btn btn-danger cartinfo-btn';
+                    cartinfo_btn_El.textContent = '바로 구매';
+
+                    option_btn_box_El.appendChild(product_intocart_btn_El);
+                    option_btn_box_El.appendChild(cartinfo_btn_El);
+
+                    //장바구니 담기 기능 등록
+                    intocart();
+
+                }
+
+                //바로 구매 버튼 활성화
+                buyProduct(iscart);
+
+            }
+
+            let data = { "username": username, "prodcode": product_no }
+            axios.post('/product/get/getprice', data)
+                .then(respons => {
+
+                    // 가격 초기화
+                    product_price_El.innerHTML = '';
+
+                    resData = respons.data;
+                    //장바구니에 있을때
+                    if (resData['iscart'] === 1) {
+
+                        product_price_El.textContent = priceConverter(resData['price'] + "원");
+                        intocatBtnGen("true");
+                        setquantity()
+
+                        //장바구니에 없을때
+                    } else {
+
+                        product_price_El.textContent = priceConverter(resData['price'] + "원");
+                        intocatBtnGen("false");
+                        product_quantity_box_El.innerHTML = '';
+
+
+                    }
+
+                })
+                .catch(error => { console.log(error) });
+
+        }
+
+        //================================================================
+        //상품 수량
+        //================================================================
+        const setquantity = () => {
+
+            if (username != "anonymousUser") {
+                let data = { "username": username, "prodcode": product_no }
+                axios.post('/product/findcart', data, { headers: { 'Content-Type': 'application/json' } })
+                    .then(response => {
+                        console.log(response);
+
+                        if (response != null) {
+                            const productData = response.data;
+
+                            //장바구니 기존 목록 제거
+                            product_quantity_box_El.innerHTML = '';
+
+                            product_quantity_box_El.appendChild(careateQuantity(productData));
+
+                            //상품 수량 조절기능 등록
+                            setQuantityUpDownBtn();
+
+
+
+                        }
+
+                    })
+                    .catch(error => console.log(error));
+
+
+            }
+
+        }
+
+        const careateQuantity = (data) => {
+
+
+
+            //장바구니 상품 수량 표시
+            var product_quantity_El = document.createElement('div');
+            product_quantity_El.className = "product-quantity";
+
+            //장바구니 상품 수량
+            var product_quantity_count_El = document.createElement('div');
+            product_quantity_count_El.className = "product-quantity-count";
+            product_quantity_count_El.setAttribute('cart-no', data.cartno);
+            product_quantity_count_El.textContent = data.cartcount;
+
+            //장바구니 상품 수량 증가
+            var product_quantity_up_El = document.createElement('button');
+            product_quantity_up_El.className = "btn btn-primary product-quantity-up product-quantity-btn";
+            product_quantity_up_El.textContent = '+';
+
+            //장바구니 상품 수량 감소
+            var product_quantity_down_El = document.createElement('button');
+            product_quantity_down_El.className = "btn btn-primary product-quantity-down product-quantity-btn";
+            product_quantity_down_El.textContent = '-';
+
+
+            product_quantity_El.appendChild(product_quantity_down_El);
+            product_quantity_El.appendChild(product_quantity_count_El);
+            product_quantity_El.appendChild(product_quantity_up_El);
+
+            return product_quantity_El;
+
+        }
+
+        //================================================================
+        //상품 수량 조절 기능
+        //================================================================
+
+        //수량 증가
+        const productCountUp = (cartno, count) => {
+
+            axios.post('/product/ccup', { cartno: cartno, count: count })
+                .then(response => {
+                    getPrice();
+                }).catch(error => console.log(error))
+
+        };
+
+        //수량 감소
+        const productCountDown = (cartno, count) => {
+
+            axios.post('/product/ccdown', { cartno: cartno, count: count })
+                .then(response => {
+                    getPrice();
+                }).catch(error => console.log(error))
+
+        };
+
+        const setQuantityUpDownBtn = () => {
+
+            const product_quantity_count_El = document.querySelectorAll('.product-quantity');
+
+            product_quantity_count_El.forEach(quantity => {
+
+                let quantiy_up = quantity.querySelector('.product-quantity-up');
+                let quantiy_down = quantity.querySelector('.product-quantity-down');
+                let quantiy_count = quantity.querySelector('.product-quantity-count');
+
+
+                if (!quantiy_up.hasEventListener) {
+
+                    quantiy_up.addEventListener('click', function () {
+
+                        productCountUp(quantiy_count.getAttribute('cart-no'), quantiy_count.textContent);
+
+                    })
+
+                } quantiy_up.hasEventListener = true;
+
+                if (!quantiy_down.hasEventListener) {
+
+                    quantiy_down.addEventListener('click', function () {
+
+                        if (parseInt(quantiy_count.textContent, 10) > 1) {
+
+                            productCountDown(quantiy_count.getAttribute('cart-no'), quantiy_count.textContent);
+
+                        }
+
+                    })
+
+                } quantiy_up.hasEventListener = true;
+
+            });
+
+        }
+
+
+        //================================================================
+        //장바구니에 상품 추가
+        //================================================================
+        const intocart = () => {
+
+            const intocartbtn_El = document.querySelector('.product-intocart-btn');
+
+            // 이벤트 리스너가 이미 추가되었는지 확인
+            if (!intocartbtn_El.hasEventListener) {
+
+                intocartbtn_El.addEventListener('click', function () {
+
+                    if (username != "anonymousUser") {
+
+                        let pcode = product_no;
+
+                        const intodata = { "prodcode": pcode, "username": username }
+
+                        axios.post("/product/intocart", intodata, { headers: { 'Content-Type': 'application/json' } })
+                            .then(response => {
+
+                                //항목을 재생성
+                                getPrice();
+
+                            })
+                            .catch(error => console.log(error));
+
+                    } else {
+                        alert("로그인 해주세요!")
+                        // 로그인 페이지로 이동
+                        window.location.href = "/user/login";
+                    }
+
+
+                });
+
+            } intocartbtn_El.hasEventListener = true;
+
+
+        }
+
+        //================================================================
+        //장바구니에 상품 제거
+        //================================================================
+        const removecart = () => {
+
+            const removeitem = () => {
+
+                if (username != "anonymousUser") {
+
+                    let pcode = product_no;
+
+                    const outdata = { "prodcode": pcode, "username": username }
+
+                    axios.post("/product/removecart", outdata, { headers: { 'Content-Type': 'application/json' } })
+                        .then(response => {
+
+                            // 장바구니 재호출
+                            getPrice();
+
+                        })
+                        .catch(error => console.log(error));
+
+                } else {
+                    alert("로그인 해주세요!")
+                }
+
+            }
+
+
+            const outcartbtn_El = document.querySelector('.product-outcart-btn');
+
+            // 이벤트 리스너가 이미 추가되었는지 확인
+            if (!outcartbtn_El.hasEventListener) {
+                //장바구니 '제거' 클릭
+                outcartbtn_El.addEventListener('click', function () {
+
+                    removeitem();
+
+                });
+            }
+
+            outcartbtn_El.hasEventListener = true;
+
+
+        }
+
+
+
+        //================================================================
+        //키워드 설명 보기
+        //================================================================
+        const setKeyword = (oder) => {
+
+            //키워드 불러오기
+            const openKeyword = () => {
+
+                axios.get('/product/getprod', { params: { 'prodcode': product_no } })
+                    .then(respons => {
+
+                        const resdata = respons.data;
+
+                        // 키워드
+                        const prodkeywords = resdata.prodkeywords;
+                        // 설명
+                        const prodexplains = resdata.prodexplains;
+
+                        // 키워드 리스트 틀 생성
+                        var product_keyword_list_El = document.createElement('div')
+                        product_keyword_list_El.className = 'product-keyword-list';
+
+                        // 키워드 생성
+                        prodkeywords.forEach((keydata, index) => {
+
+                            var tooltip_tep_El = document.createElement('div')
+                            tooltip_tep_El.className = "tooltip-tep";
+
+                            var tooltip_key_El = document.createElement('li')
+                            tooltip_key_El.textContent = keydata;
+                            tooltip_tep_El.className = "tooltip-key";
+
+
+                            var tooltip_text_El = document.createElement('span')
+                            tooltip_text_El.className = "tooltip-text";
+                            tooltip_text_El.textContent = prodexplains[index];
+
+
+
+                            tooltip_tep_El.appendChild(tooltip_key_El);
+                            tooltip_tep_El.appendChild(tooltip_text_El);
+
+                            product_keyword_list_El.appendChild(tooltip_tep_El);
+
+
+                        });
+
+                        var key_close_btn_box_El = document.createElement('div')
+                        key_close_btn_box_El.className = 'key-close-btn-box';
+
+                        var key_close_btn_div_El = document.createElement('div')
+
+                        var key_close_btn_El = document.createElement('button')
+                        key_close_btn_El.className = "btn btn-primary key-close-btn";
+                        key_close_btn_El.textContent = '키워드 닫기';
+
+                        product_keyword_box_El.appendChild(product_keyword_list_El);
+                        key_close_btn_div_El.appendChild(key_close_btn_El);
+                        key_close_btn_box_El.appendChild(key_close_btn_div_El);
+                        product_keyword_box_El.appendChild(key_close_btn_box_El);
+
+                        //닫기 버튼 이벤트 리스너 등록
+                        // 이미 등록된 리스너가있는지 확인
+                        if (!key_close_btn_El.hasEventListener) {
+                            // 닫기 누를시
+                            key_close_btn_El.addEventListener('click', function () {
+
+                                setKeyword("close");
+
+                            })
+
+
+                        } key_close_btn_El.hasEventListener = true;
+
+                    })
+
+
+
+            }
+
+            //키워드 닫기
+            const closeKeyword = () => {
+
+                var key_open_btn_box_El = document.createElement('div')
+                key_open_btn_box_El.className = 'key-open-btn-box';
+
+                var key_open_btn_El = document.createElement('div')
+                key_open_btn_El.className = 'key-open-button';
+                key_open_btn_El.textContent = '============ 키워드 펼치기 ============';
+
+                key_open_btn_box_El.appendChild(key_open_btn_El);
+                product_keyword_box_El.appendChild(key_open_btn_box_El);
+
+                // 이미 등록된 리스너가있는지 확인
+                if (!key_open_btn_El.hasEventListener) {
+                    // 펼치기를 누를시
+                    key_open_btn_El.addEventListener('click', function () {
+
+                        setKeyword("open");
+
+                    })
+
+
+                } key_open_btn_El.hasEventListener = true;
+
+            }
+
+            //기존 항목 제거
+            product_keyword_box_El.innerHTML = '';
+
+            if (oder === 'open') {
+
+                //오픈일시 키워드 항목 생성
+                openKeyword();
+
+            } else {
+
+                // 그외에는 항목 제거및 펼치기 버튼 생성
+                closeKeyword();
+
+            }
+
+        }
+
+        //================================================================
+        //바로 구매 버튼
+        //================================================================
+        const buyProduct = (iscart) => {
+
+            const cartinfo_btn_El = document.querySelector('.cartinfo-btn');
+
+            // 장바구니에 있는 경우
+            if (iscart === "true") {
+
+                if (!cartinfo_btn_El.hasEventListener) {
+
+                    cartinfo_btn_El.addEventListener('click', function () {
+
+                        // 로그인 확인
+                        if (username != 'anonymousUser') {
+
+                            // 장바구니 페이지로 이동
+                            window.location.href = '/product/cartinfo';
+
+                        } else {
+
+                            alert("로그인 해주세요!")
+                            // 로그인 페이지로 이동
+                            window.location.href = "/user/login";
+
+                        }
+
+                    })
+
+                } cartinfo_btn_El.hasEventListener = true;
+
+                // 장바구니에 없는 경우
+            } else if (iscart === 'false') {
+
+                if (!cartinfo_btn_El.hasEventListener) {
+
+                    cartinfo_btn_El.addEventListener('click', function () {
+
+                        // 로그인 확인
+                        if (username != 'anonymousUser') {
+
+                            let pcode = product_no;
+
+                            const intodata = { "prodcode": pcode, "username": username }
+
+                            axios.post("/product/intocart", intodata, { headers: { 'Content-Type': 'application/json' } })
+                                .then(response => {
+
+                                    // 장바구니 페이지로 이동
+                                    window.location.href = '/product/cartinfo';
+
+                                })
+                                .catch(error => console.log(error));
+
+                        } else {
+
+                            alert("로그인 해주세요!")
+                            // 로그인 페이지로 이동
+                            window.location.href = "/user/login";
+
+                        }
+
+                    })
+
+                } cartinfo_btn_El.hasEventListener = true;
+
+
+            }
+
+
+
+        }
+
+
+        //================================================================
+        //상품 수정 버튼
+        //================================================================
+        const updateProduct = () => {
+
+            const product_update_btn_El = document.querySelector('.product-update-btn');
+            if (!product_update_btn_El.hasEventListener) {
+
+                product_update_btn_El.addEventListener('click', function () {
+
+                    if (confirm("상품내용을 수정하시겠습니까?")) {
+
+                        const no = product_no;
+                        window.location = '/product/update/' + no;
+
+                    }
+
+                })
+
+            } product_update_btn_El.hasEventListener = true;
+
+
+        };
+
+        init();
+
+    </script>
 
 </body>
+
 </html>

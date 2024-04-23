@@ -23,6 +23,7 @@ public class BoardDto {
     @NotBlank(message = "username을 입력하세요")
     @Email(message = "올바른 이메일 주소를 입력하세요")
     private String username;
+    private String nickname;
     private String title;
     private String content;
     private String tag;
@@ -41,6 +42,7 @@ public class BoardDto {
         dto.regdate = board.getRegdate();
         dto.count = board.getCount();
         dto.username  = board.getUsername();
+        dto.nickname = board.getNickname();
         return dto;
     }
 }

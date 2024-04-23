@@ -90,10 +90,11 @@
         /* ========================================================================== */
         .product-search-option-box {
             position: relative;
-            min-height: 253px;
+            max-height: 253px;
             margin-top: 12px;
             border: 1px solid #C4C4C4;
             box-sizing: border-box;
+            overflow: auto;
         }
 
         .search-option-top {
@@ -1516,6 +1517,7 @@
 
         }else{
             alert('로그인 해주세요!')
+            window.location.href = '/user/login';
         }
 
 

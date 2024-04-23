@@ -198,6 +198,7 @@ public class BoardController {
         dto.setCount(board.getCount());
 
 
+
         model.addAttribute("boardDto",dto);
 
     }
@@ -248,7 +249,6 @@ public class BoardController {
     @GetMapping("/reply/thumbsup")
     public String thumbsup(Long bno, Long rno, String username)
     {
-
         boardService.thumbsUp(rno,username);
 
         return "redirect:/board/read?no="+bno;

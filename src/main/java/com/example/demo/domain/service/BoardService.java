@@ -2,10 +2,7 @@ package com.example.demo.domain.service;
 
 
 
-import com.example.demo.domain.dto.BoardDto;
-import com.example.demo.domain.dto.Criteria;
-import com.example.demo.domain.dto.PageDto;
-import com.example.demo.domain.dto.ReplyDto;
+import com.example.demo.domain.dto.*;
 import com.example.demo.domain.entity.Board;
 import com.example.demo.domain.entity.Reply;
 import com.example.demo.domain.entity.Thumb_up;
@@ -56,8 +53,8 @@ public class BoardService {
         if(criteria!=null&& criteria.getType()!=null) {
             if (criteria.getType().equals("title"))
                 totalcount = boardRepository.countWhereTitleKeyword(criteria.getKeyword());
-            else if (criteria.getType().equals("username"))
-                totalcount = boardRepository.countWhereUsernameKeyword(criteria.getKeyword());
+            else if (criteria.getType().equals("nickname"))
+                totalcount = boardRepository.countWhereNicknameKeyword(criteria.getKeyword());
             else if (criteria.getType().equals("content"))
                 totalcount = boardRepository.countWhereContentKeyword(criteria.getKeyword());
         }
@@ -82,8 +79,8 @@ public class BoardService {
                 list = boardRepository.findBoardTitleAmountStart(criteria.getKeyword(), pagedto.getCriteria().getAmount(), offset);
                 System.out.println("TITLE SEARCH!");
                 System.out.println(list);
-            } else if (criteria.getType().equals("username"))
-                list = boardRepository.findBoardUsernameAmountStart(criteria.getKeyword(), pagedto.getCriteria().getAmount(), offset);
+            } else if (criteria.getType().equals("nickname"))
+                list = boardRepository.findBoardNicknameAmountStart(criteria.getKeyword(), pagedto.getCriteria().getAmount(), offset);
             else if (criteria.getType().equals("content"))
                 list = boardRepository.findBoardContentsAmountStart(criteria.getKeyword(), pagedto.getCriteria().getAmount(), offset);
             else if (criteria.getType().equals("none"))
@@ -113,6 +110,7 @@ public class BoardService {
         board.setContent(dto.getContent());
         board.setRegdate(LocalDateTime.now());
         board.setUsername(dto.getUsername());
+        board.setNickname(dto.getNickname());
         board.setCount(0L);
 
 
@@ -150,6 +148,7 @@ public class BoardService {
         board.setContent(dto.getContent());
         board.setRegdate(LocalDateTime.now());
         board.setUsername(dto.getUsername());
+        board.setNickname(dto.getNickname());
         board.setCount(dto.getCount());
 
 
@@ -206,9 +205,15 @@ public class BoardService {
         Board board = new Board();
         board.setNo(bno);
 
+        //닉네임 검색
+        User user = userRepository.findById(username).get();
+
+
         reply.setBoard(board);
         reply.setContent(contents);
         reply.setUsername(username);
+        reply.setNickname(user.getNickname());
+
         reply.setRegdate(LocalDateTime.now());
         reply.setLikecount(0L);
         reply.setUnlikecount(0L);
@@ -236,6 +241,7 @@ public class BoardService {
                 dto.setLikecount(replyList.get(i).getLikecount());
                 dto.setUnlikecount(replyList.get(i).getUnlikecount());
                 dto.setRegdate(replyList.get(i).getRegdate());
+                dto.setNickname(replyList.get(i).getNickname());
 
                 returnReply.add(dto);
 
@@ -274,6 +280,7 @@ public class BoardService {
     public void thumbsUp(Long rno, String username) {
         Reply reply =  replyRepository.findById(rno).get();
         User user = userRepository.findById(username).get();
+
         Thumb_up thumb_up = thumb_upRepository.find_rno_username(reply.getRno(),user.getUsername());
 
         //thumb_up  db에 현재계정과 username이 같으면서 추천을 누른 댓글의 rno와 같은 행을 찾아 추천했는지 확인
@@ -287,16 +294,18 @@ public class BoardService {
             reply.setLikecount(reply.getLikecount() + 1L);
             replyRepository.save(reply);
 
-            User vouchedUser=userRepository.findById(reply.getUsername()).get();
-
-            if(vouchedUser.getVouch()==null){
-                vouchedUser.setVouch(1L);
+            Optional<User> vouchedUser = userRepository.findById(username);
+            if (vouchedUser.isPresent()) {
+                if(vouchedUser.get().getVouch()==null){
+                    vouchedUser.get().setVouch(1L);
+                }
+                else {
+                    vouchedUser.get().setVouch(vouchedUser.get().getVouch() + 1L);
+                }
+                userRepository.save(vouchedUser.get());
             }
-            else {
-                vouchedUser.setVouch(vouchedUser.getVouch() + 1L);
-            }
 
-            userRepository.save(vouchedUser);
+
         }
         else if(thumb_up!=null){
             if(thumb_up.getThumb_up()==true){
@@ -305,9 +314,14 @@ public class BoardService {
                 thumb_up.setThumb_up(false);
                 thumb_upRepository.save(thumb_up);
 
-                User vouchedUser=userRepository.findById(reply.getUsername()).get();
-                vouchedUser.setVouch(vouchedUser.getVouch() - 1L);
-                userRepository.save(vouchedUser);
+                Optional<User> vouchedUser=userRepository.findById(reply.getUsername());
+                if(vouchedUser.isPresent()){
+                    vouchedUser.get().setVouch(vouchedUser.get().getVouch() - 1L);
+
+                    userRepository.save(vouchedUser.get());
+                }
+
+
 
             } else if(thumb_up.getThumb_up()!=true){
                 reply.setLikecount(reply.getLikecount() + 1L);
@@ -315,16 +329,21 @@ public class BoardService {
                 thumb_up.setThumb_up(true);
                 thumb_upRepository.save(thumb_up);
 
-                User vouchedUser=userRepository.findById(reply.getUsername()).get();
+                Optional<User> vouchedUser=userRepository.findById(reply.getUsername());
+                if(vouchedUser.isPresent()){
+                    if(vouchedUser.get().getVouch()==null){
+                        vouchedUser.get().setVouch(1L);
+                    }
+                    else {
+                        vouchedUser.get().setVouch(vouchedUser.get().getVouch() + 1L);
+                    }
 
-                if(vouchedUser.getVouch()==null){
-                    vouchedUser.setVouch(1L);
-                }
-                else {
-                    vouchedUser.setVouch(vouchedUser.getVouch() + 1L);
+                    userRepository.save(vouchedUser.get());
+
                 }
 
-                userRepository.save(vouchedUser);
+
+
             }
         }
 

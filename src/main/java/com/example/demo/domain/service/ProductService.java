@@ -279,7 +279,7 @@ public class ProductService {
     //================================================================
     public List<CartDto> getProductCartList(String username){
 
-        List<CartDto_interface> allProducts = productRepository.findByCartLists(username);
+        List<CartDto_interface> allProducts = cartRepository.findByCartLists(username);
         List<CartDto> returnList = new ArrayList<CartDto>();
         CartDto dto = null;
 
@@ -386,13 +386,72 @@ public class ProductService {
     }
 
     //================================================================
-    //장바구니 목록 모두 제거
+    //장바구니 목록 모두 제거 하는 서비스
     //================================================================
     public void removeCartDB(String username) {
 
         List<Cart> cart = cartRepository.findByUserCartList(username);
 
         cartRepository.deleteAll(cart);
+
+    }
+
+    //================================================================
+    //장바구니 목록에서 하나의 항목을 찾는 서비스
+    //================================================================
+    public CartDto getProductCartOne(String username, Long prodcode) {
+
+        List<CartDto_interface> result = cartRepository.findByCartProdOne(prodcode, username);
+
+        //장바구니에 해당 상품이 있다면
+        if(!result.isEmpty()){
+
+            CartDto dto = null;
+
+            dto = new CartDto();
+            dto.setCartno(result.get(0).getcartno());
+            dto.setProdcode(result.get(0).getprodcode());
+            dto.setProdauthor(result.get(0).getprodauthor());
+            dto.setProdtype(result.get(0).getprodtype());
+            dto.setProdname(result.get(0).getprodname());
+            dto.setProdtime(result.get(0).getprodtime());
+            dto.setProdcontext(result.get(0).getprodcontext());
+            dto.setProdtype(result.get(0).getprodtype());
+//            dto.setProdtags(result.get(0).getProdtags());
+            dto.setProdprice(result.get(0).getprodprice());
+            dto.setCartcount(result.get(0).getcartcount());
+
+
+            //경로와 이미지이름을 합쳐서 dto에 저장
+
+            //cartDtointerface에서 받아오는 요소는 자동으로 , 단위 컨버트가 안되기 때문에 여기서 직접 , 단위로 잘라 변환한다.
+            String imgNames = result.get(0).getprodimages();
+            String[] cutImgNames = imgNames.split(",");
+
+            List<String> imagePaths = new ArrayList<String>();
+            String[] imagePathstoString = null;
+            String[] entityimageNames = cutImgNames;
+
+            for(int j=0; j<entityimageNames.length;j++){
+
+                imagePaths.add(result.get(0).getprodpath()+File.separator+entityimageNames[j]);
+
+            }
+            imagePathstoString = imagePaths.toArray(new String[0]);
+            dto.setProdimagepaths(imagePathstoString);
+
+
+
+            return dto;
+
+        //장바구니에 해당 상품이 없다면
+        }else {
+
+            return null;
+
+        }
+
+
 
     }
 }

@@ -3,15 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>key word</title>
+
+    <!-- bootstrap3.3.7 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- BS 3.7.7 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
 
     <!-- headOutterLinks     -->
     <th:block th:insert="fragments/product/head :: headOutterLink" />
 
-    <!--css-->
-    <link rel="stylesheet" href="/css/product/keyword/set.css">
-
     <style>
+        .form-control {
+            width: 260px;
+        }
+
         #wepper_section {
             width: 100%;
         }
@@ -21,6 +33,91 @@
         .main-section-area {
             width: 1260px;
             margin: 0 auto;
+        }
+
+        .btn {
+            color: white;
+            flex: 1;
+        }
+
+        .keyword-bottom>div>p {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 0px 15px 15px;
+            color: black;
+        }
+
+        /* 구획 구분 */
+        .keyword-bottom>div>div {
+            width: 100%;
+            padding: 20px 24px;
+            background-color: #F8F8F8;
+            border: solid 1px #d3d3d3;
+            box-sizing: border-box;
+        }
+
+        .keyword-top {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 키워드 폼 박스 */
+        .keyword-input-form-box {
+
+            position: relative;
+
+        }
+
+        /* 메인페이지 이동 버튼 */
+        .keyword-input-form-box>div {
+
+            position: absolute;
+            top: 154px;
+            right: 40px;
+
+        }
+
+        /* 키워드 폼 박스 내부 요소들 */
+        .keyword-input-form-box>form>div {
+
+            padding: 10px 0 0 0;
+
+        }
+
+        /* 메인메뉴 이동 버튼 */
+        .back-btn {}
+
+        /* 키워드 내용 입력공간 */
+        #keywtext {
+
+            resize: none;/* 사용자 크기 조절 비활성화 */
+            width: 1200px;
+
+        }
+
+
+
+        /* 생성된 키워드  */
+        .key-list {
+
+            display: flex;
+
+        }
+
+        /* 생성된 키워드 번호 */
+        .key-no{
+
+            resize: none;/* 사용자 크기 조절 비활성화 */
+            width: 65px;
+
+        }
+
+        /* 생성된 키워드 내용 */
+        .key-text {
+
+            resize: none;/* 사용자 크기 조절 비활성화 */
+            width: 680px;
+
         }
     </style>
 
@@ -39,19 +136,38 @@
             <!-- --------------------------------- 키워드 등록---------------------------------------- -->
             <section>
                 <div class="keyword-top">
-                    <h1>키워드 등록</h1>
+                    <!-- <h1>키워드 등록</h1> -->
                 </div>
                 <div class="keyword-bottom">
-                    <div>
-                        <a href="/product/index">메인 페이지로</a>
+
+                    <div class="keyword-input-box">
+                        <p>키워드 정보 입력</p>
+                        <div class="keyword-input-form-box">
+                            <form method="post" action="/product/keyword/set">
+                                <div>
+                                    키워드 입력 : <input type="text" name="keywname" id="keywname"
+                                                    class="form-control" />
+                                </div>
+                                <div>
+                                    내용 입력 : <input type="text" name="keywtext" id="keywtext" class="form-control" />
+                                </div>
+                                <div>
+                                    <button class="btn btn-danger">추가</button>
+                                </div>
+                            </form>
+                            <div>
+                                <button class="btn btn-danger back-btn">메인으로 돌아가기</button>
+                            </div>
+                        </div>
+
                     </div>
-                    <form method="post" action="/product/keyword/set">
-                        <article>
-                            키워드 입력 : <input type="text" name="keywname" />
-                            내용 입력 : <input type="text" name="keywtext" />
-                            <button>추가</button>
-                        </article>
-                    </form>
+
+                    <div class="keyword-box">
+                        <p>키워드 리스트</p>
+                        <div class="keyword-list">
+
+                        </div>
+                    </div>
                 </div>
 
                 <!--            <div class="keyword-list">-->
@@ -59,11 +175,7 @@
                 <!--            </div>-->
             </section>
             <!-- ********************************* 추가 박스 위치 입니다 ****************************************** -->
-            <div class="keyword-box">
-                <div class="keyword-list">
 
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -120,20 +232,20 @@
 
         //리스트 번호
         var list_El_no = document.createElement('input');
-        list_El_no.className = 'key-no'
+        list_El_no.className = 'key-no form-control'
         list_El_no.value = data.keywno;
         list_El_no.style.marginLeft = '10px';
         list_El_no.readOnly = true;
 
         //리스트 이름
         var list_El_name = document.createElement('input');
-        list_El_name.className = 'key-name';
+        list_El_name.className = 'key-name form-control';
         list_El_name.value = data.keywname;
         list_El_name.style.marginLeft = '10px';
 
         //리스트 내용
         var list_El_text = document.createElement('input');
-        list_El_text.className = 'key-text';
+        list_El_text.className = 'key-text form-control';
         list_El_text.value = data.keywtext;
         list_El_text.style.marginLeft = '10px';
 

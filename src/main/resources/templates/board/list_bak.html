@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+
+
+    <!-- th:fragment     -->
+    <th:block th:insert="/fragments/product/head :: headOutterLink"/>
+
+    <!-- bs3.3.7   -->
+    <th:block th:insert="fragments/product/bs3 :: head_bs3"/>
+
+    <!-- common.css    -->
+    <!--    <link rel="stylesheet" href="/css/common.css">-->
+
+    <!-- board/list.css    -->
+    <!--    <link rel="stylesheet" href="/css/board/list.css">-->
+
+    <style>
+        #wepper_section {
+        width: 100%;
+        }
+
+        .main-section {}
+
+        .main-section-area {
+        width: 1260px;
+        margin: 0 auto;
+        }
+
+        .wrapper>main{
+
+}
+.wrapper>main>section{
+    position:relative;
+}
+.wrapper>main>section .search-block{
+    position:absolute;
+    height:40px;
+    left:0px;
+    top:0px;
+    width : 100%;
+
+    display:flex;
+    justify-content:right;
+    align-items:center;
+
+}
+
+
+.wrapper>footer{}
+    </style>
+
+</head>
+<body>
+
+
+<!-- 바디  -->
+<div id="wepper">
+
+    <!--  header fragment      -->
+    <div th:replace="/fragments/product/header_v2 :: headerFragment_no_menubar"/>
+
+    <!-- 바디 메인 섹션 -->
+    <div id="wepper_section">
+        <!-- 바디 메인 -->
+        <div class="main-section">
+            <!-- 바디 메인 -->
+            <div class="main-section-area">
+
+
+                <div class="wrapper container-xxl">
+
+                    <main>
+                        <section class="row">
+
+                            <!--  search fragment      -->
+                            <div th:replace="/fragments/board/search :: searchFragment"/>
+
+                            <!-- aside -->
+                            <!--            <div class="bd-example bg-secondary col-2" style="height:90vh;width:200px;" >-->
+                            <!--                <div class="btn-group-vertical p-3" role="group" aria-label="Vertical button group">-->
+                            <!--                    &lt;!&ndash;-->
+                            <!--                    <button type="button" class="btn btn-dark m-1" style="width:150px;">MENU1</button>-->
+                            <!--                    <button type="button" class="btn btn-dark m-1" style="width:150px;">MENU2</button>-->
+                            <!--                    <button type="button" class="btn btn-dark m-1" style="width:150px;">MENU3</button>-->
+                            <!--                    <button type="button" class="btn btn-dark m-1" style="width:150px;">MENU4</button>-->
+                            <!--                    <button type="button" class="btn btn-dark m-1" style="width:150px;">MENU5</button>-->
+                            <!--                    <button type="button" class="btn btn-dark m-1" style="width:150px;">MENU6</button>-->
+                            <!--                    &ndash;&gt;-->
+                            <!--                </div>-->
+                            <!--            </div>-->
+                            <!-- contents -->
+                            <div class="col">
+                                <!-- breadcrumb -->
+                                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                                    <ol class="breadcrumb mt-2">
+                                        <li class="breadcrumb-item"><a href="#">HOME</a></li>
+                                        <li class="breadcrumb-item"><a href="#">BOARD</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">LIST</li>
+                                    </ol>
+                                </nav>
+
+                                <!-- title -->
+                                <h3>BOARD LIST</h3>
+                                <div>
+                                    <div class="board-header">
+                                        Page No (<span th:text="${pageNo}"></span> / <span
+                                            th:text="${pageDto.totalpage}"></span> Page)
+                                    </div>
+                                    <div class="board-body">
+                                        <!-- body -->
+                                        <table class="table w-100">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col-1">NO</th>
+                                                <th scope="col-2">SUBJECT</th>
+                                                <th scope="col-2">WRITER</th>
+                                                <th scope="col-2">DATE</th>
+                                                <th scope="col-1">COUNT</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <!-- BOARD LIST ITEMS -->
+                                            <th:block>
+                                                <tr th:each="boardDto : ${boardList}">
+                                                    <td th:text="${boardDto.no}"></td>
+                                                    <td><a th:href="@{/board/read(no=${boardDto.no},pageNo=${pageNo})}"
+                                                           th:text="${boardDto.title}"> </a></td>
+                                                    <td th:text="${boardDto.username}"></td>
+                                                    <td th:text="${boardDto.regdate}"></td>
+                                                    <td th:text="${boardDto.count}"></td>
+                                                </tr>
+                                            </th:block>
+
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                    <div class="board-footer row position-relative">
+
+                                        <!--  -->
+                                        <div class="pagenation col-9">
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination">
+
+
+                                                    <!-- PREV -->
+                                                    <li class="page-item" th:if="${pageDto.prev}">
+                                                        <a class="page-link"
+                                                           th:href="@{/board/list(pageNo=${pageDto.nowBlock * pageDto.pagePerBlock - pageDto.pagePerBlock*2 + 1} )}"
+                                                           aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
+                                                    </li>
+
+
+                                                    <!-- PAGENATION -->
+                                                    <li class="page-item"
+                                                        th:each="i : ${#numbers.sequence(pageDto.startPage, pageDto.endPage)}">
+                                                        <a class="page-link" th:href="@{/board/list(pageNo=${i})}">
+                                                            <span th:text="${i}"></span> </a>
+                                                    </li>
+
+
+                                                    <!-- NEXT -->
+                                                    <li class="page-item" th:if="${pageDto.next}">
+
+                                                        <a class="page-link"
+                                                           th:href="@{/board/list(pageNo=${pageDto.nowBlock*pageDto.pagePerBlock+1} )}"
+                                                           aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                        </a>
+
+                                                    </li>
+
+
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                        <!--  -->
+                                        <div class="button--group col-2">
+                                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                <a type="button" class="btn btn-outline-primary m-2"
+                                                   style="width:100px;" href="/board/post">글쓰기</a>
+                                                <button type="button" class="btn btn-outline-primary m-2"
+                                                        style="width:100px;">처음으로
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </section>
+
+                        <section class="">
+
+
+                        </section>
+                        <section></section>
+                    </main>
+                    <footer>
+
+
+                    </footer>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+        integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- common.js   -->
+<script src="/js/common.js"></script>
+<!-- user/logout.js   -->
+<script src="/js/user/logout.js"></script>
+</body>
+</html>

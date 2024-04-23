@@ -29,9 +29,14 @@ public class KakaoPayApiController {
 
     private final String ADMIN_KEY = "d3938680ae3ac0ca401b5f89fffe789a";
 
-    private final String approval_url = "http://localhost:8080/product/payment/kakao/pay/success";
-    private final String fail_url = "http://localhost:8080/product/payment/kakao/pay/fail";
-    private final String cancel_url = "http://localhost:8080/product/payment/kakao/pay/cancel";
+
+//    private final String approval_url = "http://localhost:8080/product/payment/kakao/pay/success";
+//    private final String fail_url = "http://localhost:8080/product/payment/kakao/pay/fail";
+//    private final String cancel_url = "http://localhost:8080/product/payment/kakao/pay/cancel";
+
+    private final String approval_url = "http://43.202.91.164:8080/product/payment/kakao/pay/success";
+    private final String fail_url = "http://43.202.91.164:8080/product/payment/kakao/pay/fail";
+    private final String cancel_url = "http://43.202.91.164:8080/product/payment/kakao/pay/cancel";
 
     @GetMapping("/request")
     public @ResponseBody PaymentResponse  pay(@RequestParam Map<String,String> username){

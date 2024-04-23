@@ -30,8 +30,8 @@ public class ProductService {
 //    String path = "c:\\etc\\products";
 //    //리눅스용
 //    String path = "/etc/products";
-    String path;
 
+    String path = setOsPath();
 
     @Autowired
     private ProductRepository productRepository;
@@ -134,9 +134,10 @@ public class ProductService {
         productKeywordRepository.save(productKeyword);
     }
 
+    //================================================================
     //상품을 등록하는 서비스
+    //================================================================
     public void setProduct(ProductDto dto, MultipartFile[] files) throws IOException {
-        path = setOsPath();
 
         String imagepath = path+File.separator+dto.getProdtype()+File.separator+ UUID.randomUUID();
 

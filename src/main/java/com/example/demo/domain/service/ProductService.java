@@ -265,7 +265,7 @@ public class ProductService {
         if (osName.contains("win")) {
             OS_PATH = "c:\\etc\\products";
         } else if (osName.contains("nix") || osName.contains("nux") || osName.contains("mac")) {
-            OS_PATH = "/etc/shoptest/products";
+            OS_PATH = "/etc/products";
         } else {
             // 다른 운영 체제의 경우 처리
             OS_PATH = "/etc/products"; // 기본값으로 리눅스 경로 사용

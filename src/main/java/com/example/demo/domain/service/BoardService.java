@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BoardService {
@@ -111,6 +112,7 @@ public class BoardService {
         board.setRegdate(LocalDateTime.now());
         board.setUsername(dto.getUsername());
         board.setNickname(dto.getNickname());
+        board.setIsnotice(dto.getIsnotice());
         board.setCount(0L);
 
 
@@ -150,6 +152,7 @@ public class BoardService {
         board.setUsername(dto.getUsername());
         board.setNickname(dto.getNickname());
         board.setCount(dto.getCount());
+        board.setIsnotice(dto.getIsnotice());
 
 
 
@@ -242,6 +245,7 @@ public class BoardService {
                 dto.setUnlikecount(replyList.get(i).getUnlikecount());
                 dto.setRegdate(replyList.get(i).getRegdate());
                 dto.setNickname(replyList.get(i).getNickname());
+
 
                 returnReply.add(dto);
 
@@ -369,5 +373,45 @@ public class BoardService {
         Long vouch = user.getVouch();
         return vouch;
     }
+    //=================================================
+    //공지 사항 게시글만 불러오는 서비스
+    //=================================================
+    public List<BoardDto> getNotice() {
 
+        List<Board> board = boardRepository.findByNotice();
+
+        if (board != null){
+
+            List<BoardDto> returnList = new ArrayList<BoardDto>();
+            BoardDto dto = null;
+            //Entity -> Dto
+            for(int i = 0;i < board.size();i++){
+
+                dto = new BoardDto();
+                dto.setNo(board.get(i).getNo());
+                dto.setTitle(board.get(i).getTitle());
+                dto.setCount(board.get(i).getCount());
+                dto.setTag(board.get(i).getTag());
+                dto.setNickname(board.get(i).getNickname());
+                dto.setCount(board.get(i).getCount());
+                dto.setIsnotice(board.get(i).getIsnotice());
+                dto.setUsername(board.get(i).getUsername());
+                dto.setRegdate(board.get(i).getRegdate());
+                dto.setContent(board.get(i).getContent());
+
+                returnList.add(dto);
+
+            }
+
+            return returnList;
+
+        }else{
+
+            return null;
+
+        }
+
+
+
+    }
 }

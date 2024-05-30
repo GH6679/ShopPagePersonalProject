@@ -27,6 +27,7 @@ public class Board {
     private String title;
     private String content;
     private String tag;
+    private String isnotice;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regdate;

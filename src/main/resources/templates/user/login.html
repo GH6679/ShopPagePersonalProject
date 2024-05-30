@@ -90,70 +90,92 @@
 <!--  header fragment      -->
 <div th:replace="fragments/product/header_v3 :: headerFragment_simple" />
 
-    <!-- 바디 메인 섹션 -->
-    <div id="wepper_section">
+<!-- 바디 메인 섹션 -->
+<div id="wepper_section">
+    <!-- 바디 메인 -->
+    <div class="main-section">
         <!-- 바디 메인 -->
-        <div class="main-section">
-            <!-- 바디 메인 -->
-            <div class="main-section-area">
-                <!--로그인-->
-                <div class="container">
-                    <div class="col-lg-4"></div>
-                    <div class="col-lg-4">
-                        <div class="login_GKN">
-                            <div class="logcat">
+        <div class="main-section-area">
+            <!--로그인-->
+            <div class="container">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <div class="login_GKN">
+                        <div class="logcat">
 
-                            </div>
-                        </div>
-                        <div class="jumbotron" style="padding-top:20px;">
-                            <form name="joinform" action="/user/login" method="post" onsubmit="return false">
-
-                                <!-- 제목 -->
-                                <h3 style="text-align:center; margin: 20px; font: 30px bold;">로그인</h3>
-
-                                <!-- 로그인 회원가입 작성 -->
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="아이디" name="username" maxlength='20'>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="비밀번호" name="password" maxlength='20'>
-                                </div>
-
-                                <!-- 로그인 회원가입 버튼  -->
-                                <input type="submit" class="btn" onclick="isValid()" value="로그인" style="width: 220px;">
-                            </form>
-                            <div style="display: flex;">
-                                <div><a href="">아이디 찾기</a></div>
-                                <div><a href="">비밀번호 찾기</a></div>
-                                <div><a href="/user/join" class="member">회원가입</a></div>
-                            </div>
-                        </div>
-                        <div class="m-2 oauth_icon">
-                            <a href="/oauth2/authorization/kakao"> <img src="/img/kakao_icon.webp" /></a>
-                            <a href="/oauth2/authorization/google"> <img src="/img/google_icon_2.png" class="google_icon" /></a>
-                            <a href="/oauth2/authorization/naver"> <img src="/img/naver_icon.png" /></a>
                         </div>
                     </div>
-                    <div class="col-lg-4"></div>
+                    <div class="jumbotron" style="padding-top:20px;">
+                        <form name="joinform" action="/user/login" method="post" onsubmit="return false">
+
+                            <!-- 제목 -->
+                            <h3 style="text-align:center; margin: 20px; font: 30px bold;">로그인</h3>
+
+                            <!-- 로그인 회원가입 작성 -->
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="아이디" name="username" maxlength='20'>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="비밀번호" name="password" maxlength='20'>
+                            </div>
+
+                            <!-- 로그인 회원가입 버튼  -->
+                            <input type="submit" class="btn" onclick="isValid()" value="로그인" style="width: 220px;">
+                        </form>
+                        <div style="display: flex;">
+                            <div><a href="">아이디 찾기</a></div>
+                            <div><a href="">비밀번호 찾기</a></div>
+                            <div><a href="/user/join" class="member">회원가입</a></div>
+                        </div>
+                    </div>
+                    <div class="m-2 oauth_icon">
+                        <a href="/oauth2/authorization/kakao"> <img src="/img/kakao_icon.webp" /></a>
+                        <a href="/oauth2/authorization/google"> <img src="/img/google_icon_2.png" class="google_icon" /></a>
+                        <a href="/oauth2/authorization/naver"> <img src="/img/naver_icon.png" /></a>
+                    </div>
                 </div>
+                <div class="col-lg-4"></div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        const isValid = ()=>{
-            const form = document.joinform;
-            if(form.username.value.trim()==""){
-                alert("USERNAME을 입력하세요.");
-                return;
-            }
-            if(form.password.value.trim()==""){
-                alert("PASSWORD을 입력하세요.");
-                return;
-            }
-            form.submit();
+<script>
+    const isValid = ()=>{
+        const form = document.joinform;
+        if(form.username.value.trim()==""){
+            alert("아이디를 입력하세요.");
+            return;
         }
-    </script>
+        if(form.password.value.trim()==""){
+            alert("비밀번호를 입력하세요.");
+            return;
+        }
+        form.submit();
+    }
+
+    //주소를 통해 오는 쿼리 문자열을 불러옴
+    const getQueryParam = (qname) => {
+        let params = new URLSearchParams(window.location.search);
+        return params.get(qname);
+    }
+
+    // 페이지 로드시 로직
+    const init = () => {
+
+        //로그인 실패 로직
+        if(getQueryParam('error') === 'loginfaile'){
+
+            alert('아이디 도는 비밀번호가 틀렷습니다.')
+
+        }
+
+
+
+    };
+    // 페이지 로드시 로직
+    init();
+</script>
 </body>
 
 </html>

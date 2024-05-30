@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <div class="main-header-menubar" th:fragment="headerFragment_part_menubar">
+<div class="main-header-menubar" th:fragment="headerFragment_part_menubar">
     <style>
 
         .main-header-menubar{
@@ -31,19 +31,103 @@
             /* border: 1px solid #E0E0E0; */
 
         }
-        .Undefined-01{
+
+        .nav-notice-post{
             float: left;
             margin: 5px;
+        }
+        .notice-label{
+
+            font-weight: bold;
+            color: white;
+            display: flex;
+            font-size: 11px;
+            justify-content: center;
+            line-height: 20px;
+            background-color: #E53B38 ;
+            height: 20px;
+            width: 38px;
+
+        }
+        /* 공지 박스 */
+        .notice-post-box{
+            border: 2px solid #C4C4C4;
+            border-top:2px solid #E53B38;
+            width: 880px;
+            height: 103px;
+            overflow-y: auto;
+        }
+        /* 공지 게시글 리스트 */
+        .notice-post-list{
+
+            padding: 2px 5px 2px 5px;
+
+        }
+        /* 공지 게시글 */
+        .notice-post{
+
+            display: flex;
+            height: 20px;
+            line-height: 20px;
+            border-bottom: 1px solid #C4C4C4;
+
+        }
+        /* 공지 게시글 아이콘 */
+        .notice-icon-box{
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 20px;
+            line-height: 20px;
+            margin-right: 5px;
+
+        }
+        .notice-icon{
+            width: 30px;
+            display: flex;
+            justify-content: center;
+            height: 15px;
+            line-height: 15px;
+
+            font-size: 10px;
+
+            color: white;
+            background-color: #E53B38;
+            border-radius: 20%;
+        }
+        /* 공지 게시글 내용 */
+        .notice-content{
+
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            height: 20px;
+
+        }
+        .notice-content > div {
+            display: flex;
+            line-height: 20px;
+            font-size: 12px;
+        }
+        /* 공지 제목 */
+        .notice-title{
+
+        }
+        /* 공지 조회수 */
+        .notice-count{
+
+        }
+        /* 공지 시간 */
+        .notice-time{
+
+            font-weight: bold;
+
         }
         .nav-user-menu{
             float: right;
             margin: 5px;
             /* margin-right: 30px; */
-        }
-        .Undefined-box-01{
-            border: 1px solid #E0E0E0;
-            width: 880px;
-            height: 107px;
         }
         .user-menu-box{
             border: 2px solid #C4C4C4;
@@ -111,32 +195,54 @@
     </style>
 
 
-        <div class="main-header-nav">
-            <div class="Undefined-01">
-                <div class="Undefined-box-01">
+    <div class="main-header-nav">
+        <div class="nav-notice-post">
+
+            <div class="notice-post-box">
+                <div class="notice-label">공지</div>
+
+                <div class="notice-post-list">
+<!--                    <div class="notice-post">-->
+
+<!--                        <div class="notice-icon-box">-->
+<!--                            <div class="notice-icon">공지</div>-->
+<!--                        </div>-->
+<!--                        <div class="notice-content">-->
+<!--                            <div class="notice-title">공지사항 입니다. 길게 길게 길게 길게</div>-->
+<!--                            <div class="notice-count">5</div>-->
+<!--                            <div class="notice-time">2024-05-17</div>-->
+<!--                        </div>-->
+
+
+<!--                    </div>-->
 
                 </div>
+
             </div>
-            <div class="nav-user-menu">
-                <div class="user-menu-box">
-                    <div class="user-menu-inner">
-                        <span th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')} or ${#authorization.expression('hasRole(''ROLE_MEMBER'')')} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"> 로그인 해주세요 </span>
+        </div>
+        <div class="nav-user-menu">
+            <div class="user-menu-box">
+                <div class="user-menu-inner">
+                    <span th:unless="${#authorization.expression('hasRole(''ROLE_USER'')')} or ${#authorization.expression('hasRole(''ROLE_MEMBER'')')} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"> 로그인 해주세요 </span>
 
-                        <a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" class="material-symbols-outlined usermenu-cart" href="#">shopping_cart</a>
-                        <a th:if="${#authorization.expression('hasRole(''ROLE_MEMBER'')')} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="material-symbols-outlined usermenu-product" href="/product/set">inventory_2</a>
-<!--                        <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="material-symbols-outlined usermenu-keyword" href="#">inventory</a>-->
+                    <a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" class="material-symbols-outlined usermenu-cart" href="#">shopping_cart</a>
+                    <a th:if="${#authorization.expression('hasRole(''ROLE_MEMBER'')')} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="material-symbols-outlined usermenu-product" href="/product/set">inventory_2</a>
+                    <!--                        <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="material-symbols-outlined usermenu-keyword" href="#">inventory</a>-->
 
-                        <a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')} or ${#authorization.expression('hasRole(''ROLE_MEMBER'')')} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="material-symbols-outlined usermenu-myinfo" href="#">tv_signin</a>
+                    <a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')} or ${#authorization.expression('hasRole(''ROLE_MEMBER'')')} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="material-symbols-outlined usermenu-myinfo" href="#">tv_signin</a>
 
-                        <a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')} or ${#authorization.expression('hasRole(''ROLE_MEMBER'')')}" class="material-symbols-outlined usermenu-callcenter" href="#">contact_emergency</a>
-                        <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="material-symbols-outlined usermenu-keyword" href="/product/keyword/set">inventory</a>
+                    <a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')} or ${#authorization.expression('hasRole(''ROLE_MEMBER'')')}" class="material-symbols-outlined usermenu-callcenter" href="#">contact_emergency</a>
+                    <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="material-symbols-outlined usermenu-keyword" href="/product/keyword/set">inventory</a>
 
-                    </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+
+</div>
+
+
 
 </body>
 </html>

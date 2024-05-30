@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers("product/kakao/pay/**","product/kakao/**").permitAll() //카카오 페이
 
-				.antMatchers("/board/list","/board/read","/board/read/**").permitAll()
+				.antMatchers("/board/list","/board/read","/board/read/**","/board/getnotice").permitAll()
 				.antMatchers("/board/reply/list","/board/reply/count","/board/getVouch/**").permitAll()
 				.antMatchers("/board/post","/board/delete","/board/update").hasAnyRole("USER","ADMIN","MEMBER")
 				.antMatchers("/board/reply/update","/reply/thumbsup").hasAnyRole("USER","ADMIN","MEMBER")

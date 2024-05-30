@@ -57,7 +57,8 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     //내용 검색
     @Query(value = "SELECT * FROM cm_shopdb.board b WHERE b.content LIKE %:keyWord%  ORDER BY b.no DESC LIMIT :amount OFFSET :offset", nativeQuery = true)
     List<Board> findBoardContentsAmountStart(@Param("keyWord")String keyword, @Param("amount") int amount,@Param("offset") int offset);
-
-
+    //공지 검색
+    @Query(value = "SELECT * FROM cm_shopdb.board b WHERE b.isnotice LIKE 'true'", nativeQuery = true)
+    List<Board> findByNotice();
 
 }

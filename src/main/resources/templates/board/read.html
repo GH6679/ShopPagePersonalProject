@@ -39,11 +39,48 @@
             box-sizing: border-box;
         }
 
+        .main-section-area>div>div>div>div {
+            padding: 5px 0px 5px 0px;
+        }
+
+        /* 게시글 제목 */
+        #post-title {
+
+            font-weight: bold;
+            color: black;
+            border-bottom: 1px solid #d3d3d3;
+            font-size: 15px;
+
+        }
+        /* 게시글 작성자 */
+        #post-writer-label{
+
+            font-size: 10px;
+            font-weight: bold;
+
+        }
+        #post-writer{
+
+            font-size: 10px;
+
+        }
+
 
         /* 버튼 그룹 */
         .btn-box {
 
             padding: 10px 0px 0px 0px;
+
+        }
+
+        /* 읽기온리 배경색 변경 방지용 */
+        .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+            background-color: #fff;
+            opacity: 1;
+        }
+        .form-control {
+
+            background-color: #fff;
 
         }
 
@@ -112,7 +149,7 @@
             margin: 5px;
         }
 
-        reply--block>.reply-body>.items>.item>.body {}
+        .reply--block>.reply-body>.items>.item>.body {}
 
         .reply--block>.reply-body>.items>.item>.body>* {
             margin-bottom: 2px;
@@ -189,14 +226,24 @@
                                 placeholder="name@example.com" th:value="${boardDto.username}" readonly>
                         </div> -->
                             <div class="mb-3 w-50">
-                                <label for="ex2" class="form-label">제목</label>&nbsp;&nbsp;<span class="msg"
+                                <!-- <label for="ex2" class="form-label">제목</label>&nbsp;&nbsp;<span class="msg"
                                                                                                 th:text="${title}"></span>
                                 <input type="text" class="form-control" id="ex2" placeholder="Title" name="title"
-                                       th:value="${boardDto.title}" readonly>
+                                       th:value="${boardDto.title}" readonly> -->
+                                <div>
+                                    <span id="post-title" th:text="${boardDto.title}"></span>
+                                </div>
+                                <div>
+                                    <span id="post-writer-label">작성자 : </span>
+                                    <span id="post-writer" th:text="${boardDto.nickname}"></span>
+                                </div>
+
+
+
                             </div>
                             <div class="mb-3 w-50">
-                                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                <!-- <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label> -->
+                                <textarea class="form-control" rows="10"
                                           th:text="${boardDto.content}" readonly></textarea>
                             </div>
 
@@ -218,8 +265,12 @@
 
                             </div>
                             <div class="mb-3  w-50 btn-box">
-                                <a class="btn btn-primary" th:href="@{/board/update(no=${boardDto.no})}">수정하기</a>
-                                <a class="btn btn-primary delete_btn" th:data-no="${boardDto.no}">삭제하기</a>
+                                <th:block th:if="${boardDto.username} eq ${#authentication.name}">
+                                    <a class="btn btn-primary" th:href="@{/board/update(no=${boardDto.no})}">수정하기</a>
+                                </th:block>
+                                <th:block th:if="${boardDto.username} eq ${#authentication.name}">
+                                    <a class="btn btn-primary delete_btn" th:data-no="${boardDto.no}">삭제하기</a>
+                                </th:block>
                                 <a th:href="@{/board/list(pageNo=${pageNo})}" class="btn btn-primary">이전으로</a>
                             </div>
                         </div>

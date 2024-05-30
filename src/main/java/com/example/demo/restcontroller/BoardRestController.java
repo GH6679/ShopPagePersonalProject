@@ -2,6 +2,7 @@ package com.example.demo.restcontroller;
 
 
 
+import com.example.demo.domain.dto.BoardDto;
 import com.example.demo.domain.dto.ReplyDto;
 import com.example.demo.domain.repository.UserRepository;
 import com.example.demo.domain.service.BoardService;
@@ -110,6 +111,19 @@ public class BoardRestController {
     }
 
 
+    //================================================================
+    //공지사항을 불러오기
+    //================================================================
+    @GetMapping("/getnotice")
+    public List<BoardDto> getNotice() {
+
+        List<BoardDto> dto = boardService.getNotice();
+
+        System.out.println("공지 호출 = " + dto);
+
+        return dto;
+
+    }
 
 
 

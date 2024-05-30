@@ -1,8 +1,10 @@
 package com.example.demo.restcontroller;
 
+import com.example.demo.domain.dto.BoardDto;
 import com.example.demo.domain.dto.CartDto;
 import com.example.demo.domain.dto.ProductDto;
 import com.example.demo.domain.dto.ProductKeywordDto;
+import com.example.demo.domain.service.BoardService;
 import com.example.demo.domain.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import java.util.*;
 public class ProductRestController {
     @Autowired
     private ProductService productService;
+
 
 
     //================================================================
@@ -424,6 +427,8 @@ public class ProductRestController {
         }
 
     }
+
+
 
 
 }

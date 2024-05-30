@@ -144,7 +144,9 @@ public class BoardController {
        dto.setContent(board.getContent());
        dto.setRegdate(board.getRegdate());
        dto.setUsername(board.getUsername());
+       dto.setNickname(board.getNickname());
        dto.setCount(board.getCount());
+       dto.setIsnotice(board.getIsnotice());
 
 
        model.addAttribute("boardDto",dto);
@@ -196,6 +198,7 @@ public class BoardController {
         dto.setRegdate(board.getRegdate());
         dto.setUsername(board.getUsername());
         dto.setCount(board.getCount());
+        dto.setIsnotice(board.getIsnotice());
 
 
 

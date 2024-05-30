@@ -16,7 +16,8 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 		System.out.println("로그인 실패! : " + exception);
 		System.out.println("로그인 실패! MSG : " + exception.getMessage());
 
-		response.sendRedirect(request.getContextPath()+"/login?error="+exception.getMessage());
+//		response.sendRedirect(request.getContextPath()+"/login?error="+exception.getMessage());
+		response.sendRedirect(request.getContextPath()+"/login?error=loginfaile");
 	} 
 
 }

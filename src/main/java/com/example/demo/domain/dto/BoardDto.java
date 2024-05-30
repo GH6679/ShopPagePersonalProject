@@ -27,6 +27,7 @@ public class BoardDto {
     private String title;
     private String content;
     private String tag;
+    private String isnotice;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regdate;
@@ -43,6 +44,8 @@ public class BoardDto {
         dto.count = board.getCount();
         dto.username  = board.getUsername();
         dto.nickname = board.getNickname();
+        dto.isnotice = board.getIsnotice();
+
         return dto;
     }
 }

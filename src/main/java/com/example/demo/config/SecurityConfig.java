@@ -58,10 +58,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				.antMatchers("/board/read","/board/post","/board/delete","/board/update").hasAnyRole("USER","ADMIN","MEMBER")
 
 				.antMatchers("/css/**","/js/**","/img/**").permitAll() //자원 경로
-				.antMatchers("/","/product/index","/product/list","/product/intocart","/product/cartinfo","/product/findcart","/product/getprod").permitAll()  //메인 기능들
+				.antMatchers("/","/product/index","/product/list","/product/intocart","/product/cartinfo","/product/findcart","/product/getprod","/product/get/**").permitAll()  //메인 기능들
 				.antMatchers("/user/**" ,"/logout").permitAll() //로그인 로그아웃 회원 가입
 				.antMatchers("/search/find","/search/list/**").permitAll()
-				.antMatchers("/product/set","/product/update","/product/delete/**","/product/get/**").hasAnyRole("MEMBER","ADMIN") //상품 등록 , 상품 수정
+				.antMatchers("/product/set","/product/update","/product/delete/**").hasAnyRole("MEMBER","ADMIN") //상품 등록 , 상품 수정
 				.antMatchers("/product/keyword/set","/product/keyword/list","/product/keyword/delete/**").hasAnyRole("ADMIN")    //키워드 등록 , 수정 , 삭제
 
 				.antMatchers("product/kakao/pay/**","product/kakao/**").permitAll() //카카오 페이

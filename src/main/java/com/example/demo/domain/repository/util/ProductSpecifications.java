@@ -41,6 +41,8 @@ public class ProductSpecifications {
             }
 
 
+
+
             // 모든 Predicate를 AND 연산으로 결합
             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         };

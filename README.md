@@ -2,7 +2,7 @@ ShopPagePersonalProject
 =
 
 ## ▶️ 프로젝트 링크
-##### LINK = http://43.202.91.164:8080/product/index
+##### LINK = http://121.150.70.45:52341/product/index
 
 ## ▶️ 개발 동기
 

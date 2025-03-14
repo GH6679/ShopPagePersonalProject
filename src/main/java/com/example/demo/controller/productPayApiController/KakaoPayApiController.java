@@ -139,7 +139,7 @@ public class KakaoPayApiController {
     }
 
     @GetMapping("/success")
-    public void success(){log.info("GET /product/payment/kakao/pay/success"); }
+    public void success(){log.info("GET /product/payment/kakao/pay/success");}
     @GetMapping("/cancel")
     public void cancel(){ log.info("GET /product/payment/kakao/pay/cancel"); }
     @GetMapping("/fail")

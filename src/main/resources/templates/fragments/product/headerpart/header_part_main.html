@@ -205,8 +205,8 @@
                                 <div class="user-name">gest</div>
                             </th:block>
 
-                            <div class="user-point">P : 0</div>
-                            <div class="user-point2">W : 0</div>
+<!--                            <div class="user-point">P : 0</div>-->
+<!--                            <div class="user-point2">W : 0</div>-->
                         </div>
                         <div class="user-info-right">
                             <a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')} or ${#authorization.expression('hasRole(''ROLE_MEMBER'')')} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="material-symbols-outlined user-logout" href="/user/logout">logout</a>
